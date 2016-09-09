@@ -1,4 +1,4 @@
-package mvc.model;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.RandomCellChooser;
-import mvc.controller.Controller;
+import controller.Controller;
 
 public class MyModel implements Model {
 

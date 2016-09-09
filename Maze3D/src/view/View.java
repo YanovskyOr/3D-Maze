@@ -1,9 +1,9 @@
-package mvc.view;
+package view;
 
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
-import mvc.controller.Command;
+import controller.Command;
 
 public interface View {
 	void notifyMazeIsReady(String name);

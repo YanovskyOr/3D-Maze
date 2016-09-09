@@ -1,4 +1,4 @@
-package mvc.controller;
+package controller;
 
 public interface Command {
 	void doCommand(String[] args);

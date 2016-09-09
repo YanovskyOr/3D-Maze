@@ -1,7 +1,7 @@
-package mvc.controller;
+package controller;
 
-import mvc.model.Model;
-import mvc.view.View;
+import model.Model;
+import view.View;
 
 public class MyController implements Controller {
 

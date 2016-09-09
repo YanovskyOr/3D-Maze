@@ -1,4 +1,4 @@
-package mvc.controller;
+package controller;
 
 public interface Controller {
 	void notifyMazeIsReady(String name);

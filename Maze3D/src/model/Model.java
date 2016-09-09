@@ -1,4 +1,4 @@
-package mvc.model;
+package model;
 
 import algorithms.mazeGenerators.Maze3d;
 

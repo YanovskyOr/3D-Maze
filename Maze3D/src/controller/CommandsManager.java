@@ -1,10 +1,10 @@
-package mvc.controller;
+package controller;
 
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
-import mvc.model.Model;
-import mvc.view.View;
+import model.Model;
+import view.View;
 
 public class CommandsManager {
 
