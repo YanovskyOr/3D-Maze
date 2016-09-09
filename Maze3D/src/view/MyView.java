@@ -4,9 +4,26 @@ import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
 import controller.Command;
+import controller.Controller;
 
 public class MyView implements View {
 
+	private Controller controller;
+	private CLI cli;
+	
+	
+	public MyView(Controller controller ){
+		this.controller = controller;
+		
+
+	}
+	
+	public void start(){
+		cli.start();
+	}
+	
+	
+	
 	@Override
 	public void notifyMazeIsReady(String name) {
 		// TODO Auto-generated method stub
