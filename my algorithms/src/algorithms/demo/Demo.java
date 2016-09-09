@@ -13,7 +13,8 @@ import algorithms.search.Searcher;
  * <h1>Demo</h1>
  * This class shows a demonstration of the search algorithms
  * BFS and DFS, applied to a 3D Maze.
- * 
+ * <BR>
+ * KAKI
  * @author Or Yanovsky
  * @version 1.0
  * @since 2016-08-16
