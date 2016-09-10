@@ -28,7 +28,7 @@ public class CLI {
 		this.commands = commands;
 	}
 	 
-void start()throws Exception{
+	 void start()throws Exception{
 		Thread thread = new Thread(new Runnable() {
 			String cmd=null;
 			Command cmdName=null;
@@ -70,12 +70,12 @@ void start()throws Exception{
 		threads.add(thread);
 	}
 
-@SuppressWarnings("deprecation")
-void stopAllThreads(ArrayList<Thread> threads){
-	for (Thread thread : threads) {
-	//TODO: close all threads safely
+	@SuppressWarnings("deprecation")
+	void stopAllThreads(ArrayList<Thread> threads){
+		for (Thread thread : threads) {
+		//TODO: close all threads safely
+		}
 	}
-}
 	
 }
 
