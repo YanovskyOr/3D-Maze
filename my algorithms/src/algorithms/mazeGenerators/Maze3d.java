@@ -233,4 +233,17 @@ public class Maze3d {
 				crossSec[y][x] = maze[i][y][x];
 		return crossSec;
 	}
+	
+	public String printCrossSection(int[][] maze,int index1,int index2){
+		StringBuilder sb=new StringBuilder();
+		for (int i = 0; i < index1; i++) {
+			for (int j = 0; j < index2; j++) {
+				sb.append(maze[i][j]);
+			}
+			sb.append("\n");
+				
+				
+			}
+			return sb.toString();
+		}
 }
