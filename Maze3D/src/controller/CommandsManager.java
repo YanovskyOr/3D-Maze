@@ -21,6 +21,7 @@ public class CommandsManager {
 		HashMap<String, Command> commands = new HashMap<String, Command>();
 		commands.put("generate_maze", new GenerateMazeCommand());
 		commands.put("display", new DisplayMazeCommand());
+		commands.put("display_cross_section", new DisplayCrossSectionCommand());
 		
 		return commands;
 	}
@@ -48,5 +49,19 @@ public class CommandsManager {
 		
 	}
 	
+	public class DisplayCrossSectionCommand implements Command{
+
+		@Override
+		public void doCommand(String[] args) {
+			String crossBy = args[1];
+			int index=Integer.parseInt(args[2]);
+			String name = args[3];
+			model.DisplayCrossSection(crossBy,index,name);
+			
+			
+		}
+	}
+	}
 	
-}
+	
+

@@ -51,10 +51,18 @@ public class MyView implements View {
 	System.out.println(maze);
 
 	}
+	
+	@Override
+	public void PrintCrossSection(int[][] crossMaze) {
+		System.out.println(crossMaze);
+		
+	}
 
 	@Override
 	public void setCommands(HashMap<String, Command> commands) {
 		this.commands=commands;
 		
 	}
+
+	
 }

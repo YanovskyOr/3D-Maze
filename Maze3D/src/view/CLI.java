@@ -53,9 +53,6 @@ void start()throws Exception{
 						out.write("Type a valid command:\n");
 						out.flush();	
 					}
-					
-				
-					
 					//TODO:CATCH EXCEPTION id name is with a space
 					else{
 						//out.write("Your wish is my command");

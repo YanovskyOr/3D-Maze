@@ -41,9 +41,33 @@ public class MyModel implements Model {
 	}
 	//TODO:close threads safely
 
+	
+	//TODO:do we want displayCrossSecction to be in  another thread?
+	@Override
+	public void DisplayCrossSection(String crossBy, int index, String name) {
+	 Maze3d maze=getMaze(name);
+	String x = "x";
+	String y= "y";
+	String z= "z";
+	int [][] CrossMaze;
+	
+	 if(crossBy.equalsIgnoreCase(x))
+	CrossMaze= maze.getCrossSectionByX(index);
+	 
+	else if(crossBy.equalsIgnoreCase(y))
+		CrossMaze= maze.getCrossSectionByY(index);
+	 
+	else
+		CrossMaze=maze.getCrossSectionByZ(index);
+	
+	controller.PrintCrossSection(CrossMaze);
+}
 	@Override
 	public Maze3d getMaze(String name) {
 		return mazes.get(name);
 	}
+
+
+	
 
 }

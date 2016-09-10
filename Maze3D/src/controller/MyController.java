@@ -28,6 +28,11 @@ public class MyController implements Controller {
 	public void notifyMazeIsReady(String name) {
 		view.notifyMazeIsReady(name);
 	}
+	
+	@Override
+	public void PrintCrossSection(int[][] CrossMaze){
+		view.PrintCrossSection( CrossMaze);
+	}
 
 
 }
