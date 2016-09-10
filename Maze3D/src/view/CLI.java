@@ -64,6 +64,7 @@ void start()throws Exception{
 				}	while(!cmd.equals("exit"));
 				
 			}
+			
 		});
 		thread.start();
 		threads.add(thread);
