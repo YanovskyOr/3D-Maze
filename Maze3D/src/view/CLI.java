@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import controller.Command;
 
@@ -16,6 +17,9 @@ public class CLI {
 	
 	 BufferedReader in;
 	 PrintWriter out;
+	 
+	 Scanner scanner = new Scanner(in);
+	 String cmd = scanner.nextLine();
 	 
 	 public CLI(BufferedReader in,PrintWriter out) {
 		this.in=in;
@@ -31,7 +35,7 @@ void start(){
 			public void run() {
 				
 				while(!in.equals("exit")){
-				
+					
 				}
 							
 			}	
