@@ -39,6 +39,7 @@ public class MyModel implements Model {
 		thread.start();
 		threads.add(thread);
 	}
+	//TODO:close threads safely
 
 	@Override
 	public Maze3d getMaze(String name) {

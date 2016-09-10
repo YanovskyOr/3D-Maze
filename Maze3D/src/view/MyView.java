@@ -10,6 +10,8 @@ public class MyView implements View {
 
 	private Controller controller;
 	private CLI cli;
+	Maze3d maze;
+	HashMap<String, Command> commands;
 	
 	
 	public MyView(Controller controller ){
@@ -18,7 +20,7 @@ public class MyView implements View {
 
 	}
 	
-	public void start(){
+	public void start() throws Exception{
 		cli.start();
 	}
 	
@@ -26,19 +28,19 @@ public class MyView implements View {
 	
 	@Override
 	public void notifyMazeIsReady(String name) {
-		// TODO Auto-generated method stub
+		System.out.println("Maze is Ready");
 
 	}
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		// TODO Auto-generated method stub
+	System.out.println(maze);
 
 	}
 
 	@Override
 	public void setCommands(HashMap<String, Command> commands) {
-		// TODO Auto-generated method stub
+		this.commands=commands;
 		
 	}
 }

@@ -29,10 +29,10 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			String name = args[0];
-			int floors = Integer.parseInt(args[1]);
-			int rows = Integer.parseInt(args[2]);
-			int cols = Integer.parseInt(args[3]);
+			String name = args[1];
+			int floors = Integer.parseInt(args[2]);
+			int rows = Integer.parseInt(args[3]);
+			int cols = Integer.parseInt(args[4]);
 			model.generateMaze(name, floors, rows, cols);
 		}		
 	}
@@ -41,7 +41,7 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			String name = args[0];
+			String name = args[1];
 			Maze3d maze = model.getMaze(name);
 			view.displayMaze(maze);
 		}
