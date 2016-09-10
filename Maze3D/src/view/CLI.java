@@ -69,12 +69,12 @@ public class CLI {
 		threads.add(thread);
 	}
 
-@SuppressWarnings("deprecation")
-void stopAllThreads(ArrayList<Thread> threads){
-	for (Thread thread : threads) {
-	//TODO: close all threads safely
+	@SuppressWarnings("deprecation")
+	void stopAllThreads(ArrayList<Thread> threads){
+		for (Thread thread : threads) {
+		//TODO: close all threads safely
+		}
 	}
-}
 	
 }
 
