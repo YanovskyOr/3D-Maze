@@ -30,8 +30,8 @@ public class MyController implements Controller {
 	}
 	
 	@Override
-	public void PrintCrossSection(int[][] CrossMaze){
-		view.PrintCrossSection(CrossMaze);
+	public void PrintCrossSection(int[][] CrossMaze,int index1,int index2){
+		view.PrintCrossSection(CrossMaze,index1,index2);
 	}
 
 

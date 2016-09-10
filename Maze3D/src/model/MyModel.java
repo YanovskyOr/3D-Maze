@@ -51,16 +51,25 @@ public class MyModel implements Model {
 	String z= "z";
 	int [][] CrossMaze;
 	
-	 if(crossBy.equalsIgnoreCase(x))
+	 if(crossBy.equalsIgnoreCase(x)){
 	CrossMaze= maze.getCrossSectionByX(index);
-	 
-	else if(crossBy.equalsIgnoreCase(y))
+	 int index1=maze.getFloors();
+	 int index2=maze.getRows();
+	 controller.PrintCrossSection(CrossMaze,index1,index2);
+	 }
+	else if(crossBy.equalsIgnoreCase(y)){
 		CrossMaze= maze.getCrossSectionByY(index);
-	 
-	else
+	 int index1=maze.getFloors();
+	 int index2=maze.getCols();
+	 controller.PrintCrossSection(CrossMaze,index1,index2);
+	}
+	else{
 		CrossMaze=maze.getCrossSectionByZ(index);
+	 int index1=maze.getRows();
+	 int index2=maze.getCols();
+	 controller.PrintCrossSection(CrossMaze,index1,index2);
+	}
 	
-	controller.PrintCrossSection(CrossMaze);
 }
 	@Override
 	public Maze3d getMaze(String name) {
@@ -68,6 +77,6 @@ public class MyModel implements Model {
 	}
 
 
-	
+	//y=row x=cols z=floors
 
 }
