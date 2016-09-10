@@ -31,7 +31,7 @@ public class MyController implements Controller {
 	
 	@Override
 	public void PrintCrossSection(int[][] CrossMaze){
-		view.PrintCrossSection( CrossMaze);
+		view.PrintCrossSection(CrossMaze);
 	}
 
 
