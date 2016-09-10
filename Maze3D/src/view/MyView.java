@@ -53,8 +53,10 @@ public class MyView implements View {
 	}
 	
 	@Override
-	public void PrintCrossSection(int[][] crossMaze,int index1 ,int index2) {
-		System.out.println(crossMaze);
+	public void PrintCrossSection(Maze3d maze ,int[][] crossMaze,int index1 ,int index2)
+	{
+		System.out.println(maze.printCrossSection(crossMaze, index1, index2));
+		
 		
 	}
 

@@ -1,5 +1,6 @@
 package controller;
 
+import algorithms.mazeGenerators.Maze3d;
 import model.Model;
 import view.View;
 
@@ -30,8 +31,8 @@ public class MyController implements Controller {
 	}
 	
 	@Override
-	public void PrintCrossSection(int[][] CrossMaze,int index1,int index2){
-		view.PrintCrossSection(CrossMaze,index1,index2);
+	public void PrintCrossSection(Maze3d maze,int[][] CrossMaze,int index1,int index2){
+		view.PrintCrossSection(maze,CrossMaze,index1,index2);
 	}
 
 

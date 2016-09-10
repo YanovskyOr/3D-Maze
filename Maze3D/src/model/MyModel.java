@@ -55,19 +55,19 @@ public class MyModel implements Model {
 	CrossMaze= maze.getCrossSectionByX(index);
 	 int index1=maze.getFloors();
 	 int index2=maze.getRows();
-	 controller.PrintCrossSection(CrossMaze,index1,index2);
+	 controller.PrintCrossSection(maze,CrossMaze,index1,index2);
 	 }
 	else if(crossBy.equalsIgnoreCase(y)){
 		CrossMaze= maze.getCrossSectionByY(index);
 	 int index1=maze.getFloors();
 	 int index2=maze.getCols();
-	 controller.PrintCrossSection(CrossMaze,index1,index2);
+	 controller.PrintCrossSection(maze,CrossMaze,index1,index2);
 	}
 	else{
 		CrossMaze=maze.getCrossSectionByZ(index);
 	 int index1=maze.getRows();
 	 int index2=maze.getCols();
-	 controller.PrintCrossSection(CrossMaze,index1,index2);
+	 controller.PrintCrossSection(maze,CrossMaze,index1,index2);
 	}
 	
 }
