@@ -51,7 +51,7 @@ public class CLI {
 					String[] cmdParts=cmd.split(" ");
 					cmdName= commands.get(cmdParts[0]);
 					if(!commands.containsKey(cmdParts[0])){
-						out.write("Command does not exist, try to write the command without spaces in the beginning \n");
+						out.write("Command does not exist, try to write the command without spaces in the begining \n");
 						out.write("Type a valid command:\n");
 						out.flush();	
 					}
