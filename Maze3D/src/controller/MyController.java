@@ -34,6 +34,11 @@ public class MyController implements Controller {
 	public void PrintCrossSection(Maze3d maze,int[][] CrossMaze,int index1,int index2){
 		view.PrintCrossSection(maze,CrossMaze,index1,index2);
 	}
+	@Override
+	public void notifySolutionIsReady(String name) {
+		view.notifySolutioIsReady(name);
+		
+	}
 
 
 }

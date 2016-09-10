@@ -5,9 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import algorithms.demo.Maze3dDomain;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
 import algorithms.mazeGenerators.RandomCellChooser;
+import algorithms.search.BFS;
+import algorithms.search.DFS;
+import algorithms.search.Searchable;
+import algorithms.search.Searcher;
 import controller.Controller;
 
 public class MyModel implements Model {
@@ -43,6 +49,7 @@ public class MyModel implements Model {
 
 	
 	//TODO:do we want displayCrossSecction to be in  another thread?
+	//TODO: check syntax of user and if name of maze exists
 	@Override
 	public void DisplayCrossSection(String crossBy, int index, String name) {
 	 Maze3d maze=getMaze(name);
@@ -71,11 +78,51 @@ public class MyModel implements Model {
 	}
 	
 }
+	//TODO:change switch case to factory patterns
+	//TODO:check first if maze exists (if maze is null) if not throws exception that there is no maze and the user should first create a maze
+	//TODO:check that name of the maze exists id not let the user know that they typed the wrong maze name
+	@Override
+	public void solveMaze(String name, String algorithm) {
+		Thread thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				Maze3d maze=getMaze(name);
+				Searcher<Position> algBfs=new BFS<Position>();
+				Searcher<Position> algDfs=new DFS<Position>();
+				Searchable<Position> md=new Maze3dDomain(maze);
+				switch(algorithm){
+				case "bfs":
+				
+					algBfs.search(md);
+					controller.notifySolutionIsReady(name);
+					break;
+				
+				case "dfs":
+					algDfs.search(md);
+					controller.notifySolutionIsReady(name);
+					break;
+				
+				default:
+					System.out.println("not solving because no algorithm was selected");	
+					break;
+				}
+				
+							
+			}	
+		});
+		thread.start();
+		threads.add(thread);
+		
+	}
+
 	@Override
 	public Maze3d getMaze(String name) {
 		return mazes.get(name);
 	}
 
+
+	
 
 	//y=row x=cols z=floors
 

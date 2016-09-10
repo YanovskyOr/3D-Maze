@@ -22,6 +22,8 @@ public class CLI {
 	// Scanner scanner = new Scanner(in);
 	// String cmd = scanner.nextLine();
 	 
+	 //TODO:when a space is pressed we will have index out ofbounds (no command was inserted)
+	 
 	 public CLI(BufferedReader in,PrintWriter out, HashMap<String,Command> commands) {
 		this.in=in;
 		this.out=out;
@@ -45,11 +47,11 @@ public class CLI {
 					}catch (IOException e){
 						e.printStackTrace(out);
 					}
-				if(!cmd.equals("exit")){
+				if(!cmd.equals("exit")&&!cmd.equals(" ")){ 
 					String[] cmdParts=cmd.split(" ");
 					cmdName= commands.get(cmdParts[0]);
 					if(!commands.containsKey(cmdParts[0])){
-						out.write("Command does not exist \n");
+						out.write("Command does not exist, try to write the command without spaces in the beginning \n");
 						out.write("Type a valid command:\n");
 						out.flush();	
 					}

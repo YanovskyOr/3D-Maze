@@ -22,10 +22,12 @@ public class CommandsManager {
 		commands.put("generate_maze", new GenerateMazeCommand());
 		commands.put("display", new DisplayMazeCommand());
 		commands.put("display_cross_section", new DisplayCrossSectionCommand());
+		commands.put("solve", new SolveMazeCommand() );
 		
 		return commands;
 	}
 	
+	//throw exception if user didnt input all of the parameters for the command
 	public class GenerateMazeCommand implements Command {
 
 		@Override
@@ -60,6 +62,18 @@ public class CommandsManager {
 			
 			
 		}
+	}
+	
+	public class SolveMazeCommand implements Command{
+
+		@Override
+		public void doCommand(String[] args) {
+			String name=args[1];
+			String algorithm =args[2];
+			model.solveMaze(name,algorithm);
+			
+		}
+		
 	}
 	}
 	

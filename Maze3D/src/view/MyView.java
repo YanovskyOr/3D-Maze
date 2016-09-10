@@ -42,7 +42,7 @@ public class MyView implements View {
 	
 	@Override
 	public void notifyMazeIsReady(String name) {
-		System.out.println("Maze is Ready");
+		System.out.println("Maze "+ name +" is Ready");
 
 	}
 
@@ -63,6 +63,12 @@ public class MyView implements View {
 	@Override
 	public void setCommands(HashMap<String, Command> commands) {
 		this.commands=commands;
+	}
+
+	@Override
+	public void notifySolutioIsReady(String name) {
+		System.out.println("Solution for "+ name +" is Ready");
+		
 	}
 
 	
