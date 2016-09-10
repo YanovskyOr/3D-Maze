@@ -28,7 +28,7 @@ public class CLI {
 		this.commands = commands;
 	}
 	 
-void start(){ //throws Exception{
+void start()throws Exception{
 		Thread thread = new Thread(new Runnable() {
 			String cmd=null;
 			Command cmdName=null;
@@ -36,28 +36,36 @@ void start(){ //throws Exception{
 			@Override
 			public void run() {
 				
-				
+				out.write("Type a command:\n");
 				do{
-					out.write("Type a command:\n");
+					//out.write("Type a command:\n");
 					out.flush();
 					try{
 						cmd=in.readLine();
 					}catch (IOException e){
 						e.printStackTrace(out);
 					}
-				
+				if(!cmd.equals("exit")){
 					String[] cmdParts=cmd.split(" ");
 					cmdName= commands.get(cmdParts[0]);
 					if(!commands.containsKey(cmdParts[0])){
-						out.write("Command does not exist");
+						out.write("Command does not exist \n");
+						out.write("Type a valid command:\n");
 						out.flush();	
 					}
-						
+					
+				
+					
+					//TODO:CATCH EXCEPTION id name is with a space
 					else{
-						out.write("Your wish is my command");
-						cmdName.doCommand(cmdParts);					
-					}				
+						//out.write("Your wish is my command");
+						cmdName.doCommand(cmdParts);	
+						
+					}	
+				}
+				//	out.write("Type a command2:\n");
 				}	while(!cmd.equals("exit"));
+				
 			}
 		});
 		thread.start();
