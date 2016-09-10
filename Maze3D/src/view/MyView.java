@@ -61,7 +61,6 @@ public class MyView implements View {
 	@Override
 	public void setCommands(HashMap<String, Command> commands) {
 		this.commands=commands;
-		
 	}
 
 	
