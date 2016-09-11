@@ -97,7 +97,7 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			String name = args[1];
 			String fileName = args[2];
-			model.saveMaze(fileName, name);
+			model.loadMaze(fileName, name);
 		}
 	}
 }
