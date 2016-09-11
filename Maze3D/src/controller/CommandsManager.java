@@ -32,6 +32,7 @@ public class CommandsManager {
 		commands.put("display_cross_section", new DisplayCrossSectionCommand());
 		commands.put("solve", new SolveMazeCommand() );
 		commands.put("save_maze", new SaveMazeCommand());
+		commands.put("load_maze", new LoadMazeCommand());
 		return commands;
 	}
 	
@@ -88,6 +89,15 @@ public class CommandsManager {
 			String name = args[1];
 			String fileName = args[2];
 			model.saveMaze(name, fileName);
+		}
+	}
+		
+	public class LoadMazeCommand implements Command{
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[1];
+			String fileName = args[2];
+			model.saveMaze(fileName, name);
 		}
 	}
 }
