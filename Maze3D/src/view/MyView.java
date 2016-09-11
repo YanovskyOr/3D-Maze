@@ -4,9 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
+import algorithms.search.State;
 import controller.Command;
 import controller.Controller;
 
@@ -64,4 +69,17 @@ public class MyView implements View {
 		System.out.println("Solution for "+ name +" is Ready");	
 	}
 
-}
+	@Override
+	public void PrintSolution(Solution<Position> mazeSolution) {
+		 List<State<Position>> states = new ArrayList<State<Position>>();
+		 states=mazeSolution.getStates();
+	for (State<Position> state : states) {
+		 System.out.println(state+", ");
+	}
+			
+		}
+		
+		
+	}
+
+

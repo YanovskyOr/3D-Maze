@@ -20,6 +20,7 @@ import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Searchable;
 import algorithms.search.Searcher;
+import algorithms.search.Solution;
 import controller.Controller;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
@@ -37,6 +38,7 @@ public class MyModel implements Model {
 
 	private Controller controller;	
 	private Map<String, Maze3d> mazes = new ConcurrentHashMap<String, Maze3d>();
+	private Map<String,Solution<Position> > solutions= new ConcurrentHashMap<String,Solution<Position> >();
 	
 	private List<Thread> threads = new ArrayList<Thread>();
 
@@ -100,6 +102,7 @@ public class MyModel implements Model {
 	//TODO:check first if maze exists (if maze is null) if not throws exception that there is no maze and the user should first create a maze
 	//TODO:check that name of the maze exists id not let the user know that they typed the wrong maze name
 	
+	//TODO:can't do bfs and then dfs nullPointerException
 	@Override
 	public void solveMaze(String name, String algorithm) {
 		Thread thread = new Thread(new Runnable() {
@@ -115,19 +118,25 @@ public class MyModel implements Model {
 				switch(algorithm){
 				case "bfs":
 				
-					algBfs.search(md);
+					Solution<Position> solBfs=algBfs.search(md);
 					controller.notifySolutionIsReady(name);
+					//System.out.println("test bfs");
+				//	String bfsName=name.replaceAll(name, replacement)
+					solutions.put(name, solBfs);
 					break;
 				
 				case "dfs":
-					algDfs.search(md);
+					Solution<Position> solDfs=algDfs.search(md);
 					controller.notifySolutionIsReady(name);
+					System.out.println("test dfs");
+					solutions.put(name, solDfs);
 					break;
 				
 				default:
 					System.out.println("not solving because no algorithm was selected");	
 					break;
-				}				
+				}	
+				
 			}	
 		});
 		thread.start();
@@ -138,6 +147,9 @@ public class MyModel implements Model {
 	@Override
 	public Maze3d getMaze(String name) {
 		return mazes.get(name);
+	}
+	public Solution<Position> getSolution(String name){
+		return solutions.get(name);
 	}
 
 	public void saveMaze(String name, String fileName) { 
@@ -185,4 +197,14 @@ public class MyModel implements Model {
 		
 	}
 	//y=row x=cols z=floors
+
+
+	@Override
+	public void displaySolution(String name) {
+		Maze3d maze=getMaze(name);
+		Solution<Position> mazeSolution=getSolution(name);
+		controller.PrintSolution(mazeSolution);
+		
+		
+	}
 }
