@@ -144,7 +144,7 @@ public class MyModel implements Model {
 		OutputStream out;
 		
 		try {
-			out = new MyCompressorOutputStream(new FileOutputStream(fileName+".maz"));
+			out = new MyCompressorOutputStream(new FileOutputStream(fileName+".maze"));
 			Maze3d MazeToSave = mazes.get(name);
 			byte[] arr = MazeToSave.toByteArray();
 			
@@ -165,7 +165,7 @@ public class MyModel implements Model {
 	public void loadMaze(String fileName, String Name) {
 		InputStream in;
 		try {
-			in = new MyDecompressorInputStream(new FileInputStream(fileName+".maz"));
+			in = new MyDecompressorInputStream(new FileInputStream(fileName+".maze"));
 			int size = in.read();
 			byte b[]=new byte[size];
 			in.read(b);
