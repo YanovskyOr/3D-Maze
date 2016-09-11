@@ -13,29 +13,27 @@ import controller.Controller;
 public class MyView implements View {
 
 	private Controller controller;
-	private CLI cli;
+	//private CLI cli;
 	private BufferedReader in;
 	private PrintWriter out;
 	Maze3d maze;
 	HashMap<String, Command> commands;
 	
 	
-	public MyView(Controller controller ){
+	public MyView(Controller controller ) {
 		this.controller = controller;
 		in = new BufferedReader(new InputStreamReader(System.in));
 		out = new PrintWriter(System.out);
 		commands = new HashMap<String,Command>();
-		
-
 	}
 	
-	public void start() throws Exception{
-		try{
+	public void start() throws Exception {
+		try {
 			CLI cli = new CLI(in, out, commands);
 		cli.start();
-		}catch (IOException e){
+		}catch (IOException e) {
 			//TODO:catch
-		}
+		 }
 	}
 	
 	
@@ -43,21 +41,17 @@ public class MyView implements View {
 	@Override
 	public void notifyMazeIsReady(String name) {
 		System.out.println("Maze "+ name +" is Ready");
-
 	}
 
 	@Override
 	public void displayMaze(Maze3d maze) {
 	System.out.println(maze);
-
 	}
 	
 	@Override
 	public void PrintCrossSection(Maze3d maze ,int[][] crossMaze,int index1 ,int index2)
 	{
-		System.out.println(maze.printCrossSection(crossMaze, index1, index2));
-		
-		
+		System.out.println(maze.printCrossSection(crossMaze, index1, index2));	
 	}
 
 	@Override
@@ -67,9 +61,7 @@ public class MyView implements View {
 
 	@Override
 	public void notifySolutioIsReady(String name) {
-		System.out.println("Solution for "+ name +" is Ready");
-		
+		System.out.println("Solution for "+ name +" is Ready");	
 	}
 
-	
 }

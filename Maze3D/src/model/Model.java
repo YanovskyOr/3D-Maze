@@ -2,6 +2,11 @@ package model;
 
 import algorithms.mazeGenerators.Maze3d;
 
+/**
+ * This is the interface for the model part of the MVC.
+ * @author Or Yanovsky & Lilia Misotchenko
+ *
+ */
 public interface Model {
 	void generateMaze(String name, int floors, int rows, int cols);
 	Maze3d getMaze(String name);

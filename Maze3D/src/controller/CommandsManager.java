@@ -6,6 +6,14 @@ import algorithms.mazeGenerators.Maze3d;
 import model.Model;
 import view.View;
 
+/**
+ * This is the Command Manager used for the MyController class.
+ * The controller uses this to define and manage commands.
+ * 
+ * @author Or Yanovsky & Lilia Misotchenko
+ *
+ */
+
 public class CommandsManager {
 
 	
