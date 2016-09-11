@@ -1,11 +1,9 @@
 package boot;
 
-import controller.Controller;
 import controller.MyController;
 import model.Model;
 import model.MyModel;
 import view.MyView;
-import view.View;
 
 public class Run {
 
