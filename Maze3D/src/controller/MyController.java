@@ -1,6 +1,8 @@
 package controller;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 import model.Model;
 import view.View;
 
@@ -45,6 +47,12 @@ public class MyController implements Controller {
 	@Override
 	public void notifySolutionIsReady(String name) {
 		view.notifySolutioIsReady(name);
+		
+	}
+
+	@Override
+	public void PrintSolution(Solution<Position> mazeSolution) {
+		view.PrintSolution(mazeSolution);
 		
 	}
 
