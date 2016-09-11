@@ -4,6 +4,15 @@ import algorithms.mazeGenerators.Maze3d;
 import model.Model;
 import view.View;
 
+/**
+ * The MyController class is the controller part of the MVC.
+ * <BR>
+ * It is used to coordinate between MyView and MyModel.
+ * <BR>
+ * Uses CommandManager to manage and define commands.
+ * @author Or Yanovsky & Lilia Misotchenko
+ *
+ */
 public class MyController implements Controller {
 
 	private View view;
@@ -15,9 +24,7 @@ public class MyController implements Controller {
 	 * Controller c'tor
 	 * @param view
 	 * @param model
-	 */
-	
-			
+	 */		
 	public void setModelAndView(Model model, View view) {
 		this.model = model;
 		this.view = view;
@@ -25,6 +32,7 @@ public class MyController implements Controller {
 		commandsManager = new CommandsManager(model, view);
 		view.setCommands(commandsManager.getCommandsMap());
 	}
+	
 	@Override
 	public void notifyMazeIsReady(String name) {
 		view.notifyMazeIsReady(name);
