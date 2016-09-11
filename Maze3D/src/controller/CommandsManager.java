@@ -31,7 +31,7 @@ public class CommandsManager {
 		commands.put("display", new DisplayMazeCommand());
 		commands.put("display_cross_section", new DisplayCrossSectionCommand());
 		commands.put("solve", new SolveMazeCommand() );
-		
+		commands.put("save_maze", new SaveMazeCommand());
 		return commands;
 	}
 	
@@ -64,9 +64,9 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			String crossBy = args[1];
-			int index=Integer.parseInt(args[2]);
+			int index = Integer.parseInt(args[2]);
 			String name = args[3];
-			model.DisplayCrossSection(crossBy,index,name);
+			model.displayCrossSection(crossBy,index,name);
 			
 			
 		}
@@ -76,14 +76,21 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			String name=args[1];
-			String algorithm =args[2];
+			String name = args[1];
+			String algorithm = args[2];
 			model.solveMaze(name,algorithm);
-			
 		}
-		
 	}
+	
+	public class SaveMazeCommand implements Command{
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[1];
+			String fileName = args[2];
+			model.saveMaze(name, fileName);
+		}
 	}
+}
 	
 	
 

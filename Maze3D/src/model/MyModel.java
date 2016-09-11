@@ -1,5 +1,11 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +21,8 @@ import algorithms.search.DFS;
 import algorithms.search.Searchable;
 import algorithms.search.Searcher;
 import controller.Controller;
+import io.MyCompressorOutputStream;
+import io.MyDecompressorInputStream;
 
 /**
  * The MyModel class is the model part of the MVC.
@@ -60,7 +68,7 @@ public class MyModel implements Model {
 	//TODO:do we want displayCrossSecction to be in  another thread?
 	//TODO: check syntax of user and if name of maze exists
 	@Override
-	public void DisplayCrossSection(String crossBy, int index, String name) {
+	public void displayCrossSection(String crossBy, int index, String name) {
 		Maze3d maze=getMaze(name);
 		String x = "x";
 		String y= "y";
@@ -132,5 +140,49 @@ public class MyModel implements Model {
 		return mazes.get(name);
 	}
 
+	public void saveMaze(String name, String fileName) { 
+		OutputStream out;
+		
+		try {
+			out = new MyCompressorOutputStream(new FileOutputStream(fileName+".maz"));
+			Maze3d MazeToSave = mazes.get(name);
+			byte[] arr = MazeToSave.toByteArray();
+			
+			out.write(arr.length);
+			out.write(arr);
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void loadMaze(String fileName, String Name) {
+		InputStream in;
+		try {
+			in = new MyDecompressorInputStream(new FileInputStream(fileName+".maz"));
+			int size = in.read();
+			byte b[]=new byte[size];
+			in.read(b);
+			in.close();
+			
+			Maze3d loaded = new Maze3d(b);
+			System.out.println("maze loaded from file:");
+			System.out.println(loaded);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	//y=row x=cols z=floors
 }

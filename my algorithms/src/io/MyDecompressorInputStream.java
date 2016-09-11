@@ -29,7 +29,7 @@ public class MyDecompressorInputStream extends InputStream {
 				arr[k++] = b;
 			}
 		}
-		return arr.length;		
+		return arr.length;
 	}
 
 	

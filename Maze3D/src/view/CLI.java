@@ -37,9 +37,9 @@ public class CLI {
 			@Override
 			public void run() {
 				
-				out.write("Type a command:\n");
+				//out.write("Type a command:\n");
 				do{
-					//out.write("Type a command:\n");
+					out.write("Type a command:\n");
 					out.flush();
 					try{
 						cmd=in.readLine();
@@ -53,7 +53,7 @@ public class CLI {
 						
 						if(!commands.containsKey(cmdParts[0])){
 							out.write("Command does not exist, try to write the command without spaces in the begining \n");
-							out.write("Type a valid command:\n");
+							out.write("Type a valid command.\n");
 							out.flush();	
 						}
 						//TODO:CATCH EXCEPTION id name is with a space
@@ -63,7 +63,11 @@ public class CLI {
 						
 						}	
 					}
-				//	out.write("Type a command2:\n");
+					else if(cmd.equals("exit")) {
+						stopAllThreads(threads);
+					}
+					
+				//out.write("Type a command:\n");
 				}while(!cmd.equals("exit"));
 			}
 		});
@@ -71,7 +75,7 @@ public class CLI {
 		threads.add(thread);
 	}
 
-	void stopAllThreads(ArrayList<Thread> threads){
+	void stopAllThreads(List<Thread> threads){
 		for (Thread thread : threads) {
 		//TODO: close all threads safely
 		}
