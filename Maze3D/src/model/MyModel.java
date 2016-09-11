@@ -165,7 +165,7 @@ public class MyModel implements Model {
 	public void loadMaze(String fileName, String Name) {
 		InputStream in;
 		try {
-			in = new MyDecompressorInputStream(new FileInputStream(fileName+".maze"));
+			in = new MyDecompressorInputStream(new FileInputStream(fileName));
 			int size = in.read();
 			byte b[]=new byte[size];
 			in.read(b);
