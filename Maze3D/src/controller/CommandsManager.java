@@ -96,34 +96,20 @@ public class CommandsManager {
 	public class LoadMazeCommand implements Command{
 		@Override
 		public void doCommand(String[] args) {
-			String name = args[1];
-			String fileName = args[2];
+			String fileName = args[1];
+			String name = args[2];
 			model.loadMaze(fileName, name);
-		}
-		
-		public class DisplaySolutionCommand implements Command{
-			@Override
-			public void doCommand(String[] args) {
-				String name = args[1];
-				model.displaySolution(name);
 			}
-			
-	
-}
-
-			
-		}
-	
-public class DisplaySolutionCommand implements Command{
-
-	@Override
-	public void doCommand(String[] args) {
-		String name = args[1];
-		model.displaySolution(name);
 		
 	}
 	
- }
+	public class DisplaySolutionCommand implements Command{
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[1];
+			model.displaySolution(name);
+		}
+	}
 }
 
 	
