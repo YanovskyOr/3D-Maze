@@ -15,7 +15,11 @@ public interface Model {
 	void saveMaze(String name, String fileName);
 	void loadMaze(String fileName, String name);
 	void displaySolution(String name);
+<<<<<<< HEAD
 	
 	
 	
+=======
+	void dir(String path);
+>>>>>>> branch 'Dev' of https://github.com/YanovskyOr/3D-Maze.git
 }

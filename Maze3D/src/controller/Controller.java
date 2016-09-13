@@ -15,4 +15,5 @@ public interface Controller {
 	void PrintCrossSection(Maze3d maze, int[][] CrossMaze, int index1, int index2);
 	void notifySolutionIsReady(String name);
 	void PrintSolution(Solution<Position> mazeSolution);
+	void print(String str);
 }

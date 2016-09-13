@@ -34,6 +34,7 @@ public class CommandsManager {
 		commands.put("save_maze", new SaveMazeCommand());
 		commands.put("load_maze", new LoadMazeCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
+		commands.put("dir", new DirCommand());
 		return commands;
 	}
 	
@@ -181,10 +182,24 @@ public class CommandsManager {
 				System.err.println("error displaying sollution,  try the command again , enter maze name  after command");
 		        System.out.println();
 		}
+<<<<<<< HEAD
 			}
 		}
 	
 
+=======
+	}
+	
+	public class DirCommand implements Command{
+		@Override
+		public void doCommand(String[] args) {
+			String path = args[1];
+			model.dir(path);
+		}
+	}
+	
+}
+>>>>>>> branch 'Dev' of https://github.com/YanovskyOr/3D-Maze.git
 
 	
 

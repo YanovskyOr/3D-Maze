@@ -15,6 +15,10 @@ public interface View {
 	void PrintCrossSection(Maze3d maze, int[][] crossMaze, int index1, int index2);
 	void notifySolutioIsReady(String name);
 	void PrintSolution(Solution<Position> mazeSolution);
+<<<<<<< HEAD
 	void Print(String str);
 	
+=======
+	void print(String str);
+>>>>>>> branch 'Dev' of https://github.com/YanovskyOr/3D-Maze.git
 }

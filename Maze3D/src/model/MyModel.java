@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -152,10 +153,12 @@ public class MyModel implements Model {
 	public Maze3d getMaze(String name) {
 		return mazes.get(name);
 	}
+	
 	public Solution<Position> getSolution(String name){
 		return solutions.get(name);
 	}
 
+	@Override
 	public void saveMaze(String name, String fileName) { 
 		OutputStream out;
 		
@@ -168,13 +171,14 @@ public class MyModel implements Model {
 			out.write(arr);
 			out.flush();
 			out.close();
+			controller.print("maze saved.");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 	}
 	
 	@Override
@@ -188,7 +192,7 @@ public class MyModel implements Model {
 			in.close();
 			
 			Maze3d loaded = new Maze3d(b);
-			System.out.println("maze loaded from file:");
+			controller.print("maze loaded from file:");
 			System.out.println(loaded);
 			
 		} catch (FileNotFoundException e) {
@@ -203,6 +207,7 @@ public class MyModel implements Model {
 	//y=row x=cols z=floors
 
 
+<<<<<<< HEAD
 	@Override
 	public void displaySolution(String name) {
 		Maze3d maze=getMaze(name);
@@ -214,4 +219,26 @@ public class MyModel implements Model {
 
 
 	
+=======
+		@Override
+		public void displaySolution(String name) {
+			//Maze3d maze=getMaze(name);
+			Solution<Position> mazeSolution=getSolution(name);
+			controller.PrintSolution(mazeSolution);
+		}
+
+		@Override
+		public void dir(String path) {
+			File folder = new File(path);
+			File[] listOfFiles = folder.listFiles();
+
+			    for (int i = 0; i < listOfFiles.length; i++) {
+			      if (listOfFiles[i].isFile()) {
+			    	  controller.print("File " + listOfFiles[i].getName());
+			      } else if (listOfFiles[i].isDirectory()) {
+			    	  controller.print("Directory " + listOfFiles[i].getName());
+			      }
+			    }
+		}
+>>>>>>> branch 'Dev' of https://github.com/YanovskyOr/3D-Maze.git
 }

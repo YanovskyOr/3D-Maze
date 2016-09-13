@@ -50,7 +50,7 @@ public class MyView implements View {
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-	System.out.println(maze);
+		System.out.println(maze);
 	}
 	
 	@Override
@@ -75,10 +75,8 @@ public class MyView implements View {
 		 states=mazeSolution.getStates();
 	for (State<Position> state : states) {
 		 System.out.print(state+",");
-		
-	}
-	 System.out.println();	
 		}
+<<<<<<< HEAD
 
 	@Override
 	public void Print(String str) {
@@ -88,6 +86,18 @@ public class MyView implements View {
 	}
 		
 		
+=======
+	 System.out.println();	
+>>>>>>> branch 'Dev' of https://github.com/YanovskyOr/3D-Maze.git
 	}
+
+	@Override
+	public void print(String str) {
+		out.println(str);
+	}
+		
+
+	
+}
 
 
