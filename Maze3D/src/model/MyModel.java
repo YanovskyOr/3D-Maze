@@ -83,6 +83,7 @@ public class MyModel implements Model {
 			CrossMaze= maze.getCrossSectionByX(index);
 			int index1=maze.getFloors();
 			int index2=maze.getRows();
+			
 			controller.PrintCrossSection(maze,CrossMaze,index1,index2);
 		 }
 		
@@ -90,13 +91,15 @@ public class MyModel implements Model {
 			CrossMaze= maze.getCrossSectionByY(index);
 			int index1=maze.getFloors();
 			int index2=maze.getCols();
+			
 			controller.PrintCrossSection(maze,CrossMaze,index1,index2);
 		}
 		
-		else{
+		else if(crossBy.equalsIgnoreCase(z)){
 			CrossMaze=maze.getCrossSectionByZ(index);
 			int index1=maze.getRows();
 			int index2=maze.getCols();
+			
 			controller.PrintCrossSection(maze,CrossMaze,index1,index2);
 		}	
 	}
@@ -130,7 +133,6 @@ public class MyModel implements Model {
 				case "dfs":
 					Solution<Position> solDfs=algDfs.search(md);
 					controller.notifySolutionIsReady(name);
-					System.out.println("test dfs");
 					solutions.put(name, solDfs);
 					break;
 				
@@ -209,4 +211,7 @@ public class MyModel implements Model {
 		
 		
 	}
+
+
+	
 }

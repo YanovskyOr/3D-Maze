@@ -79,6 +79,13 @@ public class MyView implements View {
 	}
 	 System.out.println();	
 		}
+
+	@Override
+	public void Print(String str) {
+		out.write(str);
+		out.flush();
+		
+	}
 		
 		
 	}
