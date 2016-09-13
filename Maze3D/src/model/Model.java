@@ -15,4 +15,5 @@ public interface Model {
 	void saveMaze(String name, String fileName);
 	void loadMaze(String fileName, String name);
 	void displaySolution(String name);
+	void dir(String path);
 }

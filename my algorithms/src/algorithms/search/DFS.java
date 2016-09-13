@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public class DFS<T> extends CommonSearcher<T> {
 
-	private Searchable s;
+	private Searchable<T> s;
 	private List<State<T>> neighbors = new ArrayList<State<T>>(); // list of a given state's neighbors
 	private Set<State<T>> visitedList = new HashSet<State<T>>(); // list of visited neighbors
 

@@ -50,7 +50,7 @@ public class MyView implements View {
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-	System.out.println(maze);
+		System.out.println(maze);
 	}
 	
 	@Override
@@ -75,12 +75,17 @@ public class MyView implements View {
 		 states=mazeSolution.getStates();
 	for (State<Position> state : states) {
 		 System.out.print(state+",");
-		
-	}
-	 System.out.println();	
 		}
-		
-		
+	 System.out.println();	
 	}
+
+	@Override
+	public void print(String str) {
+		out.println(str);
+	}
+		
+
+	
+}
 
 

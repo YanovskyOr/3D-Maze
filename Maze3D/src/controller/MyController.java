@@ -56,5 +56,11 @@ public class MyController implements Controller {
 		
 	}
 
+	@Override
+	public void print(String str) {
+		view.print(str);
+		
+	}
+
 
 }
