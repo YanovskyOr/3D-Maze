@@ -21,6 +21,7 @@ import java.util.Set;
  */
 public class DFS<T> extends CommonSearcher<T> {
 
+	private Searchable s;
 	private List<State<T>> neighbors = new ArrayList<State<T>>(); // list of a given state's neighbors
 	private Set<State<T>> visitedList = new HashSet<State<T>>(); // list of visited neighbors
 
@@ -33,11 +34,12 @@ public class DFS<T> extends CommonSearcher<T> {
 	 */
 	@Override
 	public Solution<T> search(Searchable<T> s) {
+		this.s=s;
 		return recursiveDFS(s, s.getStartState());
 	}
 	
 	private Solution<T> recursiveDFS(Searchable<T> s, State<T> state){
-		
+		evaluatedNodes++; // add the state to the evaluated nodes count
 		State<T> goalState = s.getGoalState();
 		if(state.equals(goalState)){  //if state is the goal state
 			return backTrace(state);//exit
@@ -47,16 +49,14 @@ public class DFS<T> extends CommonSearcher<T> {
 		
 		visitedList.add(state);
 		
-		if(!neighbors.isEmpty()){
 		for(State<T> currState : neighbors) // for each neighbor s in N {
 		{
 			if(!visitedList.contains(currState)){ //if not visited
 				visitedList.add(currState); //s.visited <- true
-				currState.setCameFrom(state); // set where the state was reached from
-				evaluatedNodes++; // add the state to the evaluated nodes count
-				recursiveDFS(s, currState); //DFS(s)
+				//currState.setCameFrom(state); // set where the state was reached from
+				
+				 return recursiveDFS(s, currState); //DFS(s)
 				}
-		}
 		}
 		return recursiveDFS(s, state.getCameFrom());
 	}

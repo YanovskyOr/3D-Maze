@@ -16,6 +16,7 @@ import java.util.List;
 public abstract class CommonSearcher<T> implements Searcher<T> {
 	
 	protected int evaluatedNodes; // nodes the searching algorithm evluated (passed through)
+	
 
 	/** 
 	 * This is the overridden method to get the number of evaluated nodes
