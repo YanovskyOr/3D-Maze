@@ -40,14 +40,22 @@ public class CommandsManager {
 	//throw exception if user didnt input all of the parameters for the command
 	public class GenerateMazeCommand implements Command {
 
+		
 		@Override
 		public void doCommand(String[] args) {
+			if(args.length==5){
 			String name = args[1];
+			if(name.length()!=1)
+				System.err.println("name must be one string (no spaces) try typing command again");
 			int floors = Integer.parseInt(args[2]);
 			int rows = Integer.parseInt(args[3]);
 			int cols = Integer.parseInt(args[4]);
 			model.generateMaze(name, floors, rows, cols);
-		}		
+		}
+			else{
+				System.err.println("error generating maze: please enter a maze name , floors ,rows & cols");
+			}
+		}
 	}
 	
 	public class DisplayMazeCommand implements Command {

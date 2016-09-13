@@ -51,6 +51,8 @@ public class MyModel implements Model {
 	public void generateMaze(String name, int floors, int rows, int cols) {
 		Thread thread = new Thread(new Runnable() {
 
+			
+			
 			@Override
 			public void run() {
 				GrowingTreeGenerator generator = new GrowingTreeGenerator();

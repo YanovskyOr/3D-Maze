@@ -66,7 +66,7 @@ public class MyView implements View {
 
 	@Override
 	public void notifySolutioIsReady(String name) {
-	//	System.out.println("Solution for "+ name +" is Ready");	
+		System.out.println("Solution for "+ name +" is Ready");	
 	}
 
 	@Override
@@ -74,9 +74,10 @@ public class MyView implements View {
 		 List<State<Position>> states = new ArrayList<State<Position>>();
 		 states=mazeSolution.getStates();
 	for (State<Position> state : states) {
-		// System.out.print(state);
+		 System.out.print(state+",");
+		
 	}
-			
+	 System.out.println();	
 		}
 		
 		
