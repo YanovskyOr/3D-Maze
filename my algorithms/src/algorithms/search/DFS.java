@@ -1,7 +1,9 @@
 package algorithms.search;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <h1>DFS Search Algorithm</h1>
@@ -20,7 +22,7 @@ import java.util.List;
 public class DFS<T> extends CommonSearcher<T> {
 
 	private List<State<T>> neighbors = new ArrayList<State<T>>(); // list of a given state's neighbors
-	private List<State<T>> visitedList = new ArrayList<State<T>>(); // list of visited neighbors
+	private Set<State<T>> visitedList = new HashSet<State<T>>(); // list of visited neighbors
 
 	
 	/** 
@@ -45,6 +47,7 @@ public class DFS<T> extends CommonSearcher<T> {
 		
 		visitedList.add(state);
 		
+		if(!neighbors.isEmpty()){
 		for(State<T> currState : neighbors) // for each neighbor s in N {
 		{
 			if(!visitedList.contains(currState)){ //if not visited
@@ -54,7 +57,8 @@ public class DFS<T> extends CommonSearcher<T> {
 				recursiveDFS(s, currState); //DFS(s)
 				}
 		}
-		return null;
+		}
+		return recursiveDFS(s, state.getCameFrom());
 	}
 }
 
