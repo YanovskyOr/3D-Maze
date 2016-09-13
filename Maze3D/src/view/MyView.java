@@ -76,20 +76,8 @@ public class MyView implements View {
 	for (State<Position> state : states) {
 		 System.out.print(state+",");
 		}
-<<<<<<< HEAD
+	}
 
-	@Override
-	public void Print(String str) {
-		out.write(str);
-		out.flush();
-		
-	}
-		
-		
-=======
-	 System.out.println();	
->>>>>>> branch 'Dev' of https://github.com/YanovskyOr/3D-Maze.git
-	}
 
 	@Override
 	public void print(String str) {

@@ -202,30 +202,12 @@ public class MyModel implements Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+		
+	
 	//y=row x=cols z=floors
 
 
-<<<<<<< HEAD
-	@Override
-	public void displaySolution(String name) {
-		Maze3d maze=getMaze(name);
-		Solution<Position> mazeSolution=getSolution(name);
-		controller.PrintSolution(mazeSolution);
-		
-		
-	}
-
-
-	
-=======
-		@Override
-		public void displaySolution(String name) {
-			//Maze3d maze=getMaze(name);
-			Solution<Position> mazeSolution=getSolution(name);
-			controller.PrintSolution(mazeSolution);
-		}
 
 		@Override
 		public void dir(String path) {
@@ -240,5 +222,17 @@ public class MyModel implements Model {
 			      }
 			    }
 		}
->>>>>>> branch 'Dev' of https://github.com/YanovskyOr/3D-Maze.git
+
+		
+		@Override
+		public void displaySolution(String name) {
+			Maze3d maze=getMaze(name);
+			Solution<Position> mazeSolution=getSolution(name);
+			controller.PrintSolution(mazeSolution);
+			
+	
+		}
+
+
+		
 }

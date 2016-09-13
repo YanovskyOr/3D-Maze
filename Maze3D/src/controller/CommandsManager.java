@@ -182,13 +182,10 @@ public class CommandsManager {
 				System.err.println("error displaying sollution,  try the command again , enter maze name  after command");
 		        System.out.println();
 		}
-<<<<<<< HEAD
-			}
-		}
-	
 
-=======
-	}
+			}
+		
+
 	
 	public class DirCommand implements Command{
 		@Override
@@ -197,9 +194,10 @@ public class CommandsManager {
 			model.dir(path);
 		}
 	}
+	}
 	
-}
->>>>>>> branch 'Dev' of https://github.com/YanovskyOr/3D-Maze.git
+
+
 
 	
 
