@@ -182,7 +182,7 @@ public class MyModel implements Model {
 					 	out.write(255);
 				 }
 				 out.write(arrLength);
-				 }
+			}
 			out.write(arr);
 			out.flush();
 			out.close();
