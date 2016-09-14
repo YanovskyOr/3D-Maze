@@ -167,7 +167,22 @@ public class MyModel implements Model {
 			Maze3d MazeToSave = mazes.get(name);
 			byte[] arr = MazeToSave.toByteArray();
 			
-			out.write(arr.length);
+			int arrLength = arr.length;
+			int numberOfBytesRequired = 1;
+			
+			if (arrLength <= 255) {
+				out.write(numberOfBytesRequired);
+				out.write(arr.length);
+			}	
+			else{
+				 numberOfBytesRequired = arrLength / 255;
+				 out.write(numberOfBytesRequired+1);
+				 for ( int i = 0; i < numberOfBytesRequired; i++){
+					 	arrLength = arrLength - 255;
+					 	out.write(255);
+				 }
+				 out.write(arrLength);
+				 }
 			out.write(arr);
 			out.flush();
 			out.close();
@@ -186,7 +201,11 @@ public class MyModel implements Model {
 		InputStream in;
 		try {
 			in = new MyDecompressorInputStream(new FileInputStream(fileName));
-			int size = in.read();
+			int numberOfBytesRequired = in.read();
+			int size = 0;
+			for (int i = 0; i < numberOfBytesRequired; i++) {
+				size = size + in.read();
+			}
 			byte b[]=new byte[size];
 			in.read(b);
 			in.close();

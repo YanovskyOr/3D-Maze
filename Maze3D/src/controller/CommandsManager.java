@@ -151,17 +151,18 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			if(args.length==3){
-			String fileName = args[1];
-			String name = args[2];
-			if(model.getMaze(name)!=null)
-			model.loadMaze(fileName, name);
-			else 
-				System.err.println("invalid maze name try another maze name");
-			    System.out.println();
+				String fileName = args[1];
+				String name = args[2];
+
+				if(model.getMaze(name)==null)
+					model.loadMaze(fileName, name);
+				else 
+					System.err.println("invalid maze name try another maze name");
+			System.out.println();
 			}
 			else
 				System.err.println("error loading maze,  try the command again , sysntax should be   file name , maze name");
-		        System.out.println();
+		System.out.println();
 		}
 		
 		
