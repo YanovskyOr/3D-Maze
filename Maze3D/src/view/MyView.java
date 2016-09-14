@@ -17,7 +17,7 @@ import controller.Controller;
 
 public class MyView implements View {
 
-	private Controller controller;
+//	private Controller controller;
 	//private CLI cli;
 	private BufferedReader in;
 	private PrintWriter out;
@@ -26,7 +26,7 @@ public class MyView implements View {
 	
 	
 	public MyView(Controller controller ) {
-		this.controller = controller;
+//		this.controller = controller;
 		in = new BufferedReader(new InputStreamReader(System.in));
 		out = new PrintWriter(System.out);
 		commands = new HashMap<String,Command>();
