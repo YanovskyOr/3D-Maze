@@ -69,7 +69,7 @@ public class MyView implements View {
 
 	@Override
 	public void notifySolutioIsReady(String name) {
-		out.write("Solution for "+ name +" is Ready");	
+		out.write("Solution for "+ name +" is Ready\n");	
 		out.flush();
 	}
 
