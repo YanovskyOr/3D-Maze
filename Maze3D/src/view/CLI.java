@@ -77,7 +77,7 @@ public class CLI {
 
 	void stopAllThreads(List<Thread> threads){
 		for (Thread thread : threads) {
-		//TODO: close all threads safely
+			thread.interrupt();
 		}
 	}
 	
