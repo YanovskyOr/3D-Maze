@@ -31,4 +31,6 @@ public interface Maze3dGenerator {
 	 * @return The time it took to execute the algorithm as a string.
 	 */
 	String measureAlgorithmTime(int floors, int rows, int cols);
+	
+	void setDone(boolean isDone);
 }

@@ -18,7 +18,7 @@ import view.View;
 public class MyController implements Controller {
 
 	private View view;
-	private Model model;
+//	private Model model;
 	private CommandsManager commandsManager;
 	
 
@@ -28,7 +28,7 @@ public class MyController implements Controller {
 	 * @param model
 	 */		
 	public void setModelAndView(Model model, View view) {
-		this.model = model;
+//		this.model = model;
 		this.view = view;
 		
 		commandsManager = new CommandsManager(model, view);

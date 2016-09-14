@@ -41,6 +41,8 @@ public class MyModel implements Model {
 	private Map<String, Maze3d> mazes = new ConcurrentHashMap<String, Maze3d>();
 	private Map<String,Solution<Position> > solutions= new ConcurrentHashMap<String,Solution<Position> >();
 	
+	private List<GenerateMazeRunnable> generateMazeTasks = new ArrayList<GenerateMazeRunnable>();
+	
 	private List<Thread> threads = new ArrayList<Thread>();
 
 	public MyModel(Controller controller) {
@@ -48,24 +50,47 @@ public class MyModel implements Model {
 	}
 	
 	
+	class GenerateMazeRunnable implements Runnable {
+		
+		private int floors, rows, cols;
+		private String name;
+		private GrowingTreeGenerator generator;
+		public GenerateMazeRunnable(String name, int floors, int rows, int cols) {
+			this.name = name;
+			this.floors = floors;
+			this.rows = rows;
+			this.cols = cols;
+		}
+		
+		@Override
+		public void run(){
+			generator = new GrowingTreeGenerator();
+			generator.setGrowingTreeAlgorithm(new RandomCellChooser());
+			Maze3d maze = generator.generate(floors, rows, cols);
+			mazes.put(name, maze);
+			
+			controller.notifyMazeIsReady(name);
+		}
+		
+		public void terminate() {
+			generator.setDone(true);
+		}
+	}
+	
+	
 	@Override
 	public void generateMaze(String name, int floors, int rows, int cols) {
-		Thread thread = new Thread(new Runnable() {
-
-			
-			
-			@Override
-			public void run() {
-				GrowingTreeGenerator generator = new GrowingTreeGenerator();
-				generator.setGrowingTreeAlgorithm(new RandomCellChooser());
-				Maze3d maze = generator.generate(floors, rows, cols);
-				mazes.put(name, maze);
-				
-				controller.notifyMazeIsReady(name);				
-			}	
-		});
+		GenerateMazeRunnable generateMaze = new GenerateMazeRunnable(name, floors, rows, cols);
+		generateMazeTasks.add(generateMaze);
+		Thread thread = new Thread(generateMaze);
 		thread.start();
 		threads.add(thread);
+	}	
+
+	public void exit() {
+		for (GenerateMazeRunnable task : generateMazeTasks) {
+			task.terminate();
+		}
 	}
 	//TODO:close threads safely
 
@@ -245,11 +270,9 @@ public class MyModel implements Model {
 		
 		@Override
 		public void displaySolution(String name) {
-			Maze3d maze=getMaze(name);
 			Solution<Position> mazeSolution=getSolution(name);
 			controller.PrintSolution(mazeSolution);
-			
-	
+
 		}
 
 
