@@ -145,7 +145,7 @@ public class CommandsManager {
 			if(args.length==3){
 			String fileName = args[1];
 			String name = args[2];
-			if(model.getMaze(name)!=null)
+			if(model.getMaze(name)==null)
 			model.loadMaze(fileName, name);
 			else 
 				view.printErr();//prints err that maze name does not exist
