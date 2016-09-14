@@ -45,18 +45,21 @@ public class MyView implements View {
 	
 	@Override
 	public void notifyMazeIsReady(String name) {
-		System.out.println("Maze "+ name +" is Ready");
+		out.write("Maze "+ name +" is Ready\n");
+		out.flush();
 	}
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		System.out.println(maze);
+		out.write(maze.toString());
+		out.flush();
 	}
 	
 	@Override
 	public void PrintCrossSection(Maze3d maze ,int[][] crossMaze,int index1 ,int index2)
 	{
-		System.out.println(maze.printCrossSection(crossMaze, index1, index2));	
+		out.write(maze.printCrossSection(crossMaze, index1, index2));	
+		out.flush();
 	}
 
 	@Override
@@ -66,7 +69,8 @@ public class MyView implements View {
 
 	@Override
 	public void notifySolutioIsReady(String name) {
-		System.out.println("Solution for "+ name +" is Ready");	
+		out.write("Solution for "+ name +" is Ready");	
+		out.flush();
 	}
 
 	@Override
@@ -74,14 +78,24 @@ public class MyView implements View {
 		 List<State<Position>> states = new ArrayList<State<Position>>();
 		 states=mazeSolution.getStates();
 	for (State<Position> state : states) {
-		 System.out.print(state+",");
+		 out.write(state+",");
+		 out.flush();
 		}
 	}
 
 
 	@Override
 	public void print(String str) {
-		out.println(str);
+		out.write(str);
+	    out.write("\n");
+		out.flush();
+	}
+	
+	@Override
+	public void printErr(){
+		out.write("error: the the name of maze inserted does not exist , try another maze name\n");
+		
+		out.flush();
 	}
 		
 
