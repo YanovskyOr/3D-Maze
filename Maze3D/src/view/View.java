@@ -16,7 +16,7 @@ public interface View {
 	void notifySolutioIsReady(String name);
 	void PrintSolution(Solution<Position> mazeSolution);
 	void print(String str);
-	void printErr();
+//	void printErr();
 	
 
 }

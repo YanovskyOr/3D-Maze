@@ -70,9 +70,8 @@ public class CommandsManager {
 			Maze3d maze = model.getMaze(name);
 			if(model.getMaze(name)!=null)
 		    	view.displayMaze(maze);
-			else
-				
-				view.printErr();//prints err that maze name does not exist
+			else		
+				view.print("maze name does not exist");
 		}
 			else 
 				view.print("error Displaying maze: please enter an existing maze name");
@@ -95,7 +94,7 @@ public class CommandsManager {
 			if(model.getMaze(name)!=null)
 			model.displayCrossSection(crossBy,index,name);
 			else
-				view.printErr();//prints err that maze name does not exist
+				view.print("maze name does not exist");
 				
 			}
 			else 
@@ -113,7 +112,7 @@ public class CommandsManager {
 			if(model.getMaze(name)!=null)
 			model.solveMaze(name,algorithm);
 			else 
-				view.printErr();//prints err that maze name does not exist
+				view.print(" maze name does not exist");
 			}
 			
 			else 
@@ -129,11 +128,10 @@ public class CommandsManager {
 			String fileName = args[2];
 			if(model.getMaze(name)!=null)
 			model.saveMaze(name, fileName);
-			else 
-				view.printErr();//prints err that maze name does not exist
+			else
+				view.print("A maze with that name already exists");
 			}
 				
-		
 			else
 				view.print("error saving maze,  try the command again , sysntax should be  maze name , file name");
 		}	
@@ -148,7 +146,7 @@ public class CommandsManager {
 			if(model.getMaze(name)==null)
 			model.loadMaze(fileName, name);
 			else 
-				view.printErr();//prints err that maze name does not exist
+				view.print("error: a maze with that name already exists, try another name");
 			}
 			else
 				view.print("error loading maze,  try the command again , sysntax should be   file name , maze name");
@@ -165,7 +163,7 @@ public class CommandsManager {
 			if(model.getMaze(name)!=null)
 			model.displaySolution(name);
 			else 
-				view.printErr();//prints err that maze name does not exist
+				view.print("maze name does not exist");
 			}
 			else
 				view.print("error displaying sollution,  try the command again , enter maze name  after command");

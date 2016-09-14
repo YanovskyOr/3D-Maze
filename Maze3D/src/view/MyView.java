@@ -91,12 +91,12 @@ public class MyView implements View {
 		out.flush();
 	}
 	
-	@Override
-	public void printErr(){
-		out.write("error: the the name of maze inserted does not exist , try another maze name\n");
-		
-		out.flush();
-	}
+//	@Override
+//	public void printErr(){
+//		out.write("error: the the name of maze inserted does not exist , try another maze name\n");
+//		
+//		out.flush();
+//	}
 		
 
 	
