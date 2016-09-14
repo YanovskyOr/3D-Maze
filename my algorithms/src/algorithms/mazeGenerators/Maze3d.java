@@ -252,7 +252,7 @@ public class Maze3d {
 	 */
 	public int[][] getCrossSectionByX(int i) {
 		if(i < 0 || i > getCols())
-			throw new IndexOutOfBoundsException("Index Must be in range");;
+			throw new IndexOutOfBoundsException("Index Must be in range");
 		int[][] crossSec = new int[getFloors()][getRows()];
 		for(int z = 0; z < getFloors(); z++)
 			for(int y = 0; y < getRows(); y++)
@@ -267,7 +267,7 @@ public class Maze3d {
 	 */
 	public int[][] getCrossSectionByY(int i) {
 		if(i < 0 || i > getRows())
-			throw new IndexOutOfBoundsException("Index Must be in range");;
+			throw new IndexOutOfBoundsException("Index Must be in range");
 		int[][] crossSec = new int[getFloors()][getCols()];
 		for(int z = 0; z < getFloors(); z++)
 			for(int x = 0; x < getCols(); x++)
@@ -282,7 +282,7 @@ public class Maze3d {
 	 */
 	public int[][] getCrossSectionByZ(int i) {
 		if(i < 0 || i > getFloors())
-			throw new IndexOutOfBoundsException("Index Must be in range");;
+			throw new IndexOutOfBoundsException("Index Must be in range");
 		int[][] crossSec = new int[getRows()][getCols()];
 		for(int y = 0; y < getRows(); y++)
 			for(int x = 0; x < getCols(); x++)

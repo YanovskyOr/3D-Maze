@@ -106,27 +106,40 @@ public class MyModel implements Model {
 		int [][] CrossMaze;
 		
 		if(crossBy.equalsIgnoreCase(x)){
-			CrossMaze= maze.getCrossSectionByX(index);
-			int index1=maze.getFloors();
-			int index2=maze.getRows();
-			
-			controller.PrintCrossSection(maze,CrossMaze,index1,index2);
+			try {
+				CrossMaze= maze.getCrossSectionByX(index);
+				int index1=maze.getFloors();
+				int index2=maze.getRows();
+				
+				controller.PrintCrossSection(maze,CrossMaze,index1,index2);
+			} catch (Exception e) {
+				controller.print("Index must be in range!");
+			}
+
 		 }
 		
 		else if(crossBy.equalsIgnoreCase(y)){
-			CrossMaze= maze.getCrossSectionByY(index);
-			int index1=maze.getFloors();
-			int index2=maze.getCols();
-			
-			controller.PrintCrossSection(maze,CrossMaze,index1,index2);
+			try {
+				CrossMaze= maze.getCrossSectionByY(index);
+				int index1=maze.getFloors();
+				int index2=maze.getCols();
+				
+				controller.PrintCrossSection(maze,CrossMaze,index1,index2);
+			} catch (Exception e) {
+				controller.print("Index must be in range!");
+			}
 		}
 		
 		else if(crossBy.equalsIgnoreCase(z)){
-			CrossMaze=maze.getCrossSectionByZ(index);
-			int index1=maze.getRows();
-			int index2=maze.getCols();
-			
-			controller.PrintCrossSection(maze,CrossMaze,index1,index2);
+			try {
+				CrossMaze=maze.getCrossSectionByZ(index);
+				int index1=maze.getRows();
+				int index2=maze.getCols();
+				
+				controller.PrintCrossSection(maze,CrossMaze,index1,index2);
+			} catch (Exception e) {
+				controller.print("Index must be in range!");
+			}
 		}	
 	}
 	//TODO:change switch case to factory patterns
@@ -237,6 +250,7 @@ public class MyModel implements Model {
 			
 			Maze3d loaded = new Maze3d(b);
 			controller.print("maze loaded from file:");
+			mazes.put(Name, loaded);
 			System.out.println(loaded);
 			
 		} catch (FileNotFoundException e) {
