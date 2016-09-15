@@ -186,8 +186,12 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			if(args.length==2){
 			String path = args[1];
-			if(path.contentEquals("c:/")||path.contentEquals("C:/"))
-			model.dir(path);
+			if(path.contains(":/"))
+				try {
+					model.dir(path);
+				} catch (Exception e) {
+					view.print("disc does not exist try again");
+				}
 			else 
 				view.print("please enter a valid dir : c:/.../...");
 			}
