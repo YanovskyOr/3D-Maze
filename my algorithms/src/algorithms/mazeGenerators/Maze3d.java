@@ -63,7 +63,10 @@ public class Maze3d {
 		}
 	}
 	
-	
+	/**
+	 * Creates a byte array from a maze. Used for saving the maze.
+	 * @return byte array
+	 */
 	public byte[] toByteArray() {
 		ArrayList<Byte> arr = new ArrayList<Byte>();
 		arr.add((byte)floors);
@@ -290,6 +293,13 @@ public class Maze3d {
 		return crossSec;
 	}
 	
+	/**
+	 * Makes a printable string of a cross section
+	 * @param maze
+	 * @param index1 x/y/z
+	 * @param index2 x/y/z
+	 * @return cross section string
+	 */
 	public String printCrossSection(int[][] maze,int index1,int index2){
 		StringBuilder sb=new StringBuilder();
 		for (int i = 0; i < index1; i++) {

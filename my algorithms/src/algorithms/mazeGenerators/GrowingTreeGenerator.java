@@ -44,7 +44,7 @@ public class GrowingTreeGenerator extends Maze3dGeneratorBase{
 		cells.add(startPos);
 		
 		
-		while (!cells.isEmpty()) { //as long as the list isn't empty
+		while (!cells.isEmpty() && !isDone) { //as long as the list isn't empty
 			
 			Position pos = chooser.choose(cells); //use the chooser to choose a cell in different ways (final/random)
 
