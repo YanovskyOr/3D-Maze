@@ -56,18 +56,20 @@ public class CLI {
 							out.write("Type a valid command.\n");
 							out.flush();	
 						}
-						//TODO:CATCH EXCEPTION id name is with a space
 						else{
-						//out.write("Your wish is my command");
+						
 						cmdName.doCommand(cmdParts);	
 						
 						}	
 					}
 					else if(cmd.equals("exit")) {
+						out.write("exited");
+						//System.out.println("exited");
 						stopAllThreads(threads);
+						
 					}
 					
-				//out.write("Type a command:\n");
+					
 				}while(!cmd.equals("exit"));
 			}
 		});

@@ -79,6 +79,7 @@ public class MyView implements View {
 		 states=mazeSolution.getStates();
 	for (State<Position> state : states) {
 		 out.write(state+",");
+		 out.write("\n");
 		 out.flush();
 		}
 	}

@@ -120,14 +120,18 @@ public class CommandsManager {
 			}
 	}
 	
+	
 	public class SaveMazeCommand implements Command{
 		@Override
 		public void doCommand(String[] args) {
 			if(args.length==3){
 			String name = args[1];
 			String fileName = args[2];
+			if(!fileName.contains(".maze"))
+				view.print("please enter a .maze file");
 			if(model.getMaze(name)!=null)
 			model.saveMaze(name, fileName);
+			
 			else
 				view.print("A maze with that name already exists");
 			}
@@ -143,11 +147,15 @@ public class CommandsManager {
 			if(args.length==3){
 			String fileName = args[1];
 			String name = args[2];
+			if(!fileName.contains(".maze"))
+			view.print("please enter a .maze file");
 			if(model.getMaze(name)==null)
 			model.loadMaze(fileName, name);
+			
 			else 
 				view.print("error: a maze with that name already exists, try another name");
 			}
+			
 			else
 				view.print("error loading maze,  try the command again , sysntax should be   file name , maze name");
 		}
@@ -178,7 +186,10 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			if(args.length==2){
 			String path = args[1];
+			if(path.contentEquals("c:/")||path.contentEquals("C:/"))
 			model.dir(path);
+			else 
+				view.print("please enter a valid dir : c:/.../...");
 			}
 			else
 				view.print("error: enter a valid dir after command");
