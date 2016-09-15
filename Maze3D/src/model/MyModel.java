@@ -265,7 +265,9 @@ public class MyModel implements Model {
 	//y=row x=cols z=floors
 
 
-
+		/**
+		 * Prints the folders and files in a given directory 
+		 */
 		@Override
 		public void dir(String path) {
 			File folder = new File(path);
@@ -280,7 +282,9 @@ public class MyModel implements Model {
 			    }
 		}
 
-		
+		/**
+		 * tells the controller to use the view and show the solution, achieved by using a search algorithm.
+		 */
 		@Override
 		public void displaySolution(String name) {
 			Solution<Position> mazeSolution=getSolution(name);

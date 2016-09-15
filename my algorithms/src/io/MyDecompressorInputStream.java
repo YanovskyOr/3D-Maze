@@ -2,11 +2,19 @@ package io;
 
 import java.io.IOException;
 import java.io.InputStream;
-
+/**
+ * This class is used to decompress the inputed file of compressed byte array data.
+ * @author Or Yanovsky & Lilia Misotchenko
+ *
+ */
 public class MyDecompressorInputStream extends InputStream {
 
 	private InputStream in;
 	
+	/**
+	 * CTOR
+	 * @param in
+	 */
 	public MyDecompressorInputStream(InputStream in) {
 		this.in = in;
 	}
@@ -17,7 +25,12 @@ public class MyDecompressorInputStream extends InputStream {
 		return in.read();
 	}
 	
-	
+	/**
+	 * This read method is used to input while decompressing.
+	 * <BR>
+	 * First read the count of bytes then write each byte * count.
+	 * @param arr a byte array from file
+	 */
 	@Override
 	public int read(byte[] arr) throws IOException {
 		int k = 0;

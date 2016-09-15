@@ -59,7 +59,7 @@ public class CommandsManager {
 		}
 	 }
 	}
-	//TODO:change to out.write and create print and printerr method in view
+
 	
 	public class DisplayMazeCommand implements Command {
 

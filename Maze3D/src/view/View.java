@@ -6,7 +6,12 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import controller.Command;
-
+/**
+ * This interface defines the basic MVC's view part methods that a view class has to implement
+ * 
+ * @author Or Yanovsky & Lilia Misotchenko
+ *
+ */
 public interface View {
 	void notifyMazeIsReady(String name);
 	void displayMaze(Maze3d maze);
@@ -16,7 +21,5 @@ public interface View {
 	void notifySolutioIsReady(String name);
 	void PrintSolution(Solution<Position> mazeSolution);
 	void print(String str);
-//	void printErr();
-	
 
 }
