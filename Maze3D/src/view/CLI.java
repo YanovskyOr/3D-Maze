@@ -63,8 +63,8 @@ public class CLI {
 						}	
 					}
 					else if(cmd.equals("exit")) {
-						out.write("exited");
-						//System.out.println("exited");
+						//out.write("exited");
+						System.out.println("exited");
 						stopAllThreads(threads);
 						
 					}

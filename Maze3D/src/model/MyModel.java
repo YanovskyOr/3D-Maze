@@ -164,21 +164,12 @@ public class MyModel implements Model {
 				
 					Solution<Position> solBfs=algBfs.search(md);
 					controller.notifySolutionIsReady(name);
-					if(solutions.containsKey(name)==true){
-					//solutions.remove(name);
-				    solutions.replace(name, solBfs);
-					}
-					else
 					solutions.put(name, solBfs);
-					
-					
 					break;
 				
 				case "dfs":
 					Solution<Position> solDfs=algDfs.search(md);
 					controller.notifySolutionIsReady(name);
-					if(solutions.containsKey(name)==true)
-					solutions.remove(name);
 					solutions.put(name, solDfs);
 					break;
 		
