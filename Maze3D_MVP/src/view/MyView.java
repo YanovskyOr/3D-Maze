@@ -1,40 +1,78 @@
 package view;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
+import algorithms.search.State;
 
 public class MyView extends Observable implements View, Observer {
+	
+	private BufferedReader in;
+	private PrintWriter out;
+	private CLI cli;
+	
+	
+
+	public MyView(BufferedReader in, PrintWriter out) {
+		this.in = in;
+		this.out = out;
+		
+		cli = new CLI(in, out);
+		cli.addObserver(this);
+	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
+	public void update(Observable o, Object arg) {
+		if (o == cli) {
+			setChanged();
+			notifyObservers(arg);
+		}
 	}
 
 	@Override
 	public void notifyMazeIsReady(String name) {
-		// TODO Auto-generated method stub
-
+		out.println("maze " + name + " is ready!");
+		out.flush();
 	}
 
 	@Override
 	public void displayMaze(Maze3d maze) {
-		// TODO Auto-generated method stub
-
+		out.println(maze);
+		out.flush();
 	}
 
 	@Override
 	public void displayMessage(String msg) {
-		// TODO Auto-generated method stub
-
+		out.println(msg);
+		out.flush();
 	}
 
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
+		cli.start();
+	}
 
+	@Override
+	public void printCrossSection(Maze3d maze, int[][] crossSec, int axis1, int axis2) {
+		out.println(maze.printCrossSection(crossSec, axis1, axis2));
+		out.flush();
+	}
+
+	@Override
+	public void printSolution(Solution<Position> mazeSolution) {
+		 List<State<Position>> states = new ArrayList<State<Position>>();
+		 states=mazeSolution.getStates();
+		 for (State<Position> state : states) {
+			 out.println(state+",");
+			 out.flush();
+		 }
 	}
 
 }
