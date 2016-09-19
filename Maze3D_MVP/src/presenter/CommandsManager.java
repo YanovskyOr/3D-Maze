@@ -29,11 +29,14 @@ public class CommandsManager {
 		HashMap<String, Command> commands = new HashMap<String, Command>();
 		commands.put("generate_maze", new GenerateMazeCommand());
 		commands.put("display", new DisplayMazeCommand());
+		commands.put("maze_ready", new MazeReadyCommand());
 		commands.put("display_cross_section", new DisplayCrossSectionCommand());
+		commands.put("print_cross_section", new PrintCrossSectionCommand());
 		commands.put("solve", new SolveMazeCommand() );
 		commands.put("save_maze", new SaveMazeCommand());
 		commands.put("load_maze", new LoadMazeCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
+		commands.put("display_message", new DisplayMessageCommand());
 		commands.put("dir", new DirCommand());
 		return commands;
 	}
@@ -43,7 +46,7 @@ public class CommandsManager {
 	
 		@Override
 		public void doCommand(String[] args) {
-			if(args.length==5){
+			if(args.length==4){
 				String name = args[0];
 				
 				int floors = Integer.parseInt(args[1]);
@@ -62,7 +65,7 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			if(args.length==2) {
+			if(args.length==1) {
 				String name = args[0];
 				Maze3d maze = model.getMaze(name);
 		
@@ -77,12 +80,24 @@ public class CommandsManager {
 			}
 	}
 	
+	
+	class MazeReadyCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[0];
+			String msg = "maze " + name + " is ready";
+		view.displayMessage(msg);
+		}
+	}
+	
+	
 	public class DisplayCrossSectionCommand implements Command{
 
 		@Override
 		public void doCommand(String[] args) {
 			
-			if(args.length==4) {//input is valid
+			if(args.length==3) {//input is valid
 				String crossBy = args[0];
 				
 			if(!crossBy.equalsIgnoreCase("x")&&!crossBy.equalsIgnoreCase("y")&&!crossBy.equalsIgnoreCase("z"))
@@ -96,8 +111,20 @@ public class CommandsManager {
 			else
 				view.displayMessage("maze name does not exist");
 			}
-			else 
+			else
 				view.displayMessage("error displaying,  try the command again , sysntax should be (x/y/z)  index name");
+		}
+	}
+	
+	
+	public class PrintCrossSectionCommand implements Command{
+
+		@Override
+		public void doCommand(String[] args) {
+			Maze3d maze = args[0];
+			
+			int[][] crossSec = args[1]
+			view.printCrossSection(maze, crossSec, axis1, axis2);
 		}
 	}
 	
@@ -106,7 +133,7 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			
-			if(args.length==3){
+			if(args.length==2){
 				String name = args[0];
 				String algorithm = args[1];
 				if(model.getMaze(name)!=null)
@@ -124,7 +151,7 @@ public class CommandsManager {
 		
 		@Override
 		public void doCommand(String[] args) {
-			if(args.length==3){
+			if(args.length==2){
 				String name = args[0];
 				String fileName = args[1];
 				if(!fileName.contains(".maze"))
@@ -144,7 +171,7 @@ public class CommandsManager {
 		
 		@Override
 		public void doCommand(String[] args) {
-			if(args.length==3){
+			if(args.length==2){
 				String fileName = args[0];
 				String name = args[1];
 				if(!fileName.contains(".maze"))
@@ -164,10 +191,10 @@ public class CommandsManager {
 		
 		@Override
 		public void doCommand(String[] args) {
-			if(args.length==2){
+			if(args.length==1){
 				String name = args[0];
 			if(model.getMaze(name)!=null)
-				model.displaySolution(name);
+				view.printSolution(model.getSolution(name));
 			else 
 				view.displayMessage("maze name does not exist");
 			}
@@ -182,7 +209,7 @@ public class CommandsManager {
 		
 		@Override
 		public void doCommand(String[] args) {
-			if(args.length==2){
+			if(args.length==1){
 				String path = args[0];
 			if(path.contains(":/"))
 				try {

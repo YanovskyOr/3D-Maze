@@ -9,13 +9,16 @@ import java.util.concurrent.Executors;
 
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
 import algorithms.mazeGenerators.RandomCellChooser;
+import algorithms.search.Solution;
 
 public class MyModel extends Observable implements Model {
 	
 	private ExecutorService executor;
 	private Map<String, Maze3d> mazes = new ConcurrentHashMap<String, Maze3d>();
-	
+	private Map<Maze3d,Solution<Position>> solutions = new ConcurrentHashMap<Maze3d,Solution<Position>>();
+
 	public MyModel() {
 		executor = Executors.newFixedThreadPool(50);
 	}
@@ -52,8 +55,49 @@ public class MyModel extends Observable implements Model {
 
 	@Override
 	public void displayCrossSection(String crossBy, int index, String name) {
-		// TODO Auto-generated method stub
+		Maze3d maze=getMaze(name);
+		String x = "x";
+		String y= "y";
+		String z= "z";
+		int [][] CrossMaze;
 		
+		if(crossBy.equalsIgnoreCase(x)){
+			try {
+				CrossMaze= maze.getCrossSectionByX(index);
+				int index1=maze.getFloors();
+				int index2=maze.getRows();
+				
+				
+				notifyObservers("print_cross_section " + maze + CrossMaze + index1 + index2);
+			} catch (Exception e) {
+				notifyObservers("display_message " + "Index must be in range!");
+			}
+
+		 }
+		
+		else if(crossBy.equalsIgnoreCase(y)){
+			try {
+				CrossMaze= maze.getCrossSectionByY(index);
+				int index1=maze.getFloors();
+				int index2=maze.getCols();
+				
+				notifyObservers("print_cross_section " + maze + CrossMaze + index1 + index2);
+			} catch (Exception e) {
+				notifyObservers("display_message " + "Index must be in range!");
+			}
+		}
+		
+		else if(crossBy.equalsIgnoreCase(z)){
+			try {
+				CrossMaze=maze.getCrossSectionByZ(index);
+				int index1=maze.getRows();
+				int index2=maze.getCols();
+				
+				notifyObservers("print_cross_section " + maze + CrossMaze + index1 + index2);
+			} catch (Exception e) {
+				notifyObservers("display_message " + "Index must be in range!");
+			}
+		}	
 	}
 
 	@Override
@@ -75,9 +119,9 @@ public class MyModel extends Observable implements Model {
 	}
 
 	@Override
-	public void displaySolution(String name) {
-		// TODO Auto-generated method stub
-		
+	public Solution<Position> getSolution(String name) {
+		Solution<Position> mazeSolution=solutions.get(name);
+		return mazeSolution;
 	}
 
 	@Override
