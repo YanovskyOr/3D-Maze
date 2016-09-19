@@ -1,5 +1,11 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Map;
 import java.util.Observable;
 import java.util.concurrent.Callable;
@@ -12,6 +18,8 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.mazeGenerators.RandomCellChooser;
 import algorithms.search.Solution;
+import io.MyCompressorOutputStream;
+import io.MyDecompressorInputStream;
 
 public class MyModel extends Observable implements Model {
 	
@@ -54,7 +62,7 @@ public class MyModel extends Observable implements Model {
 	}
 
 	@Override
-	public void displayCrossSection(String crossBy, int index, String name) {
+	public String getCrossSection(String crossBy, int index, String name) {
 		Maze3d maze=getMaze(name);
 		String x = "x";
 		String y= "y";
@@ -67,9 +75,11 @@ public class MyModel extends Observable implements Model {
 				int index1=maze.getFloors();
 				int index2=maze.getRows();
 				
+				String cross=maze.printCrossSection(CrossMaze, index1, index2);
+				return cross;
 				
-				notifyObservers("print_cross_section " + maze + CrossMaze + index1 + index2);
 			} catch (Exception e) {
+				setChanged();
 				notifyObservers("display_message " + "Index must be in range!");
 			}
 
@@ -81,8 +91,10 @@ public class MyModel extends Observable implements Model {
 				int index1=maze.getFloors();
 				int index2=maze.getCols();
 				
-				notifyObservers("print_cross_section " + maze + CrossMaze + index1 + index2);
+				String cross=maze.printCrossSection(CrossMaze, index1, index2);
+				return cross;
 			} catch (Exception e) {
+				setChanged();
 				notifyObservers("display_message " + "Index must be in range!");
 			}
 		}
@@ -93,11 +105,15 @@ public class MyModel extends Observable implements Model {
 				int index1=maze.getRows();
 				int index2=maze.getCols();
 				
-				notifyObservers("print_cross_section " + maze + CrossMaze + index1 + index2);
+				String cross=maze.printCrossSection(CrossMaze, index1, index2);
+				return cross;
 			} catch (Exception e) {
+				setChanged();
 				notifyObservers("display_message " + "Index must be in range!");
 			}
-		}	
+		}
+		
+		return null;
 	}
 
 	@Override
@@ -108,15 +124,72 @@ public class MyModel extends Observable implements Model {
 
 	@Override
 	public void saveMaze(String name, String fileName) {
-		// TODO Auto-generated method stub
+		OutputStream out;
 		
+		try {
+			out = new MyCompressorOutputStream(new FileOutputStream(fileName+".maze"));
+			Maze3d MazeToSave = mazes.get(name);
+			byte[] arr = MazeToSave.toByteArray();
+			
+			int arrLength = arr.length;
+			int numberOfBytesRequired = 1;
+			
+			if (arrLength <= 255) {
+				out.write(numberOfBytesRequired);
+				out.write(arr.length);
+			}	
+			else{
+				 numberOfBytesRequired = arrLength / 255;
+				 out.write(numberOfBytesRequired+1);
+				 for ( int i = 0; i < numberOfBytesRequired; i++){
+					 	arrLength = arrLength - 255;
+					 	out.write(255);
+				 }
+				 out.write(arrLength);
+			}
+			out.write(arr);
+			out.flush();
+			out.close();
+			setChanged();
+			notifyObservers("maze_saved " + name);
+		} catch (Exception e) {
+			setChanged();
+			notifyObservers("display_message " + "failed to save maze");
+		}
 	}
 
 	@Override
 	public void loadMaze(String fileName, String name) {
-		// TODO Auto-generated method stub
-		
+		InputStream in;
+		try {
+			in = new MyDecompressorInputStream(new FileInputStream(fileName));
+			int numberOfBytesRequired = in.read();
+			int size = 0;
+			for (int i = 0; i < numberOfBytesRequired; i++) {
+				size = size + in.read();
+			}
+			byte b[]=new byte[size];
+			in.read(b);
+			in.close();
+			
+			Maze3d loaded = new Maze3d(b);
+			mazes.put(name, loaded);
+			
+			setChanged();
+			notifyObservers("display " + name);
+			setChanged();
+			notifyObservers("maze_loaded " + name);
+
+		} catch (FileNotFoundException e) {
+			setChanged();
+			notifyObservers("display_message " + "error loading maze - file not found");
+		} catch (IOException e) {
+			setChanged();
+			notifyObservers("display_message " + "error loading maze");
+		}
 	}
+		
+
 
 	@Override
 	public Solution<Position> getSolution(String name) {
@@ -129,5 +202,6 @@ public class MyModel extends Observable implements Model {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

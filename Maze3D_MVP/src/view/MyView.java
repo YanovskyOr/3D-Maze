@@ -49,8 +49,8 @@ public class MyView extends Observable implements View, Observer {
 	}
 
 	@Override
-	public void displayMessage(String msg) {
-		out.println(msg);
+	public void print(String str) {
+		out.println(str);
 		out.flush();
 	}
 

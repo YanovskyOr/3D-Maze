@@ -31,7 +31,7 @@ public class Presenter implements Observer {
 		String command = splitCommand[0];
 		
 		if(!commands.containsKey(command)) {
-			view.displayMessage("Command doesn't exist");
+			view.print("Command doesn't exist");
 		}
 		else {
 			String[] args = null;

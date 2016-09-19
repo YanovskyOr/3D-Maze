@@ -1,5 +1,6 @@
 package presenter;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
@@ -31,10 +32,11 @@ public class CommandsManager {
 		commands.put("display", new DisplayMazeCommand());
 		commands.put("maze_ready", new MazeReadyCommand());
 		commands.put("display_cross_section", new DisplayCrossSectionCommand());
-		commands.put("print_cross_section", new PrintCrossSectionCommand());
 		commands.put("solve", new SolveMazeCommand() );
 		commands.put("save_maze", new SaveMazeCommand());
+		commands.put("maze_saved", new MazeSavedCommand());
 		commands.put("load_maze", new LoadMazeCommand());
+		commands.put("maze_loaded", new MazeLoadedCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
 		commands.put("display_message", new DisplayMessageCommand());
 		commands.put("dir", new DirCommand());
@@ -55,7 +57,7 @@ public class CommandsManager {
 				model.generateMaze(name, floors, rows, cols);
 			}
 			else {
-				view.displayMessage("error generating maze: please enter a maze name(with no spaces) , floors ,rows & cols");	    
+				view.print("error generating maze: please enter a maze name(with no spaces) , floors ,rows & cols");	    
 			}
 		}
 	}
@@ -71,12 +73,12 @@ public class CommandsManager {
 		
 				if(model.getMaze(name)!=null)
 					view.displayMaze(maze);
-				else		
-					view.displayMessage("maze name does not exist");
+				else
+					view.print("maze name does not exist");
 				}
 		
-			else 
-				view.displayMessage("error Displaying maze: please enter an existing maze name");
+			else
+				view.print("error Displaying maze: please enter an existing maze name");
 			}
 	}
 	
@@ -87,7 +89,7 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			String name = args[0];
 			String msg = "maze " + name + " is ready";
-		view.displayMessage(msg);
+			view.print(msg);
 		}
 	}
 	
@@ -101,32 +103,21 @@ public class CommandsManager {
 				String crossBy = args[0];
 				
 			if(!crossBy.equalsIgnoreCase("x")&&!crossBy.equalsIgnoreCase("y")&&!crossBy.equalsIgnoreCase("z"))
-				view.displayMessage("please enter after the command x or y or z");	
+				view.print("please enter after x or y or z the command!");	
 			
 			int index = Integer.parseInt(args[1]);
 			String name = args[2];
 			
 			if(model.getMaze(name)!=null)
-				model.displayCrossSection(crossBy,index,name);
+				view.print(model.getCrossSection(crossBy,index,name));
 			else
-				view.displayMessage("maze name does not exist");
+				view.print("maze name does not exist");
 			}
 			else
-				view.displayMessage("error displaying,  try the command again , sysntax should be (x/y/z)  index name");
+				view.print("error displaying,  try the command again , sysntax should be (x/y/z)  index name");
 		}
 	}
 	
-	
-	public class PrintCrossSectionCommand implements Command{
-
-		@Override
-		public void doCommand(String[] args) {
-			Maze3d maze = args[0];
-			
-			int[][] crossSec = args[1]
-			view.printCrossSection(maze, crossSec, axis1, axis2);
-		}
-	}
 	
 	public class SolveMazeCommand implements Command{
 
@@ -139,10 +130,10 @@ public class CommandsManager {
 				if(model.getMaze(name)!=null)
 					model.solveMaze(name,algorithm);
 				else 
-					view.displayMessage(" maze name does not exist");
+					view.print(" maze name does not exist");
 			}
 			else 
-				view.displayMessage("error solving maze,  try the command again , sysntax should be  maze name , algorithm");
+				view.print("error solving maze,  try the command again , sysntax should be  maze name , algorithm");
 		}
 	}
 	
@@ -154,18 +145,31 @@ public class CommandsManager {
 			if(args.length==2){
 				String name = args[0];
 				String fileName = args[1];
-				if(!fileName.contains(".maze"))
-					view.displayMessage("please enter a .maze file");
 				if(model.getMaze(name)!=null)
 					model.saveMaze(name, fileName);
 				else
-					view.displayMessage("A maze with that name already exists");
+					view.print("A maze with that name already exists");
 			}
 			else
-				view.displayMessage("error saving maze,  try the command again , sysntax should be  maze name , file name");
+				view.print("error saving maze,  try the command again , sysntax should be  maze name , file name");
+		}	
+	}
+	
+	public class MazeSavedCommand implements Command {
+		
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[0];
+			String toPrint = "maze " + name + " saved successfully";
+			view.print(toPrint);
 		}	
 	}
 		
+	
+//	String name = args[0];
+//	String msg = "maze " + name + " is ready";
+//	view.print(msg);
+//}
 	
 	public class LoadMazeCommand implements Command {
 		
@@ -175,17 +179,26 @@ public class CommandsManager {
 				String fileName = args[0];
 				String name = args[1];
 				if(!fileName.contains(".maze"))
-					view.displayMessage("please enter a .maze file");
+					view.print("please enter a .maze file");
 				if(model.getMaze(name)==null)
 					model.loadMaze(fileName, name);
 				else 
-					view.displayMessage("error: a maze with that name already exists, try another name");
+					view.print("error: a maze with that name already exists, try another name");
 			}
 			else
-				view.displayMessage("error loading maze,  try the command again , sysntax should be   file name , maze name");
+				view.print("error loading maze,  try the command again , sysntax should be   file name , maze name");
 		}
 	}
 	
+	public class MazeLoadedCommand implements Command {
+		
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[0];
+			String toPrint = "maze " + name + " loaded successfully";
+			view.print(toPrint);
+		}	
+	}
 	
 	public class DisplaySolutionCommand implements Command {
 		
@@ -196,15 +209,27 @@ public class CommandsManager {
 			if(model.getMaze(name)!=null)
 				view.printSolution(model.getSolution(name));
 			else 
-				view.displayMessage("maze name does not exist");
+				view.print("maze name does not exist");
 			}
 			else
-				view.displayMessage("error displaying sollution,  try the command again , enter maze name  after command");
+				view.print("error displaying sollution,  try the command again , enter maze name  after command");
 		}
 
 	}
 		
-
+	public class DisplayMessageCommand implements Command {
+		
+		@Override
+		public void doCommand(String[] args) {
+			
+				String msg = "";
+				for (String string : args) {
+					msg = msg.concat(string+" ");
+				}
+				view.print(msg);
+		}
+	}
+	
 	public class DirCommand implements Command {
 		
 		@Override
@@ -215,16 +240,15 @@ public class CommandsManager {
 				try {
 					model.dir(path);
 				} catch (Exception e) {
-					view.displayMessage("disc does not exist try again");
+					view.print("disc does not exist try again");
 				}
 			else 
-				view.displayMessage("please enter a valid dir, for example - c:/.../...");
+				view.print("please enter a valid dir, for example - c:/.../...");
 			}
 			else
-				view.displayMessage("error: enter a valid dir after command");
+				view.print("error: enter a valid dir after command");
 		}
 	}
-	
 	
 }
 	
