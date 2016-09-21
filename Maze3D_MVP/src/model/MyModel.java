@@ -61,10 +61,7 @@ public class MyModel extends Observable implements Model {
 		return mazes.get(name);
 	}
 
-	@Override
-	public void exit() {
-		executor.shutdownNow();
-	}
+	
 
 	@Override
 	public String getCrossSection(String crossBy, int index, String name) {
@@ -239,6 +236,11 @@ public class MyModel extends Observable implements Model {
 	public void dir(String path) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void exit() {
+		executor.shutdownNow();
 	}
 
 

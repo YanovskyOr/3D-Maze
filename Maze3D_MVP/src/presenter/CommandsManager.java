@@ -41,6 +41,7 @@ public class CommandsManager {
 		commands.put("solution_ready", new SolutionReadyCommand());
 		commands.put("display_message", new DisplayMessageCommand());
 		commands.put("dir", new DirCommand());
+		commands.put("exit", new ExitCommand());
 		return commands;
 	}
 	
@@ -262,6 +263,19 @@ public class CommandsManager {
 			}
 			else
 				view.print("error: enter a valid dir after command");
+		}
+	}
+	
+	
+	
+	public class ExitCommand implements Command{
+
+		@Override
+		public void doCommand(String[] args) {
+			String toPrint = "exited";
+			model.exit();
+			view.print(toPrint);
+			
 		}
 	}
 	
