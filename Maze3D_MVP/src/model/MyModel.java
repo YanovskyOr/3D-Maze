@@ -123,10 +123,10 @@ public class MyModel extends Observable implements Model {
 
 	@Override
 	public void solveMaze(String name, String algorithm) {
-		executor.submit(new Callable<void>() {
+		executor.submit(new Callable<Solution<Position>>() {
 
 			@Override
-			public void call() throws Exception {
+			public Solution<Position> call() throws Exception {
 				
 				Maze3d maze=getMaze(name);
 				Searchable<Position> md=new Maze3dDomain(maze);
@@ -137,7 +137,6 @@ public class MyModel extends Observable implements Model {
 					Solution<Position> solBfs=algBfs.search(md);
 					setChanged();
 					notifyObservers("solution_ready " + name);
-					//controller.notifySolutionIsReady(name);
 					solutions.put(mazes.get(name), solBfs);
 					break;
 				
@@ -146,7 +145,6 @@ public class MyModel extends Observable implements Model {
 					Solution<Position> solDfs=algDfs.search(md);
 					setChanged();
 					notifyObservers("solution_ready " + name);
-					//controller.notifySolutionIsReady(name);
 					solutions.put(mazes.get(name), solDfs);
 					break;
 		
@@ -154,7 +152,8 @@ public class MyModel extends Observable implements Model {
 				default:
 					System.out.println("not solving because no algorithm was selected");	
 					break;
-				}	
+				}
+				return null;	
 				
 			}	
 		});
@@ -232,7 +231,7 @@ public class MyModel extends Observable implements Model {
 
 	@Override
 	public Solution<Position> getSolution(String name) {
-		Solution<Position> mazeSolution=solutions.get(name);
+		Solution<Position> mazeSolution=solutions.get(mazes.get(name));
 		return mazeSolution;
 	}
 
