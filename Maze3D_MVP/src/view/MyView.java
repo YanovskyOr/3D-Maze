@@ -68,7 +68,11 @@ public class MyView extends Observable implements View, Observer {
 	@Override
 	public void printSolution(Solution<Position> mazeSolution) {
 		 List<State<Position>> states = new ArrayList<State<Position>>();
-		 states=mazeSolution.getStates();
+		 try {
+			states=mazeSolution.getStates();
+		} catch (Exception e) {
+			out.println("solution doesnt exist");
+		}
 		 for (State<Position> state : states) {
 			 out.println(state+",");
 			 out.flush();

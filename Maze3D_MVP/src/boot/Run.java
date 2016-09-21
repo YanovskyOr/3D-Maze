@@ -1,16 +1,45 @@
 package boot;
 
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-
 import model.MyModel;
 import presenter.Presenter;
 import view.MyView;
 
+
+import properties.Properties;
+import java.beans.XMLEncoder;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+
+
 public class Run {
 
 	public static void main(String[] args) {
+		
+				
+		/**************************************************************************************/
+		Properties prop = new Properties();
+		prop.setNumOfThreads(10);
+		prop.setGenerateMazeAlgorithm("GrowingTree");
+		prop.setSolveMazeAlgorithm("DFS");
+		
+		XMLEncoder xmlEncoder = null;
+		try {
+			xmlEncoder = new XMLEncoder(new FileOutputStream("properties.xml"));
+			xmlEncoder.writeObject(prop);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			xmlEncoder.close();
+		}
+	
+		/*************************************************************************************/
+
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		PrintWriter out = new PrintWriter(System.out);
 				
@@ -20,8 +49,9 @@ public class Run {
 		Presenter presenter = new Presenter(model, view);
 		model.addObserver(presenter);
 		view.addObserver(presenter);
-				
+		
 		view.start();
+		
 	}
 
 }

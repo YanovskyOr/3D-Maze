@@ -23,6 +23,7 @@ import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.mazeGenerators.RandomCellChooser;
+import algorithms.mazeGenerators.SimpleMaze3dGenerator;
 import algorithms.search.BFS;
 import algorithms.search.DFS;
 import algorithms.search.Searchable;
@@ -31,14 +32,19 @@ import algorithms.search.Solution;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
+import properties.Properties;
+import properties.PropertiesLoader;
+
 public class MyModel extends Observable implements Model {
 	
 	private ExecutorService executor;
 	private Map<String, Maze3d> mazes = new ConcurrentHashMap<String, Maze3d>();
 	private Map<Maze3d,Solution<Position>> solutions = new ConcurrentHashMap<Maze3d,Solution<Position>>();
-
+	private Properties properties;
+	
 	public MyModel() {
-		executor = Executors.newFixedThreadPool(50);
+		properties = PropertiesLoader.getInstance().getProperties();
+		executor = Executors.newFixedThreadPool(properties.getNumOfThreads());
 		loadSolutions();
 	}
 	
@@ -50,14 +56,39 @@ public class MyModel extends Observable implements Model {
 			
 			@Override
 			public Maze3d call() throws Exception {
-				GrowingTreeGenerator generator = new GrowingTreeGenerator();
-				generator.setGrowingTreeAlgorithm(new RandomCellChooser());
-				Maze3d maze = generator.generate(floors, rows, cols);
-				mazes.put(name, maze);
-				
-				setChanged();
-				notifyObservers("maze_ready " +name);
-				return maze;
+				//TODO check if strategy pattern is applicable
+				switch(properties.getGenerateMazeAlgorithm()) {
+					case "GrowingTree":
+					{
+						GrowingTreeGenerator generator = new GrowingTreeGenerator();
+						generator.setGrowingTreeAlgorithm(new RandomCellChooser());
+						Maze3d maze = generator.generate(floors, rows, cols);
+						mazes.put(name, maze);
+						
+						setChanged();
+						notifyObservers("maze_ready " +name);
+						return maze;
+					}
+					case "Simple":
+					{
+						SimpleMaze3dGenerator generator = new SimpleMaze3dGenerator();
+						Maze3d maze = generator.generate(floors, rows, cols);
+						mazes.put(name, maze);
+						
+						setChanged();
+						notifyObservers("maze_ready " +name);
+						return maze;
+					}
+					default:
+						GrowingTreeGenerator generator = new GrowingTreeGenerator();
+						generator.setGrowingTreeAlgorithm(new RandomCellChooser());
+						Maze3d maze = generator.generate(floors, rows, cols);
+						mazes.put(name, maze);
+						
+						setChanged();
+						notifyObservers("maze_ready " +name);
+						return maze;
+				}
 			}
 		});
 	}
