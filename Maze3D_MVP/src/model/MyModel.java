@@ -13,10 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import algorithms.demo.Maze3dDomain;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.mazeGenerators.RandomCellChooser;
+import algorithms.search.BFS;
+import algorithms.search.DFS;
+import algorithms.search.Searchable;
+import algorithms.search.Searcher;
 import algorithms.search.Solution;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
@@ -118,9 +123,43 @@ public class MyModel extends Observable implements Model {
 
 	@Override
 	public void solveMaze(String name, String algorithm) {
-		// TODO Auto-generated method stub
+		executor.submit(new Callable<void>() {
+
+			@Override
+			public void call() throws Exception {
+				
+				Maze3d maze=getMaze(name);
+				Searchable<Position> md=new Maze3dDomain(maze);
+				
+				switch(algorithm){
+				case "bfs":
+					Searcher<Position> algBfs=new BFS<Position>();
+					Solution<Position> solBfs=algBfs.search(md);
+					setChanged();
+					notifyObservers("solution_ready " + name);
+					//controller.notifySolutionIsReady(name);
+					solutions.put(mazes.get(name), solBfs);
+					break;
+				
+				case "dfs":
+					Searcher<Position> algDfs=new DFS<Position>();
+					Solution<Position> solDfs=algDfs.search(md);
+					setChanged();
+					notifyObservers("solution_ready " + name);
+					//controller.notifySolutionIsReady(name);
+					solutions.put(mazes.get(name), solDfs);
+					break;
 		
+				
+				default:
+					System.out.println("not solving because no algorithm was selected");	
+					break;
+				}	
+				
+			}	
+		});
 	}
+	
 
 	@Override
 	public void saveMaze(String name, String fileName) {

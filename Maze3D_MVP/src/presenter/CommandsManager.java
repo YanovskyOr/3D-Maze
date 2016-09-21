@@ -38,6 +38,7 @@ public class CommandsManager {
 		commands.put("load_maze", new LoadMazeCommand());
 		commands.put("maze_loaded", new MazeLoadedCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
+		commands.put("solution_ready", new SolutionReadyCommand());
 		commands.put("display_message", new DisplayMessageCommand());
 		commands.put("dir", new DirCommand());
 		return commands;
@@ -215,6 +216,20 @@ public class CommandsManager {
 				view.print("error displaying sollution,  try the command again , enter maze name  after command");
 		}
 
+	}
+	
+	
+	
+	public class SolutionReadyCommand implements Command{
+
+		@Override
+		public void doCommand(String[] args) {
+			String name = args[0];
+			String toPrint = "solution for " + name + " is ready";
+			view.print(toPrint);
+			
+		}
+		
 	}
 		
 	public class DisplayMessageCommand implements Command {
