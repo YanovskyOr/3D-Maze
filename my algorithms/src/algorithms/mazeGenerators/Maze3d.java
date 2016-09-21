@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,10 @@ import java.util.List;
  * @version 2.0
  * @since 11/09/16
  */
-public class Maze3d {
+public class Maze3d implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
 	private int[][][] maze;
 	private int floors;
 	private int rows;

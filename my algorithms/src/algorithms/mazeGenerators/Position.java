@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+import java.io.Serializable;
+
 /**
  * <h1>Maze Position</h1>
  * Defines the properties and functionality of a position in a maze, represented by a cell.
@@ -7,7 +9,9 @@ package algorithms.mazeGenerators;
  * @version 1.0
  * @since 2016-08-16
  */
-public class Position {
+public class Position implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public int z; //floors
 	public int y; //rows

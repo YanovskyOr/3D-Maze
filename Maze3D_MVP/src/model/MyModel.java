@@ -1,10 +1,13 @@
 package model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
 import java.util.Observable;
@@ -12,6 +15,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import algorithms.demo.Maze3dDomain;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
@@ -34,6 +39,7 @@ public class MyModel extends Observable implements Model {
 
 	public MyModel() {
 		executor = Executors.newFixedThreadPool(50);
+		loadSolutions();
 	}
 	
 	
@@ -238,9 +244,66 @@ public class MyModel extends Observable implements Model {
 		
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	private void loadSolutions() {
+		File file = new File("solutions.dat");
+		if (!file.exists())
+			return;
+		
+		ObjectInputStream ois = null;
+		
+		try {
+			ois = new ObjectInputStream(new GZIPInputStream(new FileInputStream("solutions.dat")));
+			mazes = (Map<String, Maze3d>)ois.readObject();
+			solutions = (Map<Maze3d, Solution<Position>>)ois.readObject();		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			try {
+				ois.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	private void saveSolutions() {
+		ObjectOutputStream oos = null;
+		try {
+		    oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream("solutions.dat")));
+			oos.writeObject(mazes);
+			oos.writeObject(solutions);			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				oos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 	@Override
 	public void exit() {
 		executor.shutdownNow();
+		saveSolutions();
 	}
 
 

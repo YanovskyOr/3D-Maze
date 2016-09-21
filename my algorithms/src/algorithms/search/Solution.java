@@ -1,5 +1,6 @@
 package algorithms.search;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import java.util.List;
  * @version 1.0
  * @since 2016-08-16
  */
-public class Solution<T> {
+public class Solution<T> implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private List<State<T>> states = new ArrayList<State<T>>(); // a list of states to get from the starting state to the end or goal state.
 
 	/**

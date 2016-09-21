@@ -1,5 +1,7 @@
 package algorithms.search;
 
+import java.io.Serializable;
+
 /**
  * <h1>State</h1>
  * This is a generic class used to define a state in a searchable domain
@@ -10,8 +12,9 @@ package algorithms.search;
  * @version 1.0
  * @since 2016-08-16
  */
-public class State<T> implements Comparable<State<T>> {
+public class State<T> implements Comparable<State<T>>, Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private State<T> cameFrom; // each states knows its previous state
 	private double cost; // the cost to get to that state
 	private T value; // the actual domain state
