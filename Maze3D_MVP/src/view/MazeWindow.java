@@ -54,6 +54,48 @@ public class MazeWindow extends BasicWindow implements View {
 		Button btnSolveMaze = new Button(btnGroup, SWT.PUSH);
 		btnSolveMaze.setText("Solve maze");
 		
+		btnSolveMaze.addSelectionListener(new SelectionListener(){
+			 
+			@Override
+			 public void widgetDefaultSelected(SelectionEvent arg0) {
+			 
+			 				
+			 }
+			 
+			 @Override
+			 public void widgetSelected(SelectionEvent arg0) {
+				 Shell shell=new Shell();
+				 shell.setText("enter solving method");
+				 shell.setSize(300, 200);
+		
+				 Composite btnGroup = new Composite(shell, SWT.FILL);
+				 RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
+				 btnGroup.setLayout(rowLayout);
+				 GridLayout layout = new GridLayout(2, false);
+				 shell.setLayout(layout); 
+	
+				 Button solvebfs=  new Button(btnGroup,SWT.RADIO);
+				 Button solvedfs=  new Button(btnGroup,SWT.RADIO);
+				 solvebfs.setText("Bfs");
+				 solvedfs.setText("Dfs");
+
+				 shell.open();
+				 solvebfs.addSelectionListener(new SelectionListener(){
+
+					 @Override
+					 public void widgetDefaultSelected(SelectionEvent arg0) {
+						 // TODO Auto-generated method stub
+
+					 }
+
+					 @Override
+					 public void widgetSelected(SelectionEvent arg0) {
+						 setChanged();
+						 notifyObservers("display_message " + "Bfs selected");
+					 }
+				 });
+			 }
+		});
 	}
 	
 	
@@ -89,6 +131,12 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				if(txtName.getText().isEmpty()||txtFloors.getText().isEmpty()||txtRows.getText().isEmpty()||txtCols.getText().isEmpty()) {
+					setChanged();
+					notifyObservers("display_message " + "all fields must have a value,please enter maze name , floors,cols,rows");
+					shell.close();
+					return;
+				}
 				setChanged();
 				notifyObservers("generate_maze " + txtName.getText() + " " + txtFloors.getText() + " " + txtRows.getText() + " " + txtCols.getText());
 				shell.close();
@@ -142,8 +190,15 @@ public class MazeWindow extends BasicWindow implements View {
 
 	@Override
 	public void print(String str) {
-		// TODO Auto-generated method stub
-
+		display.syncExec(new Runnable() {
+			 		
+			 @Override
+			 public void run() {
+				MessageBox msg = new MessageBox(shell);
+			 	msg.setMessage(str);
+			 	msg.open();
+			 }
+		});
 	}
 
 	@Override
