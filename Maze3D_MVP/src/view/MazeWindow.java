@@ -1,6 +1,8 @@
 package view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -53,6 +55,22 @@ public class MazeWindow extends BasicWindow implements View {
 		Button btnSolveMaze = new Button(btnGroup, SWT.PUSH);
 		btnSolveMaze.setText("Solve maze");
 		
+		btnSolveMaze.addSelectionListener(new SelectionListener(){
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+
+				
+			}
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
 	}
 	
 	
@@ -88,6 +106,14 @@ public class MazeWindow extends BasicWindow implements View {
 			
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+				if(txtName.getText().isEmpty()||txtFloors.getText().isEmpty()||txtRows.getText().isEmpty()||txtCols.getText().isEmpty())
+				{
+			        setChanged();
+					notifyObservers("display_message " + "all fields must have a value,please enter maze name , floors ,cols,rows");
+					shell.close();
+					return;
+				}
+					
 				setChanged();
 				notifyObservers("generate_maze " + txtName.getText() + " " + txtFloors.getText() + " " + txtRows.getText() + " " + txtCols.getText());
 				shell.close();
@@ -125,22 +151,30 @@ public class MazeWindow extends BasicWindow implements View {
 	public void displayMaze(Maze3d maze) {
 		
 		Position startPos = maze.getStartPosition();
-		
-		
-		
 		int[][] mazeData = maze.getCrossSectionByZ(startPos.z);
-		
 		mazeDisplay = new MazeDisplay(shell, SWT.NONE);
-		
-		mazeDisplay.setMazeData(mazeData);
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		mazeDisplay.setMazeData(mazeData);
 		mazeDisplay.setFocus();
+			
+		}
+		
+		
 
-	}
+
 
 	@Override
 	public void print(String str) {
-		// TODO Auto-generated method stub
+display.syncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				MessageBox msg = new MessageBox(shell);
+				msg.setMessage(str);
+				msg.open();
+			}
+		});
+
 
 	}
 

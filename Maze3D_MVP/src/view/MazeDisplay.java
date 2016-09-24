@@ -17,8 +17,6 @@ public class MazeDisplay extends Canvas {
 	
 	public MazeDisplay(Shell parent, int style) {
 		super(parent, style);
-
-		
 		this.addPaintListener(new PaintListener() {
 			
 			
@@ -43,6 +41,8 @@ public class MazeDisplay extends Canvas {
 			          if(mazeData[i][j]!=0)
 			              e.gc.fillRectangle(x,y,w,h);
 			      }
+			   
+			   
 				
 			}
 		});
