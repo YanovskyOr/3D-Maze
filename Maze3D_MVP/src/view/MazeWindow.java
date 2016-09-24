@@ -130,7 +130,11 @@ public class MazeWindow extends BasicWindow implements View {
 		
 		int[][] mazeData = maze.getCrossSectionByZ(startPos.z);
 		
+		mazeDisplay = new MazeDisplay(shell, SWT.NONE);
+		
 		mazeDisplay.setMazeData(mazeData);
+		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		mazeDisplay.setFocus();
 
 	}
 
