@@ -21,6 +21,7 @@ import algorithms.search.Solution;
 public class MazeWindow extends BasicWindow implements View {
 
 	private MazeDisplay mazeDisplay;
+	
 
 	
 	@Override
@@ -100,7 +101,8 @@ public class MazeWindow extends BasicWindow implements View {
 			}
 		});
 		
-		mazeDisplay = new MazeDisplay(shell, SWT.NONE);
+		
+//		mazeDisplay = new MazeDisplay(shell, SWT.NONE);
 		shell.open();
 	}
 
@@ -126,16 +128,16 @@ public class MazeWindow extends BasicWindow implements View {
 		
 		Position startPos = maze.getStartPosition();
 		
-		
-		
 		int[][] mazeData = maze.getCrossSectionByZ(startPos.z);
 		
-		mazeDisplay = new MazeDisplay(shell, SWT.NONE);
-		
-		mazeDisplay.setMazeData(mazeData);
+		if(mazeDisplay == null)
+			mazeDisplay = new MazeDisplay(shell, SWT.NONE);
+			
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
-
+		mazeDisplay.setMazeData(mazeData);
+		mazeDisplay.requestLayout();
+		
 	}
 
 	@Override

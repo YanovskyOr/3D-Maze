@@ -16,8 +16,7 @@ public class MazeDisplay extends Canvas {
 	}
 	
 	public MazeDisplay(Shell parent, int style) {
-		super(parent, style);
-
+		super(parent, style);		
 		
 		this.addPaintListener(new PaintListener() {
 			
@@ -26,7 +25,7 @@ public class MazeDisplay extends Canvas {
 			public void paintControl(PaintEvent e) {
 				if (mazeData == null)
 					return;
-				
+			
 			   e.gc.setForeground(new Color(null,0,0,0));
 			   e.gc.setBackground(new Color(null,0,0,0));
 
@@ -46,6 +45,5 @@ public class MazeDisplay extends Canvas {
 				
 			}
 		});
-		
 	}
 }
