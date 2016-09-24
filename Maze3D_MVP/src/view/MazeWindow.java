@@ -65,7 +65,40 @@ public class MazeWindow extends BasicWindow implements View {
 
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				// TODO Auto-generated method stub
+				Shell shell=new Shell();
+				shell.setText("enter solving method");
+				shell.setSize(300, 200);
+				
+				Composite btnGroup = new Composite(shell, SWT.FILL);
+				RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
+				btnGroup.setLayout(rowLayout);
+				GridLayout layout = new GridLayout(2, false);
+				shell.setLayout(layout); 
+				
+					Button solvebfs=  new Button(btnGroup,SWT.RADIO);
+					Button solvedfs=  new Button(btnGroup,SWT.RADIO);
+					solvebfs.setText("Bfs");
+					solvedfs.setText("Dfs");
+				
+					shell.open();
+					solvebfs.addSelectionListener(new SelectionListener(){
+
+						@Override
+						public void widgetDefaultSelected(SelectionEvent arg0) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void widgetSelected(SelectionEvent arg0) {
+							 setChanged();
+								notifyObservers("display_message " + "Bfs selected");
+							
+						}
+						
+					});
+					
+
 				
 			}
 			
