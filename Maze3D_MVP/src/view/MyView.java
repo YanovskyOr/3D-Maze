@@ -17,6 +17,7 @@ public class MyView extends Observable implements View, Observer {
 	private BufferedReader in;
 	private PrintWriter out;
 	private CLI cli;
+	private MazeWindow window;
 	
 	
 

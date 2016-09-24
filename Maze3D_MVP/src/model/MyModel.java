@@ -66,7 +66,7 @@ public class MyModel extends Observable implements Model {
 						mazes.put(name, maze);
 						
 						setChanged();
-						notifyObservers("maze_ready " +name);
+						notifyObservers("maze_ready " + name);
 						return maze;
 					}
 					case "Simple":
@@ -76,7 +76,7 @@ public class MyModel extends Observable implements Model {
 						mazes.put(name, maze);
 						
 						setChanged();
-						notifyObservers("maze_ready " +name);
+						notifyObservers("maze_ready " + name);
 						return maze;
 					}
 					default:
@@ -86,7 +86,7 @@ public class MyModel extends Observable implements Model {
 						mazes.put(name, maze);
 						
 						setChanged();
-						notifyObservers("maze_ready " +name);
+						notifyObservers("maze_ready " + name);
 						return maze;
 				}
 			}
