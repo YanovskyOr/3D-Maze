@@ -109,7 +109,7 @@ public class MazeWindow extends BasicWindow implements View {
 				if(txtName.getText().isEmpty()||txtFloors.getText().isEmpty()||txtRows.getText().isEmpty()||txtCols.getText().isEmpty())
 				{
 			        setChanged();
-					notifyObservers("display_message " + "all fields must have a value,please enter maze name , floors ,cols,rows");
+					notifyObservers("display_message " + "all fields must have a value,please enter maze name , floors,cols,rows");
 					shell.close();
 					return;
 				}
