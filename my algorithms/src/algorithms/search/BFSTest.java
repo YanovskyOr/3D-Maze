@@ -63,7 +63,7 @@ public class BFSTest {
 		
 		GrowingTreeGenerator generator = new GrowingTreeGenerator(); // create a growing tree generator
 		generator.setGrowingTreeAlgorithm(new RandomCellChooser()); // set the random cell choosing method for the growing tree
-		Maze3d randomCellChooserMaze = generator.generate(300, 300, 300);
+		Maze3d randomCellChooserMaze = generator.generate(100, 100, 100);
 		
 		Searchable<Position> seachableMaze = new Maze3dDomain(randomCellChooserMaze);
 		

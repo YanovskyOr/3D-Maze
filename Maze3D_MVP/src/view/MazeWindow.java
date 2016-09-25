@@ -44,7 +44,7 @@ public class MazeWindow extends BasicWindow implements View {
 		
 		Composite btnGroup = new Composite(shell, SWT.BORDER);
 		
-		RowLayout btnRowLayout = new RowLayout(SWT.VERTICAL | SWT.RIGHT);
+		RowLayout btnRowLayout = new RowLayout(SWT.VERTICAL);
 		
 		btnGroup.setLayout(btnRowLayout);
 		

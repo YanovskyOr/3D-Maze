@@ -68,7 +68,7 @@ public class MazeDisplay extends Canvas {
 		    public void mouseScrolled(MouseEvent g) {
 		        if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
 		        	if(g.count > 0){
-                        System.out.println("up");
+                        
                         int width = getSize().x;
                         int height = getSize().y;
 
@@ -101,6 +101,7 @@ public class MazeDisplay extends Canvas {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					switch (e.keyCode) {
+					
 					case SWT.ARROW_RIGHT:
 						character.moveRight();
 						redraw();
