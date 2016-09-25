@@ -3,12 +3,15 @@ package view;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -26,12 +29,26 @@ public class MazeWindow extends BasicWindow implements View {
 	
 	@Override
 	protected void initWidgets() {
-		GridLayout gridLayout = new GridLayout(2, false);
-		shell.setLayout(gridLayout);				
+		
+		final Image small = new Image(shell.getDisplay(),"images/icon_16.png");
+		final Image large = new Image(shell.getDisplay(),"images/icon_32.png");
+		final Image[] images = new Image[] { small, large };
+		shell.setImages(images);
+		shell.setSize(800, 600);
+		
+	    shell.setLocation(shell.getDisplay().getBounds().width / 2 - 400, shell.getDisplay().getBounds().height / 2 - 300);
+
+		GridLayout gridLayout = new GridLayout(3, false);
+		
+		shell.setLayout(gridLayout);
 		
 		Composite btnGroup = new Composite(shell, SWT.BORDER);
-		RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
-		btnGroup.setLayout(rowLayout);
+		
+		RowLayout btnRowLayout = new RowLayout(SWT.VERTICAL | SWT.RIGHT);
+		
+		btnGroup.setLayout(btnRowLayout);
+		
+		btnGroup.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1));
 		
 		Button btnGenerateMaze = new Button(btnGroup, SWT.PUSH);
 		btnGenerateMaze.setText("Generate maze");	
@@ -65,8 +82,17 @@ public class MazeWindow extends BasicWindow implements View {
 			 @Override
 			 public void widgetSelected(SelectionEvent arg0) {
 				 Shell shell=new Shell();
-				 shell.setText("enter solving method");
-				 shell.setSize(300, 200);
+				 shell.setText("Choose solving method");
+				 shell.setSize(400, 200);
+
+			     shell.setLocation(shell.getDisplay().getBounds().width / 2 - 200, shell.getDisplay().getBounds().height / 2 - 100);
+
+			    
+				 
+				 final Image small = new Image(shell.getDisplay(),"images/icon_16.png");
+				 final Image large = new Image(shell.getDisplay(),"images/icon_32.png");
+				 final Image[] images = new Image[] { small, large };
+				 shell.setImages(images);
 		
 				 Composite btnGroup = new Composite(shell, SWT.FILL);
 				 RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
@@ -96,7 +122,73 @@ public class MazeWindow extends BasicWindow implements View {
 				 });
 			 }
 		});
+		
+		  Menu menuBar, fileMenu;
+		  MenuItem fileMenuHeader;
+		  MenuItem fileExitItem, fileSaveItem, fileLoadItem;
+		  
+		  Label label;
+		  label = new Label(shell, SWT.CENTER);
+		  label.setBounds(shell.getClientArea());
+		  menuBar = new Menu(shell, SWT.BAR);
+		    fileMenuHeader = new MenuItem(menuBar, SWT.CASCADE);
+		    fileMenuHeader.setText("&File");
+
+		    fileMenu = new Menu(shell, SWT.DROP_DOWN);
+		    fileMenuHeader.setMenu(fileMenu);
+
+		    fileSaveItem = new MenuItem(fileMenu, SWT.PUSH);
+		    fileSaveItem.setText("&Save Maze");
+		    
+		    fileLoadItem = new MenuItem(fileMenu, SWT.PUSH);
+		    fileLoadItem.setText("&Load Maze");
+		    
+		    fileExitItem = new MenuItem(fileMenu, SWT.PUSH);
+		    fileExitItem.setText("&Exit");
+		    
+		    fileExitItem.addSelectionListener(new SelectionListener(){
+		    	
+		    	public void widgetSelected(SelectionEvent event) {
+			         shell.close();
+			         display.dispose();
+			    }
+
+				
+				public void widgetDefaultSelected(SelectionEvent arg0) {
+					// TODO Auto-generated method stub
+						
+				}
+		    });
+		    
+		    
+		    fileSaveItem.addSelectionListener(new SelectionListener(){
+		    	
+		        public void widgetSelected(SelectionEvent event) {
+			          label.setText("Saved");
+			        }
+
+			        public void widgetDefaultSelected(SelectionEvent event) {
+			          label.setText("Saved");
+			        }
+		    });
+		    
+		    fileSaveItem.addSelectionListener(new SelectionListener(){
+		        public void widgetSelected(SelectionEvent event) {
+			          label.setText("Loaded");
+			        }
+
+			        public void widgetDefaultSelected(SelectionEvent event) {
+			          label.setText("Loaded");
+			        }
+		    });
+		    
+		    shell.setMenuBar(menuBar);
+
+
+		        
 	}
+  
+	
 	
 	
 	protected void showGenerateMazeOptions() {
@@ -104,8 +196,14 @@ public class MazeWindow extends BasicWindow implements View {
 		shell.setText("Generate Maze");
 		shell.setSize(300, 200);
 		
+		shell.setLocation(shell.getDisplay().getBounds().width / 2 - 150, shell.getDisplay().getBounds().height / 2 - 100);
 		GridLayout layout = new GridLayout(2, false);
 		shell.setLayout(layout);
+		
+		final Image small = new Image(shell.getDisplay(),"images/icon_16.png");
+		final Image large = new Image(shell.getDisplay(),"images/icon_32.png");
+		final Image[] images = new Image[] { small, large };
+		shell.setImages(images);
 	
 		
 		Label lblName = new Label(shell, SWT.NONE);
