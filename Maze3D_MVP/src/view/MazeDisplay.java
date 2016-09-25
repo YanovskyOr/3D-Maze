@@ -125,6 +125,7 @@ public class MazeDisplay extends Canvas {
 						if(character.getPos().x > 0 )
 							//&& mazeData[character.getPos().y][character.getPos().x] != 1
 						{
+							System.out.println("nowall and inbound-lefttttt");
 							character.moveLeft();
 							redraw();
 							break;
