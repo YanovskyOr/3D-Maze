@@ -55,8 +55,9 @@ public class MazeDisplay extends Canvas {
 			              e.gc.fillRectangle(x,y,w,h);
 			      }
 			   
-			   if(character == null)
+			   if(character==null)
 			   {
+				   System.out.println("test");
 				   character = new Character();
 					character.setPos(startPos);   
 			   }
@@ -106,8 +107,10 @@ public class MazeDisplay extends Canvas {
 					switch (e.keyCode) {
 					
 					case SWT.ARROW_RIGHT: {
-						if(character.getPos().y < mazeData.length-1 && mazeData[(character.getPos().y)+1][(character.getPos().x)] == 0){
+						if(character.getPos().x < mazeData[0].length-1 && mazeData[(character.getPos().x)+1][character.getPos().y]==0){
+							//---// && mazeData[(character.getPos().y)+1][(character.getPos().x)] == 0
 							//&& mazeData[(character.getPos().y)][(character.getPos().x)+1] == 0
+							System.out.println("nowall and inbound");
 							character.moveRight();
 							redraw();
 							break;
@@ -119,7 +122,7 @@ public class MazeDisplay extends Canvas {
 
 					
 					case SWT.ARROW_LEFT: {
-						if(character.getPos().y > 0 )
+						if(character.getPos().x > 0 )
 							//&& mazeData[character.getPos().y][character.getPos().x] != 1
 						{
 							character.moveLeft();
@@ -132,7 +135,7 @@ public class MazeDisplay extends Canvas {
 					
 					
 					case SWT.ARROW_UP:
-						if(character.getPos().x > 0 )
+						if(character.getPos().y > 0 )
 						{
 							character.moveForward();
 							redraw();
@@ -142,7 +145,7 @@ public class MazeDisplay extends Canvas {
 							break;
 						
 					case SWT.ARROW_DOWN:
-						if(character.getPos().y <  mazeData[0].length-1) {
+						if(character.getPos().y <  mazeData.length-1) {
 							character.moveBack();
 							redraw();
 							break;	

@@ -291,9 +291,9 @@ public class Maze3d implements Serializable {
 		if(i < 0 || i > getFloors())
 			throw new IndexOutOfBoundsException("Index Must be in range");
 		int[][] crossSec = new int[getRows()][getCols()];
-		for(int y = 0; y < getRows(); y++)
-			for(int x = 0; x < getCols(); x++)
-				crossSec[y][x] = maze[i][y][x];
+		for(int x = 0; x < getRows(); x++)
+			for(int y = 0; y < getCols(); y++)
+				crossSec[x][y] = maze[i][x][y];
 		return crossSec;
 	}
 	
