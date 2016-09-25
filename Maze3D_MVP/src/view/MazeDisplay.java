@@ -1,5 +1,8 @@
 package view;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
@@ -46,6 +49,34 @@ public class MazeDisplay extends Canvas {
 			   
 				
 			}
+		});
+		
+		this.addMouseWheelListener(new MouseWheelListener() {
+
+		    @Override
+		    public void mouseScrolled(MouseEvent g) {
+		        if((g.stateMask & SWT.CONTROL) == SWT.CONTROL) {
+		        	if(g.count > 0){
+                        System.out.println("up");
+                        int width = getSize().x;
+                        int height = getSize().y;
+
+                        setSize((int)(width * 1.05), (int)(height * 1.05));
+                        redraw();
+
+                    }
+                    else {
+                        
+
+                        int width = getSize().x;
+                        int height = getSize().y;
+
+                        setSize((int)(width * 0.95), (int)(height * 0.95));
+                        redraw();
+                        }
+		        }
+		    }
+
 		});
 	}
 }
