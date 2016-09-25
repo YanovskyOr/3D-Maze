@@ -22,23 +22,23 @@ public class Character {
 	}
 	
 	public void draw(int cellWidth, int cellHeight, GC gc) {
-		gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.y, cellHeight * pos.x, cellWidth, cellHeight);
+		gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
 	}
 	
 	public void moveRight() {
-		pos.y++;
+		pos.x++;
 	}
 	
 	public void moveLeft() {
-		pos.y--;
-	}
-	
-	public void moveForward() {
 		pos.x--;
 	}
 	
+	public void moveForward() {
+		pos.y--;
+	}
+	
 	public void moveBack() {
-		pos.x++;
+		pos.y++;
 	}
 	
 	public void moveUp() {

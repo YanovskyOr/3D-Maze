@@ -55,8 +55,11 @@ public class MazeDisplay extends Canvas {
 			              e.gc.fillRectangle(x,y,w,h);
 			      }
 			   
-			   character = new Character();
-				character.setPos(startPos);
+			   if(character == null)
+			   {
+				   character = new Character();
+					character.setPos(startPos);   
+			   }
 			  character.draw(w, h, e.gc);
 				
 			}
