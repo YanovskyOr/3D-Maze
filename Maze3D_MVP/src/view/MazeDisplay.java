@@ -27,8 +27,8 @@ public class MazeDisplay extends Canvas {
 					return;
 			
 			   e.gc.setForeground(new Color(null,0,0,0));
-			   e.gc.setBackground(new Color(null,0,0,0));
-
+			   e.gc.setBackground(new Color(null,96,31,31));
+			   
 			   int width=getSize().x;
 			   int height=getSize().y;
 
