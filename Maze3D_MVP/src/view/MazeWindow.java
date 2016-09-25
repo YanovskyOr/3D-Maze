@@ -149,6 +149,7 @@ public class MazeWindow extends BasicWindow implements View {
 		    fileExitItem.addSelectionListener(new SelectionListener(){
 		    	
 		    	public void widgetSelected(SelectionEvent event) {
+		    		 notifyObservers("exit ");
 			         shell.close();
 			         display.dispose();
 			    }
@@ -204,7 +205,7 @@ public class MazeWindow extends BasicWindow implements View {
 		final Image large = new Image(shell.getDisplay(),"images/icon_32.png");
 		final Image[] images = new Image[] { small, large };
 		shell.setImages(images);
-	
+		
 		
 		Label lblName = new Label(shell, SWT.NONE);
 		lblName.setText("Name: ");
@@ -281,7 +282,7 @@ public class MazeWindow extends BasicWindow implements View {
 			
 		mazeDisplay.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		mazeDisplay.setFocus();
-		mazeDisplay.setMazeData(mazeData);
+		mazeDisplay.setMazeData(mazeData, startPos);
 		mazeDisplay.requestLayout();
 		
 	}

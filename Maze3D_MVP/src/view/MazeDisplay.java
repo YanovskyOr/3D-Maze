@@ -1,6 +1,8 @@
 package view;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.PaintEvent;
@@ -9,17 +11,24 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Shell;
 
+import algorithms.mazeGenerators.Position;
+
 public class MazeDisplay extends Canvas {
 	
 	private int[][] mazeData;
+	private Character character;
+	Position startPos;
 	
-	public void setMazeData(int[][] mazeData) {
+	public void setMazeData(int[][] mazeData, Position startPos) {
 		this.mazeData = mazeData;
+		this.startPos = startPos;
 		this.redraw();
 	}
 	
 	public MazeDisplay(Shell parent, int style) {
 		super(parent, style);		
+		
+		
 
 		this.addPaintListener(new PaintListener() {
 			
@@ -46,7 +55,9 @@ public class MazeDisplay extends Canvas {
 			              e.gc.fillRectangle(x,y,w,h);
 			      }
 			   
-			   
+			   character = new Character();
+				character.setPos(startPos);
+			  character.draw(w, h, e.gc);
 				
 			}
 		});
@@ -78,5 +89,52 @@ public class MazeDisplay extends Canvas {
 		    }
 
 		});
+		
+		this.addKeyListener(new KeyListener() {
+					
+				@Override
+				public void keyReleased(KeyEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void keyPressed(KeyEvent e) {
+					switch (e.keyCode) {
+					case SWT.ARROW_RIGHT:
+						character.moveRight();
+						redraw();
+						break;
+					
+					case SWT.ARROW_LEFT:
+					{
+						if(character.getPos().y > 0 && mazeData[character.getPos().y][character.getPos().x-1] != 1)
+						{
+							character.moveLeft();
+							redraw();
+							break;
+						}
+						else
+							break;
+					}
+					case SWT.ARROW_UP:
+						character.moveForward();
+						redraw();
+						break;
+					case SWT.ARROW_DOWN:
+						character.moveBack();
+						redraw();
+						break;
+					case SWT.PAGE_UP:
+						character.moveUp();;
+						redraw();
+						break;			
+					case SWT.PAGE_DOWN:
+						character.moveDown();;
+						redraw();
+						break;
+					}
+				}
+			});
 	}
 }
