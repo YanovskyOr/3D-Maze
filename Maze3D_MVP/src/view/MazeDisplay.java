@@ -102,14 +102,22 @@ public class MazeDisplay extends Canvas {
 				public void keyPressed(KeyEvent e) {
 					switch (e.keyCode) {
 					
-					case SWT.ARROW_RIGHT:
-						character.moveRight();
-						redraw();
-						break;
+					case SWT.ARROW_RIGHT: {
+						if(character.getPos().y < mazeData.length-1 && mazeData[(character.getPos().y)+1][(character.getPos().x)] == 0){
+							//&& mazeData[(character.getPos().y)][(character.getPos().x)+1] == 0
+							character.moveRight();
+							redraw();
+							break;
+						}
+						else
+							break;
+
+					}
+
 					
-					case SWT.ARROW_LEFT:
-					{
-						if(character.getPos().y > 0 && mazeData[character.getPos().y][character.getPos().x-1] != 1)
+					case SWT.ARROW_LEFT: {
+						if(character.getPos().y > 0 )
+							//&& mazeData[character.getPos().y][character.getPos().x] != 1
 						{
 							character.moveLeft();
 							redraw();
@@ -118,20 +126,33 @@ public class MazeDisplay extends Canvas {
 						else
 							break;
 					}
+					
+					
 					case SWT.ARROW_UP:
-						character.moveForward();
-						redraw();
-						break;
+						if(character.getPos().x > 0 )
+						{
+							character.moveForward();
+							redraw();
+							break;
+						}
+						else
+							break;
+						
 					case SWT.ARROW_DOWN:
-						character.moveBack();
-						redraw();
-						break;
+						if(character.getPos().y <  mazeData[0].length-1) {
+							character.moveBack();
+							redraw();
+							break;	
+						}
+						else
+							break;
+						
 					case SWT.PAGE_UP:
-						character.moveUp();;
+						character.moveUp();
 						redraw();
 						break;			
 					case SWT.PAGE_DOWN:
-						character.moveDown();;
+						character.moveDown();
 						redraw();
 						break;
 					}
