@@ -11,17 +11,28 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Shell;
 
+import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
 public class MazeDisplay extends Canvas {
 	
 	private int[][] mazeData;
 	private Character character;
+	private Goal goal;
 	Position startPos;
+	Maze3d maze;
 	
-	public void setMazeData(int[][] mazeData, Position startPos) {
-		this.mazeData = mazeData;
-		this.startPos = startPos;
+	
+	
+	
+	public void setMaze(Maze3d maze) {
+		this.maze = maze;
+		setCrossSection(maze.getStartPosition().z);
+	}
+	
+	private void setCrossSection(int index){
+		
+		mazeData = maze.getCrossSectionByZ(index);
 		this.redraw();
 	}
 	
@@ -59,9 +70,15 @@ public class MazeDisplay extends Canvas {
 			   {
 				   
 				   character = new Character();
-					character.setPos(startPos);   
+					character.setPos(maze.getStartPosition());  
+					goal=new Goal();
+					goal.setPos(maze.getGoalPosition());
+					
+					
 			   }
 			  character.draw(w, h, e.gc);
+			  goal.draw(w, h, e.gc);
+			  
 				
 			}
 		});
@@ -149,15 +166,29 @@ public class MazeDisplay extends Canvas {
 		        else
 		          break;
 		        
-		      case SWT.PAGE_UP:
-		        character.moveUp();
-		        redraw();
-		        break;			
-		      case SWT.PAGE_DOWN:
-		        character.moveDown();
-		        redraw();
-		        break;
+		      case SWT.PAGE_UP: {
+		    	  if(character.getPos().z + 1 < maze.getFloors()) {
+		    		 setCrossSection(character.getPos().z + 1);
+			         character.moveUp();
+			     
+			       // redraw();
+			        break;	
+			      }
+		    	  else
+		    		  break;
 		      }
+		      
+		      case SWT.PAGE_DOWN:{
+		    	 if(character.getPos().z - 1 > 0 ){
+		         setCrossSection(character.getPos().z - 1);
+		        character.moveDown();
+		       // redraw();
+		        break;
+		    	 }
+		    	 else
+		    		 break;
+		      }
+		  }
 		    }
 		  });
 		}
