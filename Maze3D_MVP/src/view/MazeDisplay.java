@@ -57,7 +57,7 @@ public class MazeDisplay extends Canvas {
 			   
 			   if(character==null)
 			   {
-				   System.out.println("test");
+				   
 				   character = new Character();
 					character.setPos(startPos);   
 			   }
@@ -95,75 +95,70 @@ public class MazeDisplay extends Canvas {
 		});
 		
 		this.addKeyListener(new KeyListener() {
-					
-				@Override
-				public void keyReleased(KeyEvent arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void keyPressed(KeyEvent e) {
-					switch (e.keyCode) {
-					
-					case SWT.ARROW_RIGHT: {
-						if(character.getPos().x < mazeData[0].length-1 && mazeData[(character.getPos().x)+1][character.getPos().y]==0){
-							//---// && mazeData[(character.getPos().y)+1][(character.getPos().x)] == 0
-							//&& mazeData[(character.getPos().y)][(character.getPos().x)+1] == 0
-							System.out.println("nowall and inbound");
-							character.moveRight();
-							redraw();
-							break;
-						}
-						else
-							break;
-
-					}
-
-					
-					case SWT.ARROW_LEFT: {
-						if(character.getPos().x > 0 )
-							//&& mazeData[character.getPos().y][character.getPos().x] != 1
-						{
-							System.out.println("nowall and inbound-lefttttt");
-							character.moveLeft();
-							redraw();
-							break;
-						}
-						else
-							break;
-					}
-					
-					
-					case SWT.ARROW_UP:
-						if(character.getPos().y > 0 )
-						{
-							character.moveForward();
-							redraw();
-							break;
-						}
-						else
-							break;
-						
-					case SWT.ARROW_DOWN:
-						if(character.getPos().y <  mazeData.length-1) {
-							character.moveBack();
-							redraw();
-							break;	
-						}
-						else
-							break;
-						
-					case SWT.PAGE_UP:
-						character.moveUp();
-						redraw();
-						break;			
-					case SWT.PAGE_DOWN:
-						character.moveDown();
-						redraw();
-						break;
-					}
-				}
-			});
+		      
+		    @Override
+		    public void keyReleased(KeyEvent arg0) {
+		      // TODO Auto-generated method stub
+		  
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent e) {
+		  switch (e.keyCode) {
+		  
+		  case SWT.ARROW_RIGHT: {
+		    if(character.getPos().x < mazeData[0].length-1 && mazeData[(character.getPos().y)][(character.getPos().x)+1] == 0){
+		      character.moveRight();
+		      redraw();
+		      break;
+		    }
+		    else
+		      break;
+		
+		  }
+		
+		  
+		  case SWT.ARROW_LEFT: {
+		    if(character.getPos().x > 0 && mazeData[(character.getPos().y)][(character.getPos().x)-1] == 0)
+		        {
+		          character.moveLeft();
+		          redraw();
+		          break;
+		        }
+		        else
+		          break;
+		      }
+		      
+		      
+		      case SWT.ARROW_UP:
+		        if(character.getPos().y > 0 && mazeData[(character.getPos().y-1)][(character.getPos().x)] == 0)
+		        {
+		          character.moveForward();
+		          redraw();
+		          break;
+		        }
+		        else
+		          break;
+		        
+		      case SWT.ARROW_DOWN:
+		        if(character.getPos().y <  mazeData.length-1 && mazeData[(character.getPos().y+1)][(character.getPos().x)] == 0) {
+		          character.moveBack();
+		          redraw();
+		          break;	
+		        }
+		        else
+		          break;
+		        
+		      case SWT.PAGE_UP:
+		        character.moveUp();
+		        redraw();
+		        break;			
+		      case SWT.PAGE_DOWN:
+		        character.moveDown();
+		        redraw();
+		        break;
+		      }
+		    }
+		  });
+		}
 	}
-}
