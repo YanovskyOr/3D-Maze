@@ -76,10 +76,17 @@ public class MazeDisplay extends Canvas {
 					
 					
 			   }
-			  character.draw(w, h, e.gc);
-			  goal.draw(w, h, e.gc);
-			  
-				
+			   if (character.getPos().x == goal.getPos().x && character.getPos().y == goal.getPos().y && character.getPos().z == goal.getPos().z) {
+				   character.setFinished(true);
+				   character.draw(w, h, e.gc);
+			   }
+			   else
+				   character.setFinished(false);
+				   character.draw(w, h, e.gc);
+			   
+			  if(character.getPos().z == maze.getGoalPosition().z)
+				  goal.draw(w, h, e.gc);
+			  //else if character position is goal dont drow the toilet
 			}
 		});
 		
@@ -179,7 +186,7 @@ public class MazeDisplay extends Canvas {
 		      }
 		      
 		      case SWT.PAGE_DOWN:{
-		    	 if(character.getPos().z - 1 > 0 ){
+		    	 if(character.getPos().z - 1 >= 0 ){
 		         setCrossSection(character.getPos().z - 1);
 		        character.moveDown();
 		       // redraw();

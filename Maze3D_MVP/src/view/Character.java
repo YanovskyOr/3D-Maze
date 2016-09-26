@@ -8,6 +8,8 @@ import algorithms.mazeGenerators.Position;
 public class Character {
 	private Position pos;
 	private Image img;
+	private Image imgFinished;
+	private Boolean finished = false;
 	
 	public Character() {
 		img = new Image(null, "images/character.png");
@@ -22,7 +24,11 @@ public class Character {
 	}
 	
 	public void draw(int cellWidth, int cellHeight, GC gc) {
-		gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
+		if(finished == false)
+			gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
+		else
+			gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
+			//gc.drawImage(imgFinished, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
 	}
 	
 	public void moveRight() {
@@ -47,5 +53,14 @@ public class Character {
 	
 	public void moveDown() {
 		pos.z--;
+	}
+
+	public void setFinished(Boolean bool) {
+		finished = bool;
+		if(finished == true)
+			img = new Image(null, "images/characterFinished.png");
+		else
+			img = new Image(null, "images/character.png");
+
 	}
 }
