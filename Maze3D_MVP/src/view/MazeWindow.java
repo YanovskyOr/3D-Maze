@@ -18,12 +18,14 @@ import org.eclipse.swt.widgets.Text;
 
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
+import algorithms.search.BFS;
 import algorithms.search.Solution;
 
 
 public class MazeWindow extends BasicWindow implements View {
 
 	private MazeDisplay mazeDisplay;
+	BFS bfs;
 	
 
 	
@@ -121,6 +123,25 @@ public class MazeWindow extends BasicWindow implements View {
 					 }
 				 });
 			 }
+		});
+		
+		Button btnHint = new Button(btnGroup, SWT.PUSH);
+		btnHint.setText("Hint");
+		
+		btnHint.addSelectionListener(new SelectionListener(){
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+			}
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				mazeDisplay.getMaze().setStartPosition(mazeDisplay.getCharacter().getPos());
+			//saveName in mazeDisplay	notifyObservers("solve " + "name"  +"bfs");
+				
+				
+			}
+		
 		});
 		
 		  Menu menuBar, fileMenu;

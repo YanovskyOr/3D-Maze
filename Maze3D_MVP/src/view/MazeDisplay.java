@@ -192,4 +192,16 @@ public class MazeDisplay extends Canvas {
 		    }
 		  });
 		}
+
+	public Maze3d getMaze() {
+		return maze;
+	}
+
+	public Character getCharacter() {
+		return character;
+	}
+
+	public void setCharacter(Character character) {
+		this.character = character;
+	}
 	}
