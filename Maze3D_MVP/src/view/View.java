@@ -3,6 +3,7 @@ package view;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import algorithms.search.State;
 
 public interface View {
 	void notifyMazeIsReady(String name);
@@ -11,4 +12,5 @@ public interface View {
 	void printCrossSection(Maze3d maze, int[][] crossSec, int axis1, int axis2);
 	void printSolution(Solution<Position> mazeSolution);
 	void start();
+	void displayHint(State<Position> state);
 }

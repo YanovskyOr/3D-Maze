@@ -20,12 +20,14 @@ import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.BFS;
 import algorithms.search.Solution;
+import algorithms.search.State;
 
 
 public class MazeWindow extends BasicWindow implements View {
 
 	private MazeDisplay mazeDisplay;
-	BFS bfs;
+	String mazeName;
+	
 	
 
 	
@@ -134,10 +136,16 @@ public class MazeWindow extends BasicWindow implements View {
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 
+			//TODO:FIXTHISS
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
+			
 				mazeDisplay.getMaze().setStartPosition(mazeDisplay.getCharacter().getPos());
-			//saveName in mazeDisplay	notifyObservers("solve " + "name"  +"bfs");
+				setChanged();
+		    	notifyObservers("solve " + mazeName  + " bfs");
+		    	setChanged();
+		    	notifyObservers("display_hint " + mazeName);
+		    	
 				
 				
 			}
@@ -257,8 +265,9 @@ public class MazeWindow extends BasicWindow implements View {
 					shell.close();
 					return;
 				}
+				mazeName=txtName.getText();
 				setChanged();
-				notifyObservers("generate_maze " + txtName.getText() + " " + txtFloors.getText() + " " + txtRows.getText() + " " + txtCols.getText());
+				notifyObservers("generate_maze " + mazeName + " " + txtFloors.getText() + " " + txtRows.getText() + " " + txtCols.getText());
 				shell.close();
 			}
 			
@@ -334,6 +343,18 @@ public class MazeWindow extends BasicWindow implements View {
 	public void start() {
 		run();
 	}
+
+	@Override
+	public void displayHint(State<Position> state) {
+		//System.out.println("success test");
+		
+				
+		mazeDisplay.hint.setPos(state.getValue());
+		mazeDisplay.setHint();
+	}
+
+
+
 
 
 

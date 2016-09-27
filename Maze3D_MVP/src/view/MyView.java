@@ -80,4 +80,12 @@ public class MyView extends Observable implements View, Observer {
 		 }
 	}
 
+	@Override
+	public void displayHint(State<Position> state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
 }

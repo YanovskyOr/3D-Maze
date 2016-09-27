@@ -1,5 +1,6 @@
 package presenter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -38,6 +39,7 @@ public class CommandsManager {
 		commands.put("load_maze", new LoadMazeCommand());
 		commands.put("maze_loaded", new MazeLoadedCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
+		commands.put("display_hint", new DisplayHintCommand());
 		commands.put("solution_ready", new SolutionReadyCommand());
 		commands.put("display_message", new DisplayMessageCommand());
 		commands.put("dir", new DirCommand());
@@ -217,6 +219,28 @@ public class CommandsManager {
 				view.print("error displaying sollution,  try the command again , enter maze name  after command");
 		}
 
+	}
+	
+	public class DisplayHintCommand implements Command{
+
+		@Override
+		public void doCommand(String[] args) {
+			if(args.length==1){
+				String name = args[0];
+			if(model.getMaze(name)!=null)
+				//view.print("success test");
+				//if(model.getSolution(name)==null)
+				//view.print("success test");	
+				view.displayHint(model.getSolution(name).getStates().get(0));
+			
+			else 
+				view.print("maze does not exist , please create maze");
+			}
+			else
+				view.print("error displaying hint");
+			
+		}
+		
 	}
 	
 	

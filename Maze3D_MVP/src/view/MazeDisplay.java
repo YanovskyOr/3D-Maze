@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Arrays;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -19,6 +21,7 @@ public class MazeDisplay extends Canvas {
 	private int[][] mazeData;
 	private Character character;
 	private Goal goal;
+	protected Hint hint=new Hint();
 	Position startPos;
 	Maze3d maze;
 	
@@ -73,12 +76,14 @@ public class MazeDisplay extends Canvas {
 					character.setPos(maze.getStartPosition());  
 					goal=new Goal();
 					goal.setPos(maze.getGoalPosition());
-					
-					
+					if (hint.getShow() ==  true) 
+						hint.draw(w, h, e.gc);
+
 			   }
 			   if (character.getPos().x == goal.getPos().x && character.getPos().y == goal.getPos().y && character.getPos().z == goal.getPos().z) {
 				   character.setFinished(true);
 				   character.draw(w, h, e.gc);
+				   
 			   }
 			   else
 				   character.setFinished(false);
@@ -171,7 +176,7 @@ public class MazeDisplay extends Canvas {
 						break;
 		        
 				case SWT.PAGE_UP: {
-					if (character.getPos().z + 1 < maze.getFloors()) {
+					if (character.getPos().z + 1 < maze.getFloors() && Arrays.asList(maze.getPossibleMoves(character.getPos())).contains((("(" + (character.getPos().z+1)) + "," + character.getPos().y + "," + character.getPos().x + ")").toString())) {
 						setCrossSection(character.getPos().z + 1);
 						character.moveUp();
 
@@ -182,7 +187,7 @@ public class MazeDisplay extends Canvas {
 				}
 		      
 				case SWT.PAGE_DOWN: {
-					if (character.getPos().z - 1 >= 0) {
+					if (character.getPos().z - 1 >= 0 && Arrays.asList(maze.getPossibleMoves(character.getPos())).contains((("(" + (character.getPos().z-1)) + "," + character.getPos().y + "," + character.getPos().x + ")").toString())) {
 						setCrossSection(character.getPos().z - 1);
 						character.moveDown();
 						// redraw();
@@ -205,5 +210,14 @@ public class MazeDisplay extends Canvas {
 
 	public void setCharacter(Character character) {
 		this.character = character;
+	}
+
+	public Hint getHint() {
+		return hint;
+	}
+
+	public void setHint() {
+		this.hint.setShow(true);
+	
 	}
 }
