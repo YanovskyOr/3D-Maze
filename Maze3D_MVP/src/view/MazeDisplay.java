@@ -84,9 +84,9 @@ public class MazeDisplay extends Canvas {
 				   character.setFinished(false);
 				   character.draw(w, h, e.gc);
 			   
-			  if(character.getPos().z == maze.getGoalPosition().z)
+			  if(character.getPos().z == maze.getGoalPosition().z && !(character.getPos().x == goal.getPos().x && character.getPos().y == goal.getPos().y && character.getPos().z == goal.getPos().z))
 				  goal.draw(w, h, e.gc);
-			  //else if character position is goal dont drow the toilet
+
 			}
 		});
 		
