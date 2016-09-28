@@ -3,9 +3,12 @@ package presenter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Observer;
 
 import algorithms.mazeGenerators.Maze3d;
 import model.Model;
+import model.MyModel;
+import view.MazeWindow;
 import view.View;
 
 /**
@@ -21,6 +24,7 @@ public class CommandsManager {
 	
 	private Model model;
 	private View view;
+	private Boolean isSolutionReady = false;
 		
 	public CommandsManager(Model model, View view) {
 		this.model = model;
@@ -39,7 +43,7 @@ public class CommandsManager {
 		commands.put("load_maze", new LoadMazeCommand());
 		commands.put("maze_loaded", new MazeLoadedCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
-		commands.put("display_hint", new DisplayHintCommand());
+		commands.put("give_hint", new GiveHintCommand());
 		commands.put("solution_ready", new SolutionReadyCommand());
 		commands.put("display_message", new DisplayMessageCommand());
 		commands.put("dir", new DirCommand());
@@ -131,9 +135,11 @@ public class CommandsManager {
 			if(args.length==2){
 				String name = args[0];
 				String algorithm = args[1];
-				if(model.getMaze(name)!=null)
+				if(model.getMaze(name)!=null){
+					model.clearSolution(name);
 					model.solveMaze(name,algorithm);
-				else 
+				}
+				else
 					view.print(" maze name does not exist");
 			}
 			else 
@@ -221,26 +227,30 @@ public class CommandsManager {
 
 	}
 	
-	public class DisplayHintCommand implements Command{
+	public class GiveHintCommand implements Command{
 
 		@Override
 		public void doCommand(String[] args) {
-			if(args.length==1){
-				String name = args[0];
-			if(model.getMaze(name)!=null)
-				//view.print("success test");
-				//if(model.getSolution(name)==null)
-				//view.print("success test");	
-				view.displayHint(model.getSolution(name).getStates().get(0));
-			
-			else 
-				view.print("maze does not exist , please create maze");
+			if(args.length==3){
+				String position = args[0];
+				String name = args[1];
+				String algorithm = args[2];
+				
+
+				model.solveForHint(position, name, algorithm);
+				
+				while(isSolutionReady == false) {			
+						System.out.println("waiting");
+						continue;
+
+				}
+				
+				view.displayHint(model.getSolution(name).getStates().get(1).getValue());
+				isSolutionReady = false;
+				
 			}
-			else
-				view.print("error displaying hint");
-			
+
 		}
-		
 	}
 	
 	
@@ -251,6 +261,9 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			String name = args[0];
 			String toPrint = "solution for " + name + " is ready";
+			isSolutionReady = true;
+			
+			
 			view.print(toPrint);
 			
 		}

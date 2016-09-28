@@ -7,11 +7,11 @@ import algorithms.mazeGenerators.Position;
 
 public class Hint {
 	private Position pos;
-	private Image img;
+	private Image hintImg;
 	private Boolean show = false;
 	
 	public Hint() {
-		img = new Image(null, "images/peace.png");
+		hintImg = new Image(null, "images/peace.png");
 	}
 
 	public Position getPos() {
@@ -24,7 +24,8 @@ public class Hint {
 	
 	public void draw(int cellWidth, int cellHeight, GC gc) {
 		if (show == true)
-			gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
+			gc.drawImage(hintImg, 0, 0, hintImg.getBounds().width, hintImg.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
+			
 	}
 	
 	public void setShow(Boolean val) {

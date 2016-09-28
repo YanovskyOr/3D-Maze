@@ -14,4 +14,6 @@ public interface Model {
 	Solution<Position> getSolution(String name);
 	void dir(String path);
 	void exit();
+	void clearSolution(String name);
+	void solveForHint(String position, String name, String algorithm);
 }

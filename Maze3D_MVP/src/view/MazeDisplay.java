@@ -69,15 +69,18 @@ public class MazeDisplay extends Canvas {
 			              e.gc.fillRectangle(x,y,w,h);
 			      }
 			   
-			   if(character==null)
+
+					
+				
+			   
+			   if(character == null)
 			   {
 				   
 				   character = new Character();
 					character.setPos(maze.getStartPosition());  
 					goal=new Goal();
 					goal.setPos(maze.getGoalPosition());
-					if (hint.getShow() ==  true) 
-						hint.draw(w, h, e.gc);
+
 
 			   }
 			   if (character.getPos().x == goal.getPos().x && character.getPos().y == goal.getPos().y && character.getPos().z == goal.getPos().z) {
@@ -91,8 +94,16 @@ public class MazeDisplay extends Canvas {
 			   
 			  if(character.getPos().z == maze.getGoalPosition().z && !(character.getPos().x == goal.getPos().x && character.getPos().y == goal.getPos().y && character.getPos().z == goal.getPos().z))
 				  goal.draw(w, h, e.gc);
-
+			  
+				if (hint.getShow() == true && !(character.getPos().x == goal.getPos().x && character.getPos().y == goal.getPos().y && character.getPos().z == goal.getPos().z)) {
+					hint.draw(w, h, e.gc);
+					forceFocus();
+					
+					
+				}
 			}
+			
+			
 		});
 		
 		this.addMouseWheelListener(new MouseWheelListener() {
@@ -218,6 +229,7 @@ public class MazeDisplay extends Canvas {
 
 	public void setHint() {
 		this.hint.setShow(true);
+		redraw();
 	
 	}
 }

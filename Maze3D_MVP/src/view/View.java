@@ -12,5 +12,5 @@ public interface View {
 	void printCrossSection(Maze3d maze, int[][] crossSec, int axis1, int axis2);
 	void printSolution(Solution<Position> mazeSolution);
 	void start();
-	void displayHint(State<Position> state);
+	void displayHint(Position pos);
 }

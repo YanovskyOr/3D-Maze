@@ -66,7 +66,7 @@ public class MazeWindow extends BasicWindow implements View {
 			}
 			
 			@Override
-			public void widgetDefaultSelected(SelectionEvent arg0) {
+		public void widgetDefaultSelected(SelectionEvent arg0) {
 				// TODO Auto-generated method stub
 				
 			}
@@ -139,15 +139,14 @@ public class MazeWindow extends BasicWindow implements View {
 			//TODO:FIXTHISS
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-			
+
 				mazeDisplay.getMaze().setStartPosition(mazeDisplay.getCharacter().getPos());
+
 				setChanged();
-		    	notifyObservers("solve " + mazeName  + " bfs");
-		    	setChanged();
-		    	notifyObservers("display_hint " + mazeName);
-		    	
+				notifyObservers("give_hint " + mazeDisplay.getCharacter().getPos().toString() + " " + mazeName + " bfs");
 				
 				
+
 			}
 		
 		});
@@ -266,6 +265,11 @@ public class MazeWindow extends BasicWindow implements View {
 					return;
 				}
 				mazeName=txtName.getText();
+				
+				if(mazeDisplay != null) {
+					mazeDisplay.dispose();
+					mazeDisplay = null;
+				}
 				setChanged();
 				notifyObservers("generate_maze " + mazeName + " " + txtFloors.getText() + " " + txtRows.getText() + " " + txtCols.getText());
 				shell.close();
@@ -344,14 +348,26 @@ public class MazeWindow extends BasicWindow implements View {
 		run();
 	}
 
+
+
+
 	@Override
-	public void displayHint(State<Position> state) {
-		//System.out.println("success test");
-		
-				
-		mazeDisplay.hint.setPos(state.getValue());
+	public void displayHint(Position pos) {
+		mazeDisplay.hint.setPos(pos);
 		mazeDisplay.setHint();
 	}
+
+
+
+
+//
+//	@Override
+//	public void displayHint(Solution<Position> solution) {
+//		Solution<Position> positions = solution;
+//		Position firstPos = positions.getStates().get(0).getValue();
+//		mazeDisplay.hint.setPos(firstPos);
+//		mazeDisplay.setHint();
+//	}
 
 
 

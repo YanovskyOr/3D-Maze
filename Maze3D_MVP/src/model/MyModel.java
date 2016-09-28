@@ -15,6 +15,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -29,6 +30,7 @@ import algorithms.search.DFS;
 import algorithms.search.Searchable;
 import algorithms.search.Searcher;
 import algorithms.search.Solution;
+import algorithms.search.State;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
@@ -48,6 +50,11 @@ public class MyModel extends Observable implements Model {
 		loadSolutions();
 	}
 	
+	public void clearSolution(String name)
+	{
+		this.solutions.remove(this.getMaze(name));
+		
+	}
 	
 
 	@Override
@@ -157,11 +164,15 @@ public class MyModel extends Observable implements Model {
 
 	@Override
 	public void solveMaze(String name, String algorithm) {
-		executor.submit(new Callable<Solution<Position>>() {
+		executor.execute(new Runnable() {
+		//executor.submit(new Callable<Solution<Position>>() {
 
+			
 			@Override
-			public Solution<Position> call() throws Exception {
+//			public Solution<Position> call() throws Exception {
+		    public void run() {
 				
+
 				Maze3d maze=getMaze(name);
 				Searchable<Position> md=new Maze3dDomain(maze);
 				
@@ -169,27 +180,34 @@ public class MyModel extends Observable implements Model {
 				case "bfs":
 					Searcher<Position> algBfs=new BFS<Position>();
 					Solution<Position> solBfs=algBfs.search(md);
+
+					solutions.put(mazes.get(name), solBfs);
+					
 					setChanged();
 					notifyObservers("solution_ready " + name);
-					solutions.put(mazes.get(name), solBfs);
 					break;
 				
 				case "dfs":
 					Searcher<Position> algDfs=new DFS<Position>();
 					Solution<Position> solDfs=algDfs.search(md);
+
+					solutions.put(mazes.get(name), solDfs);
+					
 					setChanged();
 					notifyObservers("solution_ready " + name);
-					solutions.put(mazes.get(name), solDfs);
 					break;
 		
 				
 				default:
-					System.out.println("not solving because no algorithm was selected");	
+					notifyObservers("display_message " + "not solving because no algorithm was selected");	
 					break;
 				}
-				return null;	
 				
-			}	
+		    }
+				//return null;	
+			
+			
+			
 		});
 	}
 	
@@ -336,6 +354,30 @@ public class MyModel extends Observable implements Model {
 		executor.shutdownNow();
 		saveSolutions();
 	}
+
+	@Override
+	public void solveForHint(String position, String name, String algorithm) {
+
+		String posString = position.substring(1, position.length()-1);
+		String[] posStringSplit = posString.split(",");
+		
+//		State<Position> pos = new State<Position>();
+		Position pos = new Position(Integer.parseInt(posStringSplit[0]),Integer.parseInt(posStringSplit[1]),Integer.parseInt(posStringSplit[2]));
+//		pos.getValue().z = Integer.parseInt(posStringSplit[0]);
+//		pos.getValue().y = Integer.parseInt(posStringSplit[1]);
+//		pos.getValue().x = Integer.parseInt(posStringSplit[2]);
+		
+				
+		mazes.get(name).setStartPosition(pos);
+		setChanged();
+		notifyObservers("solve " + name + " " + algorithm);
+
+		
+	}
+
+
+	
+
 
 
 }
