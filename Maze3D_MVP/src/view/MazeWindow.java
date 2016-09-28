@@ -414,7 +414,8 @@ public class MazeWindow extends BasicWindow implements View {
 //							if(pos > mazeDisplay.getCharacter().getPos().z)
 //								mazeDisplay.setCrossSection(mazeDisplay.getCharacter().getPos().z + 1);
 							mazeDisplay.redraw();
-							i++;
+							if(i<states.size()-1)
+								i++;
 							
 							if (mazeDisplay.getCharacter().getPos().x == mazeDisplay.getGoal().getPos().x && mazeDisplay.getCharacter().getPos().y == mazeDisplay.getGoal().getPos().y && mazeDisplay.getCharacter().getPos().z == mazeDisplay.getGoal().getPos().z)
 								return;
