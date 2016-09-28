@@ -1,5 +1,9 @@
 package view;
 
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -72,83 +76,103 @@ public class MazeWindow extends BasicWindow implements View {
 			}
 		});
 		
-		Button btnSolveMaze = new Button(btnGroup, SWT.PUSH);
-		btnSolveMaze.setText("Solve maze");
-		
-		btnSolveMaze.addSelectionListener(new SelectionListener(){
-			 
-			@Override
-			 public void widgetDefaultSelected(SelectionEvent arg0) {
-			 
-			 				
-			 }
-			 
-			 @Override
-			 public void widgetSelected(SelectionEvent arg0) {
-				 Shell shell=new Shell();
-				 shell.setText("Choose solving method");
-				 shell.setSize(400, 200);
-
-			     shell.setLocation(shell.getDisplay().getBounds().width / 2 - 200, shell.getDisplay().getBounds().height / 2 - 100);
-
-			    
-				 
-				 final Image small = new Image(shell.getDisplay(),"images/icon_16.png");
-				 final Image large = new Image(shell.getDisplay(),"images/icon_32.png");
-				 final Image[] images = new Image[] { small, large };
-				 shell.setImages(images);
-		
-				 Composite btnGroup = new Composite(shell, SWT.FILL);
-				 RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
-				 btnGroup.setLayout(rowLayout);
-				 GridLayout layout = new GridLayout(2, false);
-				 shell.setLayout(layout); 
-	
-				 Button solvebfs=  new Button(btnGroup,SWT.RADIO);
-				 Button solvedfs=  new Button(btnGroup,SWT.RADIO);
-				 solvebfs.setText("Bfs");
-				 solvedfs.setText("Dfs");
-
-				 shell.open();
-				 solvebfs.addSelectionListener(new SelectionListener(){
-
-					 @Override
-					 public void widgetDefaultSelected(SelectionEvent arg0) {
-						 // TODO Auto-generated method stub
-
-					 }
-
-					 @Override
-					 public void widgetSelected(SelectionEvent arg0) {
-						 setChanged();
-						 notifyObservers("display_message " + "Bfs selected");
-					 }
-				 });
-			 }
-		});
+//		Button btnSolveMaze = new Button(btnGroup, SWT.PUSH);
+//		btnSolveMaze.setText("Solve maze");
+//		
+//		btnSolveMaze.addSelectionListener(new SelectionListener(){
+//			 
+//			@Override
+//			 public void widgetDefaultSelected(SelectionEvent arg0) {
+//			 
+//			 				
+//			 }
+//			 
+//			 @Override
+//			 public void widgetSelected(SelectionEvent arg0) {
+//				 Shell shell=new Shell();
+//				 shell.setText("Choose solving method");
+//				 shell.setSize(400, 200);
+//
+//			     shell.setLocation(shell.getDisplay().getBounds().width / 2 - 200, shell.getDisplay().getBounds().height / 2 - 100);
+//
+//			    
+//				 
+//				 final Image small = new Image(shell.getDisplay(),"images/icon_16.png");
+//				 final Image large = new Image(shell.getDisplay(),"images/icon_32.png");
+//				 final Image[] images = new Image[] { small, large };
+//				 shell.setImages(images);
+//		
+//				 Composite btnGroup = new Composite(shell, SWT.FILL);
+//				 RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
+//				 btnGroup.setLayout(rowLayout);
+//				 GridLayout layout = new GridLayout(2, false);
+//				 shell.setLayout(layout); 
+//	
+//				 Button solvebfs=  new Button(btnGroup,SWT.RADIO);
+//				 Button solvedfs=  new Button(btnGroup,SWT.RADIO);
+//				 solvebfs.setText("Bfs");
+//				 solvedfs.setText("Dfs");
+//
+//				 shell.open();
+//				 solvebfs.addSelectionListener(new SelectionListener(){
+//
+//					 @Override
+//					 public void widgetDefaultSelected(SelectionEvent arg0) {
+//						 // TODO Auto-generated method stub
+//
+//					 }
+//
+//					 @Override
+//					 public void widgetSelected(SelectionEvent arg0) {
+//						 setChanged();
+//						 notifyObservers("display_message " + "Bfs selected");
+//					 }
+//				 });
+//			 }
+//		});
 		
 		Button btnHint = new Button(btnGroup, SWT.PUSH);
 		btnHint.setText("Hint");
-		
-		btnHint.addSelectionListener(new SelectionListener(){
+		btnHint.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
 
-			//TODO:FIXTHISS
+			// TODO:FIXTHISS
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 
 				mazeDisplay.getMaze().setStartPosition(mazeDisplay.getCharacter().getPos());
 
 				setChanged();
-				notifyObservers("give_hint " + mazeDisplay.getCharacter().getPos().toString() + " " + mazeName + " bfs");
-				
-				
+				notifyObservers(
+						"give_hint " + mazeDisplay.getCharacter().getPos().toString() + " " + mazeName + " bfs");
 
 			}
+
+		});
 		
+		Button btnSolve = new Button(btnGroup, SWT.PUSH);
+		btnSolve.setText("Auto Solve");
+		btnSolve.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+			}
+
+			// TODO:FIXTHISS
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+
+				mazeDisplay.getMaze().setStartPosition(mazeDisplay.getCharacter().getPos());
+
+				setChanged();
+				notifyObservers(
+						"auto_solve " + mazeDisplay.getCharacter().getPos().toString() + " " + mazeName + " bfs");
+
+			}
+
 		});
 		
 		  Menu menuBar, fileMenu;
@@ -355,6 +379,56 @@ public class MazeWindow extends BasicWindow implements View {
 	public void displayHint(Position pos) {
 		mazeDisplay.hint.setPos(pos);
 		mazeDisplay.setHint();
+	}
+
+
+
+
+	@Override
+	public void autoSolve(List<State<Position>> states) {
+		
+//		for (State<Position> state : states) {
+//			
+
+//			}
+			
+			
+
+		
+
+		
+		{
+			TimerTask timertask = new TimerTask() {
+			int i = 1;
+				@Override
+				public void run() {	
+					mazeDisplay.getDisplay().syncExec(new Runnable() {					
+
+						@Override
+						public void run() {
+//							int pos = mazeDisplay.getCharacter().getPos().z;
+							mazeDisplay.getCharacter().setPos(states.get(i).getValue());
+							mazeDisplay.setCrossSection(mazeDisplay.getCharacter().getPos().z);
+//							if(pos < mazeDisplay.getCharacter().getPos().z)
+//								mazeDisplay.setCrossSection(mazeDisplay.getCharacter().getPos().z - 1);
+//							if(pos > mazeDisplay.getCharacter().getPos().z)
+//								mazeDisplay.setCrossSection(mazeDisplay.getCharacter().getPos().z + 1);
+							mazeDisplay.redraw();
+							i++;
+							
+							if (mazeDisplay.getCharacter().getPos().x == mazeDisplay.getGoal().getPos().x && mazeDisplay.getCharacter().getPos().y == mazeDisplay.getGoal().getPos().y && mazeDisplay.getCharacter().getPos().z == mazeDisplay.getGoal().getPos().z)
+								return;
+						}
+					});
+					
+				}
+			};
+			Timer timer = new Timer();
+			timer.scheduleAtFixedRate(timertask, 0, 500);
+			}
+		
+		
+
 	}
 
 

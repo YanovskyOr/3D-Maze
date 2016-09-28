@@ -1,5 +1,7 @@
 package view;
 
+import java.util.List;
+
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
@@ -13,4 +15,5 @@ public interface View {
 	void printSolution(Solution<Position> mazeSolution);
 	void start();
 	void displayHint(Position pos);
+	void autoSolve(List<State<Position>> states);
 }

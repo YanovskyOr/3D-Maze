@@ -44,6 +44,7 @@ public class CommandsManager {
 		commands.put("maze_loaded", new MazeLoadedCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
 		commands.put("give_hint", new GiveHintCommand());
+		commands.put("auto_solve", new AutoSolveCommand());
 		commands.put("solution_ready", new SolutionReadyCommand());
 		commands.put("display_message", new DisplayMessageCommand());
 		commands.put("dir", new DirCommand());
@@ -239,33 +240,70 @@ public class CommandsManager {
 
 				model.solveForHint(position, name, algorithm);
 				
-				while(isSolutionReady == false) {			
-						System.out.println("waiting");
-						continue;
-
-				}
 				
-				view.displayHint(model.getSolution(name).getStates().get(1).getValue());
+				
+				while(isSolutionReady == false) {
+					//System.out.print("");
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
 				isSolutionReady = false;
+				view.displayHint(model.getSolution(name).getStates().get(1).getValue());
+				
 				
 			}
 
 		}
 	}
 	
-	
+	public class AutoSolveCommand implements Command{
+
+		@Override
+		public void doCommand(String[] args) {
+			if(args.length==3){
+				String position = args[0];
+				String name = args[1];
+				String algorithm = args[2];
+				
+
+				model.solveForHint(position, name, algorithm);
+				
+				
+				
+				while(isSolutionReady == false) {
+					//System.out.print("");
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				isSolutionReady = false;
+				view.autoSolve(model.getSolution(name).getStates());
+				
+				
+			}
+
+		}
+	}
 	
 	public class SolutionReadyCommand implements Command{
 
 		@Override
 		public void doCommand(String[] args) {
-			String name = args[0];
-			String toPrint = "solution for " + name + " is ready";
 			isSolutionReady = true;
 			
-			
+			String name = args[0];
+			String toPrint = "solution for " + name + " is ready";
 			view.print(toPrint);
-			
+
 		}
 		
 	}

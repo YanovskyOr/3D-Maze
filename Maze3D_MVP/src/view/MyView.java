@@ -86,6 +86,12 @@ public class MyView extends Observable implements View, Observer {
 		
 	}
 
+	@Override
+	public void autoSolve(List<State<Position>> states) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

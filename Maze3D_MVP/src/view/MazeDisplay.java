@@ -1,6 +1,8 @@
 package view;
 
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -21,6 +23,8 @@ public class MazeDisplay extends Canvas {
 	private int[][] mazeData;
 	private Character character;
 	private Goal goal;
+
+
 	protected Hint hint=new Hint();
 	Position startPos;
 	Maze3d maze;
@@ -33,7 +37,7 @@ public class MazeDisplay extends Canvas {
 		setCrossSection(maze.getStartPosition().z);
 	}
 	
-	private void setCrossSection(int index){
+	protected void setCrossSection(int index){
 		
 		mazeData = maze.getCrossSectionByZ(index);
 		this.redraw();
@@ -209,6 +213,8 @@ public class MazeDisplay extends Canvas {
 				}
 			}
 		});
+		
+		
 	}
 
 	public Maze3d getMaze() {
@@ -231,5 +237,9 @@ public class MazeDisplay extends Canvas {
 		this.hint.setShow(true);
 		redraw();
 	
+	}
+	
+	public Goal getGoal() {
+		return goal;
 	}
 }
