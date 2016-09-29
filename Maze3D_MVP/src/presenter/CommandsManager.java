@@ -42,6 +42,7 @@ public class CommandsManager {
 		commands.put("maze_saved", new MazeSavedCommand());
 		commands.put("load_maze", new LoadMazeCommand());
 		commands.put("maze_loaded", new MazeLoadedCommand());
+		commands.put("load_properties", new LoadPropertiesCommand());
 		commands.put("display_solution", new DisplaySolutionCommand());
 		commands.put("give_hint", new GiveHintCommand());
 		commands.put("auto_solve", new AutoSolveCommand());
@@ -137,7 +138,7 @@ public class CommandsManager {
 				String name = args[0];
 				String algorithm = args[1];
 				if(model.getMaze(name)!=null){
-					model.clearSolution(name);
+//					model.clearSolution(name);
 					model.solveMaze(name,algorithm);
 				}
 				else
@@ -159,10 +160,10 @@ public class CommandsManager {
 				if(model.getMaze(name)!=null)
 					model.saveMaze(name, fileName);
 				else
-					view.print("A maze with that name already exists");
+					view.print("maze doesn't exist");
 			}
 			else
-				view.print("error saving maze,  try the command again , sysntax should be  maze name , file name");
+				view.print("error saving maze, try the command again. sysntax should be maze_name, file_name");
 		}	
 	}
 	
@@ -208,6 +209,15 @@ public class CommandsManager {
 			String name = args[0];
 			String toPrint = "maze " + name + " loaded successfully";
 			view.print(toPrint);
+		}	
+	}
+	
+	public class LoadPropertiesCommand implements Command {
+		
+		@Override
+		public void doCommand(String[] args) {
+			String path = args[0];
+			model.loadProperties(path);
 		}	
 	}
 	

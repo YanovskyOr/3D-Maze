@@ -1,5 +1,6 @@
 package model;
 
+import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,11 +51,11 @@ public class MyModel extends Observable implements Model {
 		loadSolutions();
 	}
 	
-	public void clearSolution(String name)
-	{
-		this.solutions.remove(this.getMaze(name));
-		
-	}
+//	public void clearSolution(String name)
+//	{
+//		this.solutions.remove(this.getMaze(name));
+//		
+//	}
 	
 
 	@Override
@@ -361,16 +362,19 @@ public class MyModel extends Observable implements Model {
 		String posString = position.substring(1, position.length()-1);
 		String[] posStringSplit = posString.split(",");
 		
-//		State<Position> pos = new State<Position>();
 		Position pos = new Position(Integer.parseInt(posStringSplit[0]),Integer.parseInt(posStringSplit[1]),Integer.parseInt(posStringSplit[2]));
-//		pos.getValue().z = Integer.parseInt(posStringSplit[0]);
-//		pos.getValue().y = Integer.parseInt(posStringSplit[1]);
-//		pos.getValue().x = Integer.parseInt(posStringSplit[2]);
+
 		
 				
 		mazes.get(name).setStartPosition(pos);
 		setChanged();
 		notifyObservers("solve " + name + " " + algorithm);
+
+		
+	}
+
+	@Override
+	public void loadProperties(String path) {
 
 		
 	}
