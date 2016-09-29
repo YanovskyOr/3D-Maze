@@ -16,10 +16,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-
 import algorithms.demo.Maze3dDomain;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
@@ -31,13 +29,20 @@ import algorithms.search.DFS;
 import algorithms.search.Searchable;
 import algorithms.search.Searcher;
 import algorithms.search.Solution;
-import algorithms.search.State;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
-
 import properties.Properties;
 import properties.PropertiesLoader;
 
+/**
+ * This is the model part of the MVP design.
+ * <BR>
+ * My model does all the calculations.
+ * <BR>
+ * Heavy tasks are performed inside separate threads.
+ * @author Or Yanovsky and Lilia Misotchenko
+ *
+ */
 public class MyModel extends Observable implements Model {
 	
 	private ExecutorService executor;
@@ -51,13 +56,16 @@ public class MyModel extends Observable implements Model {
 		loadSolutions();
 	}
 	
-//	public void clearSolution(String name)
-//	{
-//		this.solutions.remove(this.getMaze(name));
-//		
-//	}
-	
-
+	/**
+	 * Generates a maze, using user-inputed info
+	 * <BR>
+	 * The algorithms used to generate the maze determined from the properties file.
+	 * Default is the growing tree algorithm.
+	 * @param name the name of the maze
+	 * @param floors amount of floors (the Z axis of the maze)
+	 * @param rows amount of rows (the Y axis of the maze)
+	 * @param cols amount of columns (the X axis of the maze)
+	 */
 	@Override
 	public void generateMaze(String name, int floors, int rows, int cols) {
 		executor.submit(new Callable<Maze3d>() {
@@ -101,13 +109,25 @@ public class MyModel extends Observable implements Model {
 		});
 	}
 
+	
+	/**
+	 * Returns a maze by its name
+	 * @param name name of the required maze
+	 * @return Maze3d
+	 */
 	@Override
 	public Maze3d getMaze(String name) {
 		return mazes.get(name);
 	}
 
 	
-
+	/**
+	 * Returns a crossSection of the maze
+	 * @param crossBy axis to use (Z/Y/X)
+	 * @param index index on the axis
+	 * @param name name of the maze
+	 * @return String CrossSection
+	 */
 	@Override
 	public String getCrossSection(String crossBy, int index, String name) {
 		Maze3d maze=getMaze(name);
@@ -163,16 +183,18 @@ public class MyModel extends Observable implements Model {
 		return null;
 	}
 
+	/**
+	 * Solves the maze for a solution (steps) to get from start position to goal position.
+	 * 
+	 * @param name the name of the maze to solve
+	 * @param the algorithm to use to solve
+	 */
 	@Override
 	public void solveMaze(String name, String algorithm) {
 		executor.execute(new Runnable() {
-		//executor.submit(new Callable<Solution<Position>>() {
-
-			
+		
 			@Override
-//			public Solution<Position> call() throws Exception {
 		    public void run() {
-				
 
 				Maze3d maze=getMaze(name);
 				Searchable<Position> md=new Maze3dDomain(maze);
@@ -205,14 +227,18 @@ public class MyModel extends Observable implements Model {
 				}
 				
 		    }
-				//return null;	
-			
-			
-			
 		});
 	}
 	
-
+	/**
+	 * Saves the maze to a file in the running path.
+	 * <BR>
+	 * A compression algorithm is used to make the saved file smaller.
+	 * <BR>
+	 * the saved file gets a .maze file extension.
+	 * @param name the name of the maze to save
+	 * @param fileName the name to use for saved file
+	 */
 	@Override
 	public void saveMaze(String name, String fileName) {
 		OutputStream out;
@@ -249,6 +275,13 @@ public class MyModel extends Observable implements Model {
 		}
 	}
 
+	/**
+	 * Loads a maze from a file.
+	 * <BR>
+	 * A decompression algorithm is used to load the compressed .maze file
+	 * @param fileName the file name (and possibly path) to load from
+	 * @param name the name of the loaded maze
+	 */
 	@Override
 	public void loadMaze(String fileName, String name) {
 		InputStream in;
@@ -280,21 +313,41 @@ public class MyModel extends Observable implements Model {
 		}
 	}
 		
-
-
+	/**
+	 * Returns the solution for a maze by the maze's name
+	 * @param name the name of the required maze
+	 * @return Solution<Position>
+	 */
 	@Override
 	public Solution<Position> getSolution(String name) {
 		Solution<Position> mazeSolution=solutions.get(mazes.get(name));
 		return mazeSolution;
 	}
 
+	/**
+	 * Prints the list of files and directories in a given path
+	 * @param path
+	 */
 	@Override
 	public void dir(String path) {
-		// TODO Auto-generated method stub
+		File folder = new File(path);
+		File[] listOfFiles = folder.listFiles();
+
+	    for (int i = 0; i < listOfFiles.length; i++) {
+	      if (listOfFiles[i].isFile()) {
+	    	  setChanged();
+			  notifyObservers("File " + listOfFiles[i].getName());
+	      } else if (listOfFiles[i].isDirectory()) {
+	    	  setChanged();
+			  notifyObservers("Directory " + listOfFiles[i].getName());
+	      }
+	    }
 		
 	}
 	
-	
+	/**
+	 * Loads the solution list from a compressed zip (.dat) file for future use.
+	 */
 	@SuppressWarnings("unchecked")
 	private void loadSolutions() {
 		File file = new File("solutions.dat");
@@ -326,6 +379,9 @@ public class MyModel extends Observable implements Model {
 		}		
 	}
 	
+	/**
+	 * Saves the solution list to a compressed zip (.dat) file for future use.
+	 */
 	private void saveSolutions() {
 		ObjectOutputStream oos = null;
 		try {
@@ -349,13 +405,22 @@ public class MyModel extends Observable implements Model {
 		}
 	}
 	
-	
+	/**
+	 * Exists after termination of all running threads.
+	 * <BR>
+	 * Saves the solution list to file using the saveSolutions() method.
+	 */
 	@Override
 	public void exit() {
 		executor.shutdownNow();
 		saveSolutions();
 	}
 
+	/**
+	 * Solves the maze for use in a hint or auto-solution function.
+	 * @param position current position of the players character
+	 * @param name name of the maze
+	 */
 	@Override
 	public void solveForHint(String position, String name) {
 
@@ -374,6 +439,10 @@ public class MyModel extends Observable implements Model {
 		
 	}
 
+	/**
+	 * Used to load properties from a file and rewrite currently used file.
+	 * @param path the path to the desired properties file
+	 */
 	@Override
 	public void loadProperties(String path) {
 		

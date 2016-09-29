@@ -15,14 +15,26 @@ import java.beans.XMLEncoder;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 
-
+/**
+ * Main class to run the game
+ * 
+ * @author Or Yanovsky and Lilia Misotchenko
+ *
+ */
 public class Run {
 
+	/**
+	 * The main class defines and exports the default properties and configuration.
+	 * <BR>
+	 * This is also where the MVP model comes together - model, view and presenter are all created and connected, then view initiates.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 				
 
-			/**************************************************************************************/
+			
 			Properties prop = new Properties();
 			prop.setNumOfThreads(10);
 			prop.setGenerateMazeAlgorithm("GrowingTree");
@@ -43,11 +55,15 @@ public class Run {
 		
 	
 		/*************************************************************************************/
-
+		// In case Command Line Interface is desired, uncomment those lines of code. 
+		// Also comment out the existing "view" line.
+			
 		//BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		//PrintWriter out = new PrintWriter(System.out);
 				
 		//MyView view = new MyView(in, out);
+			
+		/**************************************************************************************/
 		
 		MazeWindow view = new MazeWindow();
 		MyModel model = new MyModel();

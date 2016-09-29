@@ -7,6 +7,15 @@ import java.util.Observer;
 import model.Model;
 import view.View;
 
+/**
+ * This is the presenter part of the MVP.
+ * <BR>
+ * The presenter is used as an observer for the model and view.
+ * <BR>
+ * It receives notifications containing commands and initiates the commands using it's commands manager.
+ * @author Or Yanovsky and Lilia Misotchenko
+ *
+ */
 public class Presenter implements Observer {
 
 	private Model model;

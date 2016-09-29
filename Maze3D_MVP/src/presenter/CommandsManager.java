@@ -12,13 +12,12 @@ import view.MazeWindow;
 import view.View;
 
 /**
- * This is the Command Manager used for the MyController class.
- * The controller uses this to define and manage commands.
+ * This is the Command Manager used by the Presenter class.
+ * The Presenter uses this to define and manage commands.
  * 
  * @author Or Yanovsky & Lilia Misotchenko
  *
  */
-
 public class CommandsManager {
 
 	
@@ -26,11 +25,21 @@ public class CommandsManager {
 	private View view;
 	private Boolean isSolutionReady = false;
 		
+	/**
+	 * CTOR
+	 * The commands Manager requires the presenters view and module objects.
+	 * @param model
+	 * @param view
+	 */
 	public CommandsManager(Model model, View view) {
 		this.model = model;
 		this.view = view;		
 	}
 	
+	/**
+	 * This is a map of usable commands, some are used only by the CLI, and some only by the GUI
+	 * @return commands hash map
+	 */
 	public HashMap<String, Command> getCommandsMap() {
 		HashMap<String, Command> commands = new HashMap<String, Command>();
 		commands.put("generate_maze", new GenerateMazeCommand());
@@ -53,7 +62,16 @@ public class CommandsManager {
 		return commands;
 	}
 	
-	//throw exception if user didnt input all of the parameters for the command
+	//throw exception if user didn't input all of the parameters for the command
+	/**
+	 * This class defines the Generate Maze Command
+	 * <BR>
+	 * Used by both CLI and GUI
+	 * <BR>
+	 * commands model to generate a maze and view to display the maze generated.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class GenerateMazeCommand implements Command {
 	
 		@Override
@@ -72,7 +90,15 @@ public class CommandsManager {
 		}
 	}
 
-	
+	/**
+	 * This class defines the Display Maze Command
+	 * <BR>
+	 * Used by CLI to show a maze by its name.
+	 * <BR>
+	 * After checking if the maze exists (by name) displays the maze.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class DisplayMazeCommand implements Command {
 
 		@Override
@@ -92,18 +118,35 @@ public class CommandsManager {
 			}
 	}
 	
-	
+	/**
+	 * This class defines the Maze Ready Command
+	 * <BR>
+	 * Notifies the user that the maze was generated successfully
+	 * <BR>
+	 * commands view to notify about maze readiness.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	class MazeReadyCommand implements Command {
 
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
-			//String msg = "maze " + name + " is ready";
 			view.notifyMazeIsReady(name);
 		}
 	}
 	
-	
+	/**
+	 * This class defines the Display CrossSection Command
+	 * <BR>
+	 * Used by both CLI and GUI
+	 * <BR>
+	 * Uses the model to get a crossSection from the maze, then displays it to the chosen view.
+	 * <BR>
+	 * In the GUI this is used to display a floor of the maze graphically.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class DisplayCrossSectionCommand implements Command{
 
 		@Override
@@ -128,7 +171,19 @@ public class CommandsManager {
 		}
 	}
 	
-	
+	/**
+	 * This class defines the Solve Maze Command
+	 * <BR>
+	 * Used by both CLI and GUI
+	 * <BR>
+	 * Commands the model to solve a maze, given a name and a search algorithm.
+	 * <BR>
+	 * When a user uses this command from CLI, the algorithm is part of the command's syntax.
+	 * <BR>
+	 * When used by the GUI, the view notifies the command manager with an algorithms defined by the properties file.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class SolveMazeCommand implements Command{
 
 		@Override
@@ -138,18 +193,26 @@ public class CommandsManager {
 				String name = args[0];
 				String algorithm = args[1];
 				if(model.getMaze(name)!=null){
-//					model.clearSolution(name);
 					model.solveMaze(name,algorithm);
 				}
 				else
 					view.print(" maze name does not exist");
 			}
-			else 
+			else
 				view.print("error solving maze,  try the command again , sysntax should be  maze name , algorithm");
 		}
 	}
 	
 	
+	/**
+	 * This class defines the Save Maze Command
+	 * <BR>
+	 * Used by both CLI and GUI
+	 * <BR>
+	 * Commands the model to save the maze. Provides a name and a filename.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class SaveMazeCommand implements Command {
 		
 		@Override
@@ -167,6 +230,15 @@ public class CommandsManager {
 		}	
 	}
 	
+	/**
+	 * This class defines the Maze Saved Command
+	 * <BR>
+	 * Used by both CLI and GUI
+	 * <BR>
+	 * Notifies the user (via view) that a maze was saved.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class MazeSavedCommand implements Command {
 		
 		@Override
@@ -178,11 +250,15 @@ public class CommandsManager {
 	}
 		
 	
-//	String name = args[0];
-//	String msg = "maze " + name + " is ready";
-//	view.print(msg);
-//}
-	
+	/**
+	 * This class defines the Load Maze Command
+	 * <BR>
+	 * Used by both CLI and GUI
+	 * <BR>
+	 * Uses the model to load a maze. Provides a file name or path and the name for the loaded maze.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class LoadMazeCommand implements Command {
 		
 		@Override
@@ -202,6 +278,15 @@ public class CommandsManager {
 		}
 	}
 	
+	/**
+	 * This class defines the Maze Loaded Command
+	 * <BR>
+	 * Used by both CLI and GUI
+	 * <BR>
+	 * Notifies the user (via view) that a maze was loaded.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class MazeLoadedCommand implements Command {
 		
 		@Override
@@ -212,6 +297,13 @@ public class CommandsManager {
 		}	
 	}
 	
+	/**
+	 * This class defines the Load Properties Command
+	 * <BR>
+	 * Commands the model to load a properties file providing the path to the file.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class LoadPropertiesCommand implements Command {
 		
 		@Override
@@ -221,6 +313,13 @@ public class CommandsManager {
 		}	
 	}
 	
+	/**
+	 * This class defines the Display Solution Command
+	 * <BR>
+	 * Uses the view to print a solution.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class DisplaySolutionCommand implements Command {
 		
 		@Override
@@ -238,6 +337,16 @@ public class CommandsManager {
 
 	}
 	
+	/**
+	 * This class defines the Give Hint Command
+	 * <BR>
+	 * Used only by the GUI
+	 * <BR>
+	 * Commands the model to solve the maze for a hint (returns full solution).
+	 * Uses view to display a hint based on the first step from the solution.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class GiveHintCommand implements Command{
 
 		@Override
@@ -249,13 +358,13 @@ public class CommandsManager {
 				model.solveForHint(position, name);
 				
 				
-				
+				//waiting for solution ready to change the flag
+				//preventing requesting the view for a not-yet-existing solution
 				while(isSolutionReady == false) {
-					//System.out.print("");
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
+						// 
 						e.printStackTrace();
 					}
 				}
@@ -269,6 +378,16 @@ public class CommandsManager {
 		}
 	}
 	
+	/**
+	 * This class defines the Auto Solve Command
+	 * <BR>
+	 * Used only by the GUI
+	 * <BR>
+	 * Commands the model to solve the maze for a hint (returns full solution).
+	 * Uses view to move the character towards the goal based on steps of the solution.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class AutoSolveCommand implements Command{
 
 		@Override
@@ -282,7 +401,8 @@ public class CommandsManager {
 				model.solveForHint(position, name);
 				
 				
-				
+				//waiting for solution ready to change the flag
+				//preventing requesting the view for a not-yet-existing solution
 				while(isSolutionReady == false) {
 					//System.out.print("");
 					try {
@@ -302,6 +422,16 @@ public class CommandsManager {
 		}
 	}
 	
+	/**
+	 * This class defines the Solution Ready Command
+	 * <BR>
+	 * Notifies the user that the solution for the desired maze is ready.
+	 * <BR>
+	 * Changes the isSolutionReady flag to true, breaking the auto solve and hint command's while loops,
+	 * that wait for a solution before displaying its results.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class SolutionReadyCommand implements Command{
 
 		@Override
@@ -316,6 +446,13 @@ public class CommandsManager {
 		
 	}
 		
+	/**
+	 * This class defines the Display Message Command
+	 * <BR>
+	 * Uses the view to print a message.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class DisplayMessageCommand implements Command {
 		
 		@Override
@@ -329,6 +466,15 @@ public class CommandsManager {
 		}
 	}
 	
+	/**
+	 * This class defines the Dir Command
+	 * <BR>
+	 * Uses the model to get a list of files and folders in a given path.
+	 * <BR>
+	 * Provides the user defined path to the model's dir command.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class DirCommand implements Command {
 		
 		@Override
@@ -350,7 +496,13 @@ public class CommandsManager {
 	}
 	
 	
-	
+	/**
+	 * This class defines the Exit  Command
+	 * <BR>
+	 * Commands the model to exit and notifies user via the view.
+	 * @author Or Yanovsky and Lilia Misotchenko
+	 *
+	 */
 	public class ExitCommand implements Command{
 
 		@Override
