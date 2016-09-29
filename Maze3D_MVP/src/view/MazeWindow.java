@@ -30,6 +30,41 @@ import algorithms.search.Solution;
 import algorithms.search.State;
 
 
+/**
+ * <h1>Class MazeWindow extends basicWindow and implements view , initsWidgets of our mazeWindow </h1>
+ * @param mazeDisplay - the mazeDisplay class
+ * @param mazeName - the name of the maze
+ * @method initWidgets - abstract method of basic Window:
+ * sets the properties of shell(window) such as size and pictures , the location,setsLayout of shell,
+ * sets buttonGroup (containing - generate Maze , Hint and auto solve)
+ * sets buttons and listener for each button 
+ * button generate maze calls the showGenerateMazeOptions() method
+ * @method showGenerateMazeOptions() -opens new shell(window) and sets its properties
+ *sets labels such as name , floors , cols and rows - the user will insert this data
+ *contains a button: generate that will notify the observers with generate_maze command
+ *and finally closes the shell.
+ *button hint - add a selectionListener 
+ *sets the start position of the maze with the current position of character
+ *notifies observers with give_hint command
+
+ *button Auto solve- adds a selection listener 
+ *sets the maze start position with the current position of character
+ *notifies observers with auto_solve command
+
+ *menu bar that contains buttons:file-> load properties, save maze ,load maze and exit
+ *adds a selection listener for each button and notifies observers with the folowing commands:load_propertie,save_maze , load_maze,exit
+
+ *  
+ *  
+ * <BR>
+ * 
+ * 
+ * @author Or Yanovsky & Lilia Misotchenko
+ * @version 1.0
+ * @since 2016-09-29
+ */
+
+
 public class MazeWindow extends BasicWindow implements View {
 
 	private MazeDisplay mazeDisplay;

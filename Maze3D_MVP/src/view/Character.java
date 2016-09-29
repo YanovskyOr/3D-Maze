@@ -5,11 +5,37 @@ import org.eclipse.swt.graphics.Image;
 
 import algorithms.mazeGenerators.Position;
 
+
+
+/**
+ * <h1>Class character represents the character in our game(maze) </h1>
+ *  
+ *  @param position -the position of character 
+ *  @param img - the image of charachter
+ *  @param imgFinished - the image of character when it reaches the goal position
+ *  @param boolean finished -
+ *  setters and getters for parameters
+ *  @method void draw - draws the character in the game
+ *  @method move(position) - move the character to a certain position (changes the position of character)
+ *  @method setFinished - if the characters position reached the goal position change the image of character
+ *  
+ *  
+ * <BR>
+ * 
+ * 
+ * @author Or Yanovsky & Lilia Misotchenko
+ * @version 1.0
+ * @since 2016-09-29
+ */
+
 public class Character {
 	private Position pos;
 	private Image img;
 	private Image imgFinished;
 	private Boolean finished = false;
+	
+
+	
 	
 	public Character() {
 		img = new Image(null, "images/character.png");
@@ -29,6 +55,7 @@ public class Character {
 		else
 			gc.drawImage(img, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
 			//gc.drawImage(imgFinished, 0, 0, img.getBounds().width, img.getBounds().height, cellWidth * pos.x, cellHeight * pos.y, cellWidth, cellHeight);
+	
 	}
 	
 	public void moveRight() {

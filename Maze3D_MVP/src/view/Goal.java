@@ -5,6 +5,20 @@ import org.eclipse.swt.graphics.Image;
 
 import algorithms.mazeGenerators.Position;
 
+/**
+ * <h1>Class Goal represents the goals image in our game </h1>
+ *  
+ *  @param position -the position of goal 
+ *  @param img - the image of goal
+ *   the position will be set to be the goal position and a suitable image will be drawn in our game
+ *  
+ * <BR>
+ * 
+ * 
+ * @author Or Yanovsky & Lilia Misotchenko
+ * @version 1.0
+ * @since 2016-09-29
+ */
 public class Goal {
 	private Position pos;
 	private Image img;

@@ -5,6 +5,23 @@ import org.eclipse.swt.graphics.Image;
 
 import algorithms.mazeGenerators.Position;
 
+
+/**
+ * <h1>Class Hint represents the hints image in our game </h1>
+ *  
+ *  @param position -the position of the hint 
+ *  @param img - the image of hint
+ *  @param Boolean show - will be set to true if we want to show the hint
+ *   the position will be set to be the next available position from the current position and a suitable image will be drawn in our game
+ *  
+ * <BR>
+ * 
+ * 
+ * @author Or Yanovsky & Lilia Misotchenko
+ * @version 1.0
+ * @since 2016-09-29
+ */
+
 public class Hint {
 	private Position pos;
 	private Image hintImg;

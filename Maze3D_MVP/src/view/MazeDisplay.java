@@ -18,6 +18,30 @@ import org.eclipse.swt.widgets.Shell;
 import algorithms.mazeGenerators.Maze3d;
 import algorithms.mazeGenerators.Position;
 
+/**
+ * <h1>Class MazeDisplay represents the display of our maze it extends Canvas </h1>
+ *  
+ *  @param int[][] mazedata -represents the two dimensional maze that will be displayed , it will change according to the position of character 
+ *  @param character - the character that will be displayed in our window
+ *  @param Goal - the goal that will be displayed in our window
+ *  @param protected hint - the hint in our game
+ *  @param Maze3d maze - we will use some methods in maze3d
+ *  
+ *  @method set maze - sets the maze3 and sets CrossSection with the startPosition in the Z (floor ) axis
+ *  @method setCrossSection - sets mazeData by crossSectionByZ and redraws the 2d maze(that is displayed in our window)
+ *  @method mazeDisplay - sets the shell for the maze display , uses paint listener to draw the 2dMaze that is displayed
+ *  this method also sets the character , goal and hint and draws them in the mazeDisplay
+ *  also uses MouseWheelListener - zooms the display of maze when mouse wheel is used
+ *  pressedKeyListener - when right , left etc keys are pressed the character will be redrawn accordingly 
+ * <BR>
+ * 
+ * 
+ * @author Or Yanovsky & Lilia Misotchenko
+ * @version 1.0
+ * @since 2016-09-29
+ */
+
+
 public class MazeDisplay extends Canvas {
 	
 	private int[][] mazeData;
