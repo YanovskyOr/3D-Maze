@@ -21,23 +21,26 @@ public class Run {
 	public static void main(String[] args) {
 		
 				
-		/**************************************************************************************/
-		Properties prop = new Properties();
-		prop.setNumOfThreads(10);
-		prop.setGenerateMazeAlgorithm("GrowingTree");
-		prop.setSolveMazeAlgorithm("bfs");
+
+			/**************************************************************************************/
+			Properties prop = new Properties();
+			prop.setNumOfThreads(10);
+			prop.setGenerateMazeAlgorithm("GrowingTree");
+			prop.setSolveMazeAlgorithm("bfs");
+
+			XMLEncoder xmlEncoder = null;
+			try {
+				xmlEncoder = new XMLEncoder(new FileOutputStream("properties.xml"));
+				xmlEncoder.writeObject(prop);
+
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				xmlEncoder.close();
+			} 
 		
-		XMLEncoder xmlEncoder = null;
-		try {
-			xmlEncoder = new XMLEncoder(new FileOutputStream("properties.xml"));
-			xmlEncoder.writeObject(prop);
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			xmlEncoder.close();
-		}
+		
 	
 		/*************************************************************************************/
 

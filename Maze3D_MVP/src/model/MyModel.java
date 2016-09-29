@@ -376,8 +376,24 @@ public class MyModel extends Observable implements Model {
 
 	@Override
 	public void loadProperties(String path) {
-
 		
+		PropertiesLoader.setInstance(path);
+		
+		properties = new Properties();
+		
+		properties = PropertiesLoader.getInstance().getProperties();
+		
+		XMLEncoder xmlEncoder = null;
+		try {
+			xmlEncoder = new XMLEncoder(new FileOutputStream("properties.xml"));
+			xmlEncoder.writeObject(PropertiesLoader.getInstance().getProperties());
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			xmlEncoder.close();
+		}
 	}
 
 
