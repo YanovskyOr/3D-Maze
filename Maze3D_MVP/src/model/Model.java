@@ -15,6 +15,6 @@ public interface Model {
 	void dir(String path);
 	void exit();
 //	void clearSolution(String name);
-	void solveForHint(String position, String name, String algorithm);
+	void solveForHint(String position, String name);
 	void loadProperties(String path);
 }

@@ -219,15 +219,63 @@ public class MazeWindow extends BasicWindow implements View {
 				}
 			});
 		    
-		    fileLoadItem.addSelectionListener(new SelectionListener(){
-		        public void widgetSelected(SelectionEvent event) {
-			          label.setText("Loaded");
-			        }
+			fileLoadItem.addSelectionListener(new SelectionListener() {
+				public void widgetSelected(SelectionEvent event) {
+					FileDialog dialog = new FileDialog(shell, SWT.OPEN);
+					dialog.setFilterExtensions(new String[] { "*.maze" });
+					String path = dialog.open();
+	
+					if (path != null) {
+						Shell shell=new Shell();
+						shell.setText("Load maze...");
+						shell.setSize(300, 100);
 
-			        public void widgetDefaultSelected(SelectionEvent event) {
-			          label.setText("Loaded");
-			        }
-		    });
+						  shell.setLocation(shell.getDisplay().getBounds().width / 2 - 150, shell.getDisplay().getBounds().height / 2 - 50);
+
+						final Image small = new Image(shell.getDisplay(),"images/icon_16.png");
+						final Image large = new Image(shell.getDisplay(),"images/icon_32.png");
+						final Image[] images = new Image[] { small, large };
+						shell.setImages(images);
+
+						Composite btnGroup = new Composite(shell, SWT.FILL);
+						RowLayout rowLayout = new RowLayout(SWT.HORIZONTAL);
+						btnGroup.setLayout(rowLayout);
+
+						GridLayout layout = new GridLayout(2, false);
+						shell.setLayout(layout); 
+
+						Label lblLoadName = new Label(btnGroup, SWT.NONE);
+						lblLoadName.setText("Give a name to new maze: ");
+
+						Text txtLoadName = new Text(btnGroup, SWT.BORDER);
+
+						Button btnLoad = new Button(btnGroup, SWT.PUSH);
+						btnLoad.setText("load");
+
+						shell.open();
+						btnLoad.addSelectionListener(new SelectionListener(){
+
+						  @Override
+						  public void widgetDefaultSelected(SelectionEvent arg0) {
+						    
+
+						  }
+
+						@Override
+						  public void widgetSelected(SelectionEvent arg0) {
+							mazeName = txtLoadName.getText();
+						    setChanged();
+						    notifyObservers("load_maze " + path + " " + txtLoadName.getText());
+						    shell.dispose();
+						  }
+						});
+					}
+				}
+	
+				public void widgetDefaultSelected(SelectionEvent event) {
+					//
+				}
+			});
 		    
 		    
 		    loadPropertiesItem.addSelectionListener(new SelectionListener(){

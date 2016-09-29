@@ -331,7 +331,7 @@ public class MyModel extends Observable implements Model {
 		try {
 		    oos = new ObjectOutputStream(new GZIPOutputStream(new FileOutputStream("solutions.dat")));
 			oos.writeObject(mazes);
-			oos.writeObject(solutions);			
+			oos.writeObject(solutions);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -357,7 +357,7 @@ public class MyModel extends Observable implements Model {
 	}
 
 	@Override
-	public void solveForHint(String position, String name, String algorithm) {
+	public void solveForHint(String position, String name) {
 
 		String posString = position.substring(1, position.length()-1);
 		String[] posStringSplit = posString.split(",");
@@ -367,6 +367,7 @@ public class MyModel extends Observable implements Model {
 		
 				
 		mazes.get(name).setStartPosition(pos);
+		String algorithm = properties.getSolveMazeAlgorithm();
 		setChanged();
 		notifyObservers("solve " + name + " " + algorithm);
 

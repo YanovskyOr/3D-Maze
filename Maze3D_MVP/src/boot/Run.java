@@ -25,7 +25,7 @@ public class Run {
 		Properties prop = new Properties();
 		prop.setNumOfThreads(10);
 		prop.setGenerateMazeAlgorithm("GrowingTree");
-		prop.setSolveMazeAlgorithm("DFS");
+		prop.setSolveMazeAlgorithm("bfs");
 		
 		XMLEncoder xmlEncoder = null;
 		try {

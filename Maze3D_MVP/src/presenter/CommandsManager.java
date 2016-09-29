@@ -245,10 +245,8 @@ public class CommandsManager {
 			if(args.length==3){
 				String position = args[0];
 				String name = args[1];
-				String algorithm = args[2];
 				
-
-				model.solveForHint(position, name, algorithm);
+				model.solveForHint(position, name);
 				
 				
 				
@@ -278,10 +276,10 @@ public class CommandsManager {
 			if(args.length==3){
 				String position = args[0];
 				String name = args[1];
-				String algorithm = args[2];
+				
 				
 
-				model.solveForHint(position, name, algorithm);
+				model.solveForHint(position, name);
 				
 				
 				
